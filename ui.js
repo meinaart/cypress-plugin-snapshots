@@ -1,11 +1,5 @@
-const path = require('path');
 const { SAVE, URL_PREFIX } = require('./constants');
 const { getServerUrl, CONFIG_KEY } = require('./config');
-
-const BASE_DIR = 'node_modules/cypress-plugin-snapshots/node_modules/';
-const DIFF_CSS_PATH = path.join(BASE_DIR, 'diff2html/dist/diff2html.css');
-const DIFF_JS_PATH = path.join(BASE_DIR, 'diff2html/dist/diff2html.js');
-const SOCKET_JS_PATH = path.join(BASE_DIR, 'socket.io-client/dist/socket.io.js');
 
 const NO_LOG = {log: false};
 
@@ -17,16 +11,16 @@ function initUi() {
     return;
   }
 
-  cy.readFile(DIFF_CSS_PATH, NO_LOG).then((content) => {
+  cy.readFile(config.DIFF_CSS_PATH, NO_LOG).then((content) => {
     $head.append(`<style>${content}</style>`);
   });
 
-  cy.readFile(DIFF_JS_PATH, NO_LOG).then((content) => {
+  cy.readFile(config.DIFF_JS_PATH, NO_LOG).then((content) => {
     $head.append(`<script>${content}</script>`);
   });
 
   if (config.serverEnabled) {
-    cy.readFile(SOCKET_JS_PATH).then((content) => {
+    cy.readFile(config.SOCKET_JS_PATH, NO_LOG).then((content) => {
       $head.append(`<script>
       ${content}
 

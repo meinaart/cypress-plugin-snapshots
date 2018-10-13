@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const merge = require('lodash').merge;
 const clone = require('lodash').cloneDeep;
+const path = require('path');
 
 function createToken() {
   return crypto.randomBytes(64).toString('hex');
@@ -21,8 +22,20 @@ const CONFIG_KEY = 'cypress-plugin-snapshot';
 
 let config = clone(DEFAULT_CONFIG);
 
+function resolveModulePath(filename) {
+  const fullPath = require.resolve(filename);
+  const parentDir = path.dirname(__dirname);
+  return path.join(
+    'node_modules/',
+    path.relative(parentDir, fullPath)
+  );
+}
+
 function initConfig(initialConfig = {}) {
   config = merge(config, clone(initialConfig));
+  config.DIFF_CSS_PATH = resolveModulePath('diff2html/dist/diff2html.css');
+  config.DIFF_JS_PATH = resolveModulePath('diff2html/dist/diff2html.js');
+  config.SOCKET_JS_PATH = resolveModulePath('socket.io-client/dist/socket.io.js');
   return config;
 }
 
