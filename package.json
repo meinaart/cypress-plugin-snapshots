@@ -1,0 +1,32 @@
+{
+  "name": "cypress-plugin-snapshots",
+  "version": "0.1.0",
+  "description": "Cypress snapshot functionality for data",
+  "homepage": "https://github.com/meinaart/cypress-plugin-snapshots",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meinaart/cypress-plugin-snapshots.git"
+  },
+  "keywords": [
+    "cypress",
+    "cypress-io",
+    "cypress-plugin"
+  ],
+  "author": "Meinaart van Straalen <github@kayenta.nl>",
+  "license": "MIT",
+  "dependencies": {
+    "bufferutil": "^4.0.0",
+    "diff2html": "^2.4.0",
+    "fs-extra": "^7.0.0",
+    "json-normalize": "^1.1.2",
+    "lodash": "^4.17.11",
+    "socket.io": "^2.1.1",
+    "source-map-support": "^0.5.9",
+    "unidiff": "0.0.4",
+    "utf-8-validate": "^5.0.1",
+    "uws": "^10.148.1"
+  },
+  "peerDependencies": {
+    "cypress": "^3.1.0"
+  }
+}
