@@ -48,7 +48,7 @@ function normalizeObject(subject) {
     keys.sort();
 
     return keys.reduce((result, key) => {
-      result[key] = subject[key];
+      result[key] = normalizeObject(subject[key]);
       return result;
     }, {});
   }
