@@ -8,8 +8,10 @@ function createToken() {
 }
 
 const DEFAULT_CONFIG = {
+  autoCleanUp: false,
   autopassNewSnapshots: true,
   diffLines: 3,
+  excludeFields: [],
   normalizeJson: true,
   serverEnabled: true,
   serverHost: 'localhost',

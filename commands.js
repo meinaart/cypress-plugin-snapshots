@@ -1,6 +1,7 @@
 const { MATCH, URL_PREFIX } = require('./constants');
 const { initUi } = require('./ui');
 const { formatNormalizedJson, getTestTitle, getSnapshotTitle, getSnapshotFilename, snapshotTitleIsUsed } = require('./snapshot');
+const { CONFIG_KEY } = require('./config');
 
 const COMMAND_NAME = 'toMatchSnapshot';
 const NO_LOG = {log: false};
@@ -17,21 +18,28 @@ after(() => {
 
 // Removes unused snapshots from snapshot file
 function cleanUpSnapshots() {
+  const config = Cypress.env(CONFIG_KEY);
+  if (!config.autoCleanUp) {
+    return;
+  }
+
   const filename = getSnapshotFilename(Cypress.spec.relative);
   cy.readFile(filename, NO_LOG).then((content) => {
-    const snapshot = JSON.parse(content);
-    const keys = Object.keys(snapshot);
+    if (content) {
+      const snapshot = JSON.parse(content);
+      const keys = Object.keys(snapshot);
 
-    const cleanSnapshot = keys
-      .filter(snapshotTitleIsUsed)
-      .reduce((result, key) => {
-        result[key] = snapshot[key];
-        return result;
-      }, {});
+      const cleanSnapshot = keys
+        .filter(snapshotTitleIsUsed)
+        .reduce((result, key) => {
+          result[key] = snapshot[key];
+          return result;
+        }, {});
 
-    cy.writeFile(filename,
-      formatNormalizedJson(cleanSnapshot),
-      NO_LOG);
+      cy.writeFile(filename,
+        formatNormalizedJson(cleanSnapshot),
+        NO_LOG);
+    }
   });
 }
 
@@ -50,11 +58,12 @@ function getTestForTask(test) {
   }
 }
 
-Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject) => {
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject, taskOptions) => {
   if (!subject) {
     return;
   }
 
+  const options = taskOptions || {};
   const test = getTestForTask();
   const testTitle = getTestTitle(test);
   const snapshotTitle = getSnapshotTitle(test);
@@ -88,7 +97,8 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject) => {
       testTitle,
       testFile: Cypress.spec.absolute,
       snapshotTitle,
-      subject
+      subject,
+      options
     }, NO_LOG).then(toMatchSnapshot);
 
   return task;

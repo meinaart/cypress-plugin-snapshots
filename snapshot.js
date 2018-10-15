@@ -1,5 +1,5 @@
 const path = require('path');
-const JSONNormalize = require('json-normalize');
+const { getConfig } = require('./config');
 
 const SNAPSHOTS = [];
 const SNAPSHOT_TITLES = [];
@@ -41,15 +41,47 @@ function formatNormalizedJson(subject) {
 }
 
 function normalizeObject(subject) {
-  return JSON.parse(JSONNormalize.stringifySync(subject));
+  if (Array.isArray(subject)) {
+    return subject.map(normalizeObject);
+  } else if (typeof subject === 'object') {
+    const keys = Object.keys(subject);
+    keys.sort();
+
+    return keys.reduce((result, key) => {
+      result[key] = subject[key];
+      return result;
+    }, {});
+  }
+
+  return subject;
+}
+
+function removeExcludedFields(subject) {
+  const excludedFields = getConfig().excludeFields;
+  if (excludedFields) {
+    if (Array.isArray(subject)) {
+      return subject.map(removeExcludedFields);
+    } else if (typeof subject === 'object') {
+      return Object.keys(subject)
+        .filter(key => excludedFields.indexOf(key) === -1)
+        .reduce((result, key) => {
+          result[key] = removeExcludedFields(subject[key]);
+          return result;
+        }, {});
+    }
+  }
+
+  return subject;
 }
 
 function subjectToSnapshot(subject, normalize = true) {
+  let result = subject;
+
   if (typeof subject === 'object') {
-    return normalize ? normalizeObject(subject) : subject;
+    result = normalize ? normalizeObject(subject) : subject;
   }
 
-  return String(subject);
+  return removeExcludedFields(result);
 }
 
 module.exports = {

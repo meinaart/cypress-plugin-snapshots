@@ -24,12 +24,36 @@ function createDiff(expected, actual, snapshotTitle) {
   });
 }
 
+/**
+ * Create new object based on `subject` that do only contains fields that exist in `expected`
+ * @param {object} subject
+ * @param {object} expected
+ * @returns {object}
+ */
+function minimalMatch(subject, expected) {
+  if (typeof expected === 'object' && !Array.isArray(expected)) {
+    return Object.keys(expected)
+      .reduce((result, key) => {
+        result[key] = minimalMatch(subject[key], expected[key]);
+        return result;
+      }, {});
+  }
+
+  return subject;
+}
+
 function matchSnapshot(data = {}) {
   const snapshotFile = getSnapshotFilename(data.testFile);
   const snapshotTitle = data.snapshotTitle;
   const expected = getSnapshot(snapshotFile, snapshotTitle);
+  let actual = subjectToSnapshot(data.subject, config.normalizeJson);
+
+  if (data.options && data.options.minimalMatch) {
+    actual = minimalMatch(actual, expected);
+  }
+
   const exists = expected !== false;
-  const actual = subjectToSnapshot(data.subject, config.normalizeJson);
+
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const passed = (expected && formatDiff(expected) === formatDiff(actual));
   const diff = passed || autoPassed ? undefined : createDiff(expected, actual, data.snapshotTitle);

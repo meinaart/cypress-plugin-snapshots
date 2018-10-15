@@ -12,7 +12,22 @@ describe('data test', () => {
       .its('body')
       .toMatchSnapshot();
   });
+
+  it('test data with options', () => {
+    return cy.request('data.json')
+      .its('body')
+      .toMatchSnapshot({
+        minimalMatch: true,
+      });
+  });
 });
+```
+
+You can pass the following options to `toMatchSnapshot` to override default behavior.
+```javascript
+{
+  "minimalMatch": false, // Should at least contain fields defined in snapshot, additional content is ignored.
+}
 ```
 
 ## Config Cypress.io
@@ -51,13 +66,15 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ```javascript
 "env": {
   "cypress-plugin-snapshots": {
+    "autoCleanUp": false,          // Automatically remove snapshots that are not used by test
     "autopassNewSnapshots": true,  // Automatically save & pass new/non-existing snapshots
     "diffLines": 3,                // How many lines to include in the diff modal
-    "normalizeJson": true,         // Alphabetically sort keys in JSON?
+    "excludeFields": [],           // Array of fieldnames that should be excluded from snapshot
+    "normalizeJson": true,         // Alphabetically sort keys in JSON
     "serverEnabled": true,         // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",     // Hostname for "update snapshot server"
     "serverPort": 2121,            // Port number for  "update snapshot server"
-    "updateSnapshots": false       // Automatically update snapshots, useful if you have lots of changes
+    "updateSnapshots": false,      // Automatically update snapshots, useful if you have lots of changes
   }
 }
 ```
@@ -66,10 +83,8 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 Below is a list of functionality that is under consideration for implementing in a next version.
 
 - Add basic Cypress test for demonstration
-- Add screenshots/screen recording to README
-- Optionally exclude fields from snapshot compare, both per test and globally
+- Add screenshots to README
 - Make `toMatchSnapshot` work for DOM elements
-- Optionally ignore extra fields in expected object. Basically only match what's defined in the snapshot.
 - Disable "update snapshots" server in headless mode
 - Contact Cypress team to be included in [official plugin list on Cypress.io](https://docs.cypress.io/plugins/index.html)
 - Add unit tests
