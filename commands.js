@@ -6,6 +6,10 @@ const { CONFIG_KEY } = require('./config');
 const COMMAND_NAME = 'toMatchSnapshot';
 const NO_LOG = {log: false};
 
+function getConfig() {
+  return Cypress.env(CONFIG_KEY);
+}
+
 // Inject CSS & JavaScript
 before(() => {
   initUi();
@@ -18,7 +22,7 @@ after(() => {
 
 // Removes unused snapshots from snapshot file
 function cleanUpSnapshots() {
-  const config = Cypress.env(CONFIG_KEY);
+  const config = getConfig();
   if (!config.autoCleanUp) {
     return;
   }
@@ -63,7 +67,10 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject, taskOp
     return;
   }
 
+  const config = getConfig();
   const options = taskOptions || {};
+  options.minimalMatch = config.minimalMatch || options.minimalMatch === true;
+
   const test = getTestForTask();
   const testTitle = getTestTitle(test);
   const snapshotTitle = getSnapshotTitle(test);

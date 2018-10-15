@@ -70,6 +70,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "autopassNewSnapshots": true,  // Automatically save & pass new/non-existing snapshots
     "diffLines": 3,                // How many lines to include in the diff modal
     "excludeFields": [],           // Array of fieldnames that should be excluded from snapshot
+    "minimalMatch": false,         // Enable minimal match (see description above) for all tests
     "normalizeJson": true,         // Alphabetically sort keys in JSON
     "serverEnabled": true,         // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",     // Hostname for "update snapshot server"
