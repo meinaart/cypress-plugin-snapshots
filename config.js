@@ -18,7 +18,7 @@ const DEFAULT_CONFIG = {
   updateSnapshots: false,
 };
 
-const CONFIG_KEY = 'cypress-plugin-snapshot';
+const CONFIG_KEY = 'cypress-plugin-snapshots';
 
 let config = clone(DEFAULT_CONFIG);
 

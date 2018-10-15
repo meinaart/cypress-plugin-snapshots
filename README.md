@@ -50,7 +50,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 
 ```javascript
 "env": {
-  "cypress-plugin-snapshot": {
+  "cypress-plugin-snapshots": {
     "autopassNewSnapshots": true,  // Automatically save & pass new/non-existing snapshots
     "diffLines": 3,                // How many lines to include in the diff modal
     "normalizeJson": true,         // Alphabetically sort keys in JSON?
