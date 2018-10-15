@@ -1,3 +1,8 @@
+1.0.1 / 2018-10-15
+==================
+
+  * Make `ignoreExtraFields` also work for (nested) arrays
+
 1.0.0 / 2018-10-15
 ==================
 

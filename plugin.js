@@ -31,7 +31,11 @@ function createDiff(expected, actual, snapshotTitle) {
  * @returns {object}
  */
 function keepKeysFromExpected(subject, expected) {
-  if (typeof expected === 'object' && !Array.isArray(expected)) {
+  if (Array.isArray(expected)) {
+    return expected.map((item, index) => {
+      return keepKeysFromExpected(subject[index], item);
+    });
+  } else if (typeof expected === 'object') {
     return Object.keys(expected)
       .reduce((result, key) => {
         result[key] = keepKeysFromExpected(subject[key], expected[key]);
