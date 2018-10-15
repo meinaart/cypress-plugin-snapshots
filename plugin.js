@@ -30,11 +30,11 @@ function createDiff(expected, actual, snapshotTitle) {
  * @param {object} expected
  * @returns {object}
  */
-function minimalMatch(subject, expected) {
+function keepKeysFromExpected(subject, expected) {
   if (typeof expected === 'object' && !Array.isArray(expected)) {
     return Object.keys(expected)
       .reduce((result, key) => {
-        result[key] = minimalMatch(subject[key], expected[key]);
+        result[key] = keepKeysFromExpected(subject[key], expected[key]);
         return result;
       }, {});
   }
@@ -48,8 +48,8 @@ function matchSnapshot(data = {}) {
   const expected = getSnapshot(snapshotFile, snapshotTitle);
   let actual = subjectToSnapshot(data.subject, config.normalizeJson);
 
-  if (data.options && data.options.minimalMatch) {
-    actual = minimalMatch(actual, expected);
+  if (data.options && data.options.ignoreExtraFields) {
+    actual = keepKeysFromExpected(actual, expected);
   }
 
   const exists = expected !== false;

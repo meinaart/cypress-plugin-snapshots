@@ -69,7 +69,7 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject, taskOp
 
   const config = getConfig();
   const options = taskOptions || {};
-  options.minimalMatch = config.minimalMatch || options.minimalMatch === true;
+  options.ignoreExtraFields = config.ignoreExtraFields || options.ignoreExtraFields === true;
 
   const test = getTestForTask();
   const testTitle = getTestTitle(test);

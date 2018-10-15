@@ -12,7 +12,7 @@ const DEFAULT_CONFIG = {
   autopassNewSnapshots: true,
   diffLines: 3,
   excludeFields: [],
-  minimalMatch: false,
+  ignoreExtraFields: false,
   normalizeJson: true,
   serverEnabled: true,
   serverHost: 'localhost',
