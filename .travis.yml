@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - 10.8
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
+notifications:
+  email: false
+install:
+  - npm ci
+script:
+  - npm run lint
+  - npm test

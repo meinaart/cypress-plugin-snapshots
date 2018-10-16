@@ -1,3 +1,5 @@
+[![Build Status][build-badge]][build]
+
 # cypress-plugin-snapshots
 Plugin for snapshot tests in [Cypress.io](https://www.cypress.io/).
 
@@ -66,16 +68,17 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ```javascript
 "env": {
   "cypress-plugin-snapshots": {
-    "autoCleanUp": false,          // Automatically remove snapshots that are not used by test
-    "autopassNewSnapshots": true,  // Automatically save & pass new/non-existing snapshots
-    "diffLines": 3,                // How many lines to include in the diff modal
-    "excludeFields": [],           // Array of fieldnames that should be excluded from snapshot
-    "ignoreExtraFields": false,    // Ignore extra fields that are not in `snapshot`
-    "normalizeJson": true,         // Alphabetically sort keys in JSON
-    "serverEnabled": true,         // Enable "update snapshot" server and button in diff modal
-    "serverHost": "localhost",     // Hostname for "update snapshot server"
-    "serverPort": 2121,            // Port number for  "update snapshot server"
-    "updateSnapshots": false,      // Automatically update snapshots, useful if you have lots of changes
+    "autoCleanUp": false,            // Automatically remove snapshots that are not used by test
+    "autopassNewSnapshots": true,    // Automatically save & pass new/non-existing snapshots
+    "diffLines": 3,                  // How many lines to include in the diff modal
+    "excludeFields": [],             // Array of fieldnames that should be excluded from snapshot
+    "ignoreExtraArrayItems": false,  // Ignore if there are extra array items in result
+    "ignoreExtraFields": false,      // Ignore extra fields that are not in `snapshot`
+    "normalizeJson": true,           // Alphabetically sort keys in JSON
+    "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
+    "serverHost": "localhost",       // Hostname for "update snapshot server"
+    "serverPort": 2121,              // Port number for  "update snapshot server"
+    "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
   }
 }
 ```
@@ -84,15 +87,15 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 Below is a list of functionality that is under consideration for implementing in a next version.
 
 - Add basic Cypress test for demonstration
+- Run basic Cypress test with [Travis](https://travis-ci.org/) based on [Cypress Travis example](https://github.com/cypress-io/cypress-example-kitchensink/blob/master/.travis.yml)
 - Add screenshots to README
 - Make `toMatchSnapshot` work for DOM elements
 - Disable "update snapshots" server in headless mode
 - Contact Cypress team to be included in [official plugin list on Cypress.io](https://docs.cypress.io/plugins/index.html)
-- Add unit tests
+- Add more unit tests
 - Consider moving configuration to `initPlugin`.
 - Extract CSS and javascript to separate files
 - Add [JSDoc](http://usejsdoc.org/) documentation
-- Add [Travis](https://travis-ci.org/) integration based on [Cypress Travis example](https://github.com/cypress-io/cypress-example-kitchensink/blob/master/.travis.yml)
 - Investigate code coverage tests with [Coveralls](https://coveralls.io/) and [Istanbul](http://gotwarlost.github.io/istanbul/)
 - Consider implementing visual snapshots with [jest-image-snapshot](https://github.com/americanexpress/jest-image-snapshot)
 

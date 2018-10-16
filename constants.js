@@ -5,5 +5,5 @@ const URL_PREFIX = '#snapshot-compare-';
 module.exports = {
   MATCH,
   SAVE,
-  URL_PREFIX
-}
+  URL_PREFIX,
+};

@@ -7,13 +7,26 @@
     "type": "git",
     "url": "https://github.com/meinaart/cypress-plugin-snapshots.git"
   },
+  "files": [
+    "*.js"
+  ],
+  "engines": {
+    "node": ">=8.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/meinaart/cypress-plugin-snapshots/issues"
+  },
   "keywords": [
     "cypress",
     "cypress-io",
     "cypress-plugin"
   ],
-  "author": "Meinaart van Straalen <github@kayenta.nl>",
+  "author": "Meinaart van Straalen",
   "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint *.js"
+  },
   "dependencies": {
     "bufferutil": "^4.0.0",
     "diff2html": "^2.4.0",
@@ -27,5 +40,48 @@
   },
   "peerDependencies": {
     "cypress": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-cypress": "^2.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.25.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.13.6"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "plugins": [
+      "cypress",
+      "jest"
+    ],
+    "env": {
+      "cypress/globals": true,
+      "jest/globals": true
+    },
+    "rules": {
+      "no-param-reassign": 0,
+      "no-use-before-define": 0,
+      "global-require": 0
+    }
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/examples/",
+      "<rootDir>/node_modules/"
+    ],
+    "clearMocks": true,
+    "testEnvironment": "node"
   }
 }

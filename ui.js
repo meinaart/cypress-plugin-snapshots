@@ -1,10 +1,11 @@
+/* eslint-env browser */
 const { SAVE, URL_PREFIX } = require('./constants');
 const { getServerUrl, CONFIG_KEY } = require('./config');
 
-const NO_LOG = {log: false};
+const NO_LOG = { log: false };
 
 function initUi() {
-  const $head = Cypress.$(parent.window.document.head);
+  const $head = Cypress.$(window.parent.window.document.head);
   const config = Cypress.env(CONFIG_KEY);
 
   if ($head.find('#cypress-plugin-snapshot').length > 0) {

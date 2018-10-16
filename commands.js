@@ -1,24 +1,18 @@
+/* globals Cypress, before, after, cy */
+/* eslint-env browser */
 const { MATCH, URL_PREFIX } = require('./constants');
 const { initUi } = require('./ui');
-const { formatNormalizedJson, getTestTitle, getSnapshotTitle, getSnapshotFilename, snapshotTitleIsUsed } = require('./snapshot');
+const {
+  formatNormalizedJson, getTestTitle, getSnapshotTitle, getSnapshotFilename, snapshotTitleIsUsed,
+} = require('./snapshot');
 const { CONFIG_KEY } = require('./config');
 
 const COMMAND_NAME = 'toMatchSnapshot';
-const NO_LOG = {log: false};
+const NO_LOG = { log: false };
 
 function getConfig() {
   return Cypress.env(CONFIG_KEY);
 }
-
-// Inject CSS & JavaScript
-before(() => {
-  initUi();
-});
-
-// Clean up unused snapshots
-after(() => {
-  cleanUpSnapshots();
-});
 
 // Removes unused snapshots from snapshot file
 function cleanUpSnapshots() {
@@ -58,55 +52,71 @@ function getTestForTask(test) {
   return {
     id: test.id,
     title: test.title,
-    parent: test.parent && test.parent.title ? getTestForTask(test.parent): null
-  }
+    parent: test.parent && test.parent.title ? getTestForTask(test.parent) : null,
+  };
 }
 
-Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject, taskOptions) => {
-  if (!subject) {
-    return;
-  }
+function initCommands() {
+  // Inject CSS & JavaScript
+  before(() => {
+    initUi();
+  });
 
-  const config = getConfig();
-  const options = taskOptions || {};
-  options.ignoreExtraFields = config.ignoreExtraFields || options.ignoreExtraFields === true;
+  // Clean up unused snapshots
+  after(() => {
+    cleanUpSnapshots();
+  });
 
-  const test = getTestForTask();
-  const testTitle = getTestTitle(test);
-  const snapshotTitle = getSnapshotTitle(test);
-  let task;
-
-  const toMatchSnapshot = (result) => {
-    const args = parent.window.btoa(JSON.stringify(result));
-    const message = result.passed ?
-      result.expected ? 'Snapshots match' : 'Snapshot created, autopassed'
-    : `[compare snapshot](${URL_PREFIX}${args})`;
-
-    const log = Cypress.log({
-      $el: subject,
-      name: COMMAND_NAME,
-      displayName: 'snapshot',
-      message,
-      consoleProps: () => {
-        return result;
-      }
-    });
-
-    if (!result.passed) {
-      log.set('state', 'failed');
-      throw new Error('Snapshots do not match');
+  Cypress.Commands.add(COMMAND_NAME, { prevSubject: 'optional' }, (subject, taskOptions) => {
+    if (!subject) {
+      return subject;
     }
 
-    return subject;
-  };
+    const config = getConfig();
+    const options = taskOptions || {};
+    options.ignoreExtraFields = config.ignoreExtraFields || options.ignoreExtraFields === true;
 
-  cy.task(MATCH, {
+    const test = getTestForTask();
+    const testTitle = getTestTitle(test);
+    const snapshotTitle = getSnapshotTitle(test);
+
+    const toMatchSnapshot = (result) => {
+      const args = window.parent.window.btoa(JSON.stringify(result));
+      const passedMessage = result.expected ? 'Snapshots match' : 'Snapshot created, autopassed';
+      const message = result.passed
+        ? passedMessage
+        : `[compare snapshot](${URL_PREFIX}${args})`;
+
+      const log = Cypress.log({
+        $el: subject,
+        name: COMMAND_NAME,
+        displayName: 'snapshot',
+        message,
+        consoleProps: () => result,
+      });
+
+      if (!result.passed) {
+        log.set('state', 'failed');
+        throw new Error('Snapshots do not match');
+      }
+
+      return subject;
+    };
+
+    return cy.task(MATCH, {
       testTitle,
       testFile: Cypress.spec.absolute,
       snapshotTitle,
       subject,
-      options
+      options,
     }, NO_LOG).then(toMatchSnapshot);
+  });
+}
 
-  return task;
-});
+module.exports = {
+  initCommands,
+};
+
+if (!process.env.JEST_WORKER_ID) {
+  initCommands();
+}

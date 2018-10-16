@@ -6,12 +6,12 @@ const SNAPSHOT_TITLES = [];
 
 function getSnapshotFilename(testFile) {
   const dir = path.join(path.dirname(testFile), '__snapshots__');
-  const filename = path.basename(testFile) + '.snap';
+  const filename = `${path.basename(testFile)}.snap`;
   return path.join(dir, filename);
 }
 
 function getTestTitle(test) {
-  return (test.parent && test.parent.title ? getTestTitle(test.parent) + ' > ' : '') + test.title;
+  return (test.parent && test.parent.title ? `${getTestTitle(test.parent)} > ` : '') + test.title;
 }
 
 function snapshotTitleIsUsed(snapshotTitle) {
@@ -22,12 +22,12 @@ function getSnapshotTitle(test) {
   const testTitle = getTestTitle(test);
 
   if (SNAPSHOTS[testTitle] !== undefined) {
-    SNAPSHOTS[testTitle]++;
+    SNAPSHOTS[testTitle] += 1;
   } else {
     SNAPSHOTS[testTitle] = 0;
   }
 
-  const snapshotTitle = testTitle + ' #' + SNAPSHOTS[testTitle];
+  const snapshotTitle = `${testTitle} #${SNAPSHOTS[testTitle]}`;
   SNAPSHOT_TITLES.push(snapshotTitle);
   return snapshotTitle;
 }
@@ -43,7 +43,9 @@ function formatNormalizedJson(subject) {
 function normalizeObject(subject) {
   if (Array.isArray(subject)) {
     return subject.map(normalizeObject);
-  } else if (typeof subject === 'object') {
+  }
+
+  if (typeof subject === 'object') {
     const keys = Object.keys(subject);
     keys.sort();
 
@@ -61,7 +63,9 @@ function removeExcludedFields(subject) {
   if (excludedFields) {
     if (Array.isArray(subject)) {
       return subject.map(removeExcludedFields);
-    } else if (typeof subject === 'object') {
+    }
+
+    if (typeof subject === 'object') {
       return Object.keys(subject)
         .filter(key => excludedFields.indexOf(key) === -1)
         .reduce((result, key) => {
@@ -91,5 +95,5 @@ module.exports = {
   getSnapshotTitle,
   getTestTitle,
   subjectToSnapshot,
-  snapshotTitleIsUsed
-}
+  snapshotTitleIsUsed,
+};

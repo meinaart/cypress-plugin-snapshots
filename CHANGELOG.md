@@ -1,3 +1,11 @@
+1.0.2 / 2018-10-16
+==================
+
+  * Add `ignoreExtraArrayItems` property to configuration
+  * Add [Travis](https://travis-ci.org/) integration
+  * Add linter config
+  * Add Jest unit tests
+
 1.0.1 / 2018-10-15
 ==================
 

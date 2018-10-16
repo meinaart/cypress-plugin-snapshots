@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot subjectToSnapshot normalizes 1`] = `
+Object {
+  "bar": "foo",
+  "foo": "bar",
+  "sub": Object {
+    "asubsub": Object {
+      "bar": "foo",
+      "foo": "bar",
+    },
+    "bar": "foo",
+    "foo": "bar",
+  },
+}
+`;

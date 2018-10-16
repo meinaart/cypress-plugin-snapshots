@@ -1,13 +1,11 @@
 
-const { MATCH, SAVE } = require('./constants');
 const unidiff = require('unidiff');
+const { merge } = require('lodash');
+const { MATCH, SAVE } = require('./constants');
 const { updateSnapshot, getSnapshot } = require('./plugin-utils');
 const { subjectToSnapshot, formatJson, getSnapshotFilename } = require('./snapshot');
 const { initConfig, CONFIG_KEY, getConfig } = require('./config');
 const { initServer } = require('./save-server');
-const merge = require('lodash').merge;
-
-let config = getConfig();
 
 function formatDiff(subject) {
   if (typeof subject === 'object') {
@@ -20,7 +18,7 @@ function createDiff(expected, actual, snapshotTitle) {
   return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
     aname: snapshotTitle,
     bname: snapshotTitle,
-    context: config.diffLines
+    context: getConfig().diffLines,
   });
 }
 
@@ -30,15 +28,27 @@ function createDiff(expected, actual, snapshotTitle) {
  * @param {object} expected
  * @returns {object}
  */
-function keepKeysFromExpected(subject, expected) {
-  if (Array.isArray(expected)) {
-    return expected.map((item, index) => {
-      return keepKeysFromExpected(subject[index], item);
-    });
-  } else if (typeof expected === 'object') {
-    return Object.keys(expected)
+function keepKeysFromExpected(subject, expected, keepConfig) {
+  const cfg = keepConfig || getConfig();
+
+  if (Array.isArray(expected) && Array.isArray(subject)) {
+    const origin = cfg.ignoreExtraArrayItems ? expected : subject;
+
+    const result = origin
+      .filter((value, index) => index < subject.length)
+      .map((value, index) => keepKeysFromExpected(subject[index], expected[index] || value, cfg));
+
+    // Add extra items not existing in expected from subject to result
+    if (!cfg.ignoreExtraArrayItems && subject.length > expected.length) {
+      return [...result, ...subject.slice(result.length, subject.length)];
+    }
+
+    return result;
+  } if (typeof expected === 'object' && typeof subject === 'object') {
+    const origin = cfg.ignoreExtraFields ? expected : subject;
+    return Object.keys(origin)
       .reduce((result, key) => {
-        result[key] = keepKeysFromExpected(subject[key], expected[key]);
+        result[key] = keepKeysFromExpected(subject[key], expected[key], cfg);
         return result;
       }, {});
   }
@@ -46,21 +56,22 @@ function keepKeysFromExpected(subject, expected) {
   return subject;
 }
 
-function matchSnapshot(data = {}) {
-  const snapshotFile = getSnapshotFilename(data.testFile);
-  const snapshotTitle = data.snapshotTitle;
+function matchSnapshot({
+  testFile, snapshotTitle, subject, options,
+} = {}) {
+  const config = getConfig();
+  const snapshotFile = getSnapshotFilename(testFile);
   const expected = getSnapshot(snapshotFile, snapshotTitle);
-  let actual = subjectToSnapshot(data.subject, config.normalizeJson);
-
-  if (data.options && data.options.ignoreExtraFields) {
-    actual = keepKeysFromExpected(actual, expected);
-  }
+  const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, merge({
+    ignoreExtraArrayItems: config.ignoreExtraArrayItems,
+    ignoreExtraFields: config.ignoreExtraFields
+  }, options));
 
   const exists = expected !== false;
 
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const passed = (expected && formatDiff(expected) === formatDiff(actual));
-  const diff = passed || autoPassed ? undefined : createDiff(expected, actual, data.snapshotTitle);
+  const diff = passed || autoPassed ? undefined : createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
@@ -77,22 +88,22 @@ function matchSnapshot(data = {}) {
     passed: passed || autoPassed,
     snapshotFile,
     snapshotTitle,
-    subject: data.subject,
+    subject,
     updated,
   };
 
   return result;
 }
 
-function saveSnapshot(data = {}) {
-  return updateSnapshot(data.snapshotFile, data.snapshotTitle, data.subject);
+function saveSnapshot({ snapshotFile, snapshotTitle, subject }) {
+  return updateSnapshot(snapshotFile, snapshotTitle, subject);
 }
 
 function initPlugin(on, globalConfig = {}) {
-  config = initConfig(globalConfig.env[CONFIG_KEY] || {});
+  const config = initConfig(globalConfig.env[CONFIG_KEY] || {});
   if (globalConfig.env[CONFIG_KEY]) {
     merge(globalConfig.env, {
-      [CONFIG_KEY]: config
+      [CONFIG_KEY]: config,
     });
   }
 
@@ -100,10 +111,11 @@ function initPlugin(on, globalConfig = {}) {
 
   on('task', {
     [MATCH]: matchSnapshot,
-    [SAVE]: saveSnapshot
+    [SAVE]: saveSnapshot,
   });
 }
 
 module.exports = {
-  initPlugin
+  initPlugin,
+  keepKeysFromExpected,
 };

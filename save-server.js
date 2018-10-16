@@ -1,3 +1,6 @@
+/* eslint prefer-destructuring: 0 */
+const http = require('http');
+const socketio = require('socket.io');
 const { SAVE } = require('./constants');
 const { saveSnapshot } = require('./plugin-utils');
 
@@ -6,12 +9,12 @@ function initServer(config) {
     return;
   }
 
-  const server = require('http').createServer();
-  const io = require('socket.io')(server);
+  const server = http.createServer();
+  const io = socketio(server);
 
-  io.on('connection', function(client) {
-    let token = client.handshake.query.token;
-    client.on(SAVE, function(data) {
+  io.on('connection', (client) => {
+    const token = client.handshake.query.token;
+    client.on(SAVE, (data) => {
       if (token === config.token) {
         saveSnapshot(data);
       }
