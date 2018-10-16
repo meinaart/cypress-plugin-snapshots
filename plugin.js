@@ -1,6 +1,6 @@
 
 const unidiff = require('unidiff');
-const { merge } = require('lodash');
+const { merge, cloneDeep } = require('lodash');
 const { MATCH, SAVE } = require('./constants');
 const { updateSnapshot, getSnapshot } = require('./plugin-utils');
 const { subjectToSnapshot, formatJson, getSnapshotFilename } = require('./snapshot');
@@ -64,14 +64,15 @@ function keepKeysFromExpected(subject, expected, keepConfig) {
  * @param {Object} expected - Object to replace values in
  * @param {Object} subject - Subject that is going to be used to test agains expected
  * @param {Object} config - Config
- * @param {Object|Function=} config.replace - Object containing replacements, or method handling replacement
+ * @param {Object=} config.replace - Object containing replacements
  * @returns {Object}
  */
 function applyReplace(expected, subject, config) {
-  const { replace } = config;
-  if (typeof replace === 'function') {
-    return replace(expected, subject, config);
+  if (typeof expected !== 'object') {
+    return expected;
   }
+
+  const { replace } = config;
 
   if (typeof replace === 'object') {
     const jsonString = Object.keys(replace)
@@ -88,7 +89,7 @@ function applyReplace(expected, subject, config) {
 function matchSnapshot({
   testFile, snapshotTitle, subject, options,
 } = {}) {
-  const config = merge({}, getConfig(), options);
+  const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
   const expected = applyReplace(getSnapshot(snapshotFile, snapshotTitle), subject, config);
   const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, config);

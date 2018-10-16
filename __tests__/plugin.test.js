@@ -125,20 +125,5 @@ describe('plugin', () => {
       });
       expect(result).toMatchSnapshot();
     });
-
-    it('function replace', () => {
-      const expected = {
-        "text": "Hi ${name}",
-      };
-      const subject = {
-        "text": "Hi Jest"
-      };
-      const replace = jest.fn().mockImplementation(() => subject);
-      const config = { replace };
-      const result = applyReplace(expected, subject, config);
-      expect(result).toMatchSnapshot();
-      expect(replace).toBeCalledTimes(1);
-      expect(replace).toBeCalledWith(expected, subject, config);
-    });
   });
 });

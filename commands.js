@@ -1,5 +1,6 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
+const { merge, cloneDeep } = require('lodash');
 const { MATCH, URL_PREFIX } = require('./constants');
 const { initUi } = require('./ui');
 const {
@@ -72,9 +73,7 @@ function initCommands() {
       return subject;
     }
 
-    const config = getConfig();
-    const options = taskOptions || {};
-    options.ignoreExtraFields = config.ignoreExtraFields || options.ignoreExtraFields === true;
+    const options = merge({}, cloneDeep(getConfig()), taskOptions);
 
     const test = getTestForTask();
     const testTitle = getTestTitle(test);

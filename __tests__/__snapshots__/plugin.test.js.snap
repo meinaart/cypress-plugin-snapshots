@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`plugin applyReplace function replace 1`] = `
-Object {
-  "text": "Hi Jest",
-}
-`;
-
 exports[`plugin applyReplace object replace 1`] = `
 Object {
   "text": "Hi Meinaart & Meinaart",

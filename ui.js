@@ -163,7 +163,7 @@ function initUi() {
     if (data && data.diff) {
       var diffHtml = Diff2Html.getPrettyHtml(
         data.diff,
-        {inputFormat: 'diff', outputFormat: 'side-by-side'}
+        {inputFormat: 'diff', outputFormat: 'side-by-side', synchronisedScroll: true}
       );
 
       var $element = Cypress.$('<div class="snapshot-diff">' +

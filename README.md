@@ -32,9 +32,8 @@ You can pass the following options to `toMatchSnapshot` to override default beha
   "ignoreExtraArrayItems": false,     // Ignore if there are extra array items in result
   "normalizeJson": true,              // Alphabetically sort keys in JSON
   "replace": {                        // Replace `${key}` in snapshot with `value`.
-      "key": "value",
-  },
-  "replace": (snapshot, subject, config) => snapshot   // Preprocess snapshot before comparison.
+    "key": "value",
+  }
 }
 ```
 
