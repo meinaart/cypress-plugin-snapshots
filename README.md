@@ -1,4 +1,4 @@
-[![Build Status][build-badge]][build]
+[![Travis CI](https://travis-ci.org/meinaart/cypress-plugin-snapshots.svg?branch=master)](https://travis-ci.org/meinaart/cypress-plugin-snapshots)
 
 # cypress-plugin-snapshots
 Plugin for snapshot tests in [Cypress.io](https://www.cypress.io/).
