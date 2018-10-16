@@ -99,6 +99,7 @@ Below is a list of functionality that is under consideration for implementing in
 - Run basic Cypress test with [Travis](https://travis-ci.org/) based on [Cypress Travis example](https://github.com/cypress-io/cypress-example-kitchensink/blob/master/.travis.yml)
 - Add screenshots to README
 - Make `toMatchSnapshot` work for DOM elements
+- Add warning when trying to update snapshot via UI that contains a replacable field
 - Disable "update snapshots" server in headless mode
 - Contact Cypress team to be included in [official plugin list on Cypress.io](https://docs.cypress.io/plugins/index.html)
 - Add more unit tests

@@ -115,13 +115,8 @@ describe('plugin', () => {
         "text": "Hi ${name} & ${name}",
         "text2": "Hi ${name}",
       };
-      const subject = {
-        "text": "Hi Jest"
-      };
-      const result = applyReplace(expected, subject, {
-        replace: {
-          name: 'Meinaart',
-        }
+      const result = applyReplace(expected, {
+        name: 'Meinaart',
       });
       expect(result).toMatchSnapshot();
     });

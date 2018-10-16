@@ -62,17 +62,13 @@ function keepKeysFromExpected(subject, expected, keepConfig) {
  * You can use either an object containing key/value pair or a function to handle replacement.
  *
  * @param {Object} expected - Object to replace values in
- * @param {Object} subject - Subject that is going to be used to test agains expected
- * @param {Object} config - Config
- * @param {Object=} config.replace - Object containing replacements
+ * @param {Object=} replace - Object containing replacements
  * @returns {Object}
  */
-function applyReplace(expected, subject, config) {
-  if (typeof expected !== 'object') {
+function applyReplace(expected, replace) {
+  if (typeof expected !== 'object' || !replace) {
     return expected;
   }
-
-  const { replace } = config;
 
   if (typeof replace === 'object') {
     const jsonString = Object.keys(replace)
@@ -91,7 +87,8 @@ function matchSnapshot({
 } = {}) {
   const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
-  const expected = applyReplace(getSnapshot(snapshotFile, snapshotTitle), subject, config);
+  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle);
+  const expected = applyReplace(expectedRaw, config.replace);
   const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, config);
 
   const exists = expected !== false;

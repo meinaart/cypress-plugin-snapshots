@@ -45,7 +45,7 @@ function normalizeObject(subject) {
     return subject.map(normalizeObject);
   }
 
-  if (typeof subject === 'object') {
+  if (typeof subject === 'object' && subject !== null) {
     const keys = Object.keys(subject);
     keys.sort();
 
@@ -65,7 +65,7 @@ function removeExcludedFields(subject) {
       return subject.map(removeExcludedFields);
     }
 
-    if (typeof subject === 'object') {
+    if (typeof subject === 'object' && subject !== null) {
       return Object.keys(subject)
         .filter(key => excludedFields.indexOf(key) === -1)
         .reduce((result, key) => {
