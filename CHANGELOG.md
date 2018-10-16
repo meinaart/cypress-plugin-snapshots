@@ -1,3 +1,9 @@
+1.0.3 / 2018-10-16
+==================
+
+  * Add more documentation on `options` for `toMatchSnapshot`
+  * Add `replace` functionality
+
 1.0.2 / 2018-10-16
 ==================
 

@@ -1,3 +1,4 @@
+/* eslint no-template-curly-in-string: 0 */
 const configModule = require('../config');
 
 jest.mock("../config.js");
@@ -16,7 +17,7 @@ global.Cypress = {
 global.cy = {};
 
 describe('plugin', () => {
-  it('initPlugin', () => {
+  describe('initPlugin', () => {
     const globalConfig = {
       env: {
         "cypress-plugin-snapshots": {
@@ -103,6 +104,41 @@ describe('plugin', () => {
 
       const result = keepKeysFromExpected(actual, expected);
       expect(result).toMatchSnapshot();
+    });
+  });
+
+  describe('applyReplace', () => {
+    const { applyReplace } = require('../plugin');
+
+    it('object replace', () => {
+      const expected = {
+        "text": "Hi ${name} & ${name}",
+        "text2": "Hi ${name}",
+      };
+      const subject = {
+        "text": "Hi Jest"
+      };
+      const result = applyReplace(expected, subject, {
+        replace: {
+          name: 'Meinaart',
+        }
+      });
+      expect(result).toMatchSnapshot();
+    });
+
+    it('function replace', () => {
+      const expected = {
+        "text": "Hi ${name}",
+      };
+      const subject = {
+        "text": "Hi Jest"
+      };
+      const replace = jest.fn().mockImplementation(() => subject);
+      const config = { replace };
+      const result = applyReplace(expected, subject, config);
+      expect(result).toMatchSnapshot();
+      expect(replace).toBeCalledTimes(1);
+      expect(replace).toBeCalledWith(expected, subject, config);
     });
   });
 });

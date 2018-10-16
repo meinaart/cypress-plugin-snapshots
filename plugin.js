@@ -24,9 +24,9 @@ function createDiff(expected, actual, snapshotTitle) {
 
 /**
  * Create new object based on `subject` that do only contains fields that exist in `expected`
- * @param {object} subject
- * @param {object} expected
- * @returns {object}
+ * @param {Object} subject
+ * @param {Object} expected
+ * @returns {Object}
  */
 function keepKeysFromExpected(subject, expected, keepConfig) {
   const cfg = keepConfig || getConfig();
@@ -56,16 +56,42 @@ function keepKeysFromExpected(subject, expected, keepConfig) {
   return subject;
 }
 
+/**
+ * Apply optional `replace` functionality coming from `options` supplied to `toMatchSnapshot`.
+ *
+ * You can use either an object containing key/value pair or a function to handle replacement.
+ *
+ * @param {Object} expected - Object to replace values in
+ * @param {Object} subject - Subject that is going to be used to test agains expected
+ * @param {Object} config - Config
+ * @param {Object|Function=} config.replace - Object containing replacements, or method handling replacement
+ * @returns {Object}
+ */
+function applyReplace(expected, subject, config) {
+  const { replace } = config;
+  if (typeof replace === 'function') {
+    return replace(expected, subject, config);
+  }
+
+  if (typeof replace === 'object') {
+    const jsonString = Object.keys(replace)
+      .reduce((result, key) => result.replace(
+          new RegExp(`\\$\\{${key}\\}`, 'g'),
+          replace[key]
+        ), JSON.stringify(expected));
+    return JSON.parse(jsonString);
+  }
+
+  return expected;
+}
+
 function matchSnapshot({
   testFile, snapshotTitle, subject, options,
 } = {}) {
-  const config = getConfig();
+  const config = merge({}, getConfig(), options);
   const snapshotFile = getSnapshotFilename(testFile);
-  const expected = getSnapshot(snapshotFile, snapshotTitle);
-  const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, merge({
-    ignoreExtraArrayItems: config.ignoreExtraArrayItems,
-    ignoreExtraFields: config.ignoreExtraFields
-  }, options));
+  const expected = applyReplace(getSnapshot(snapshotFile, snapshotTitle), subject, config);
+  const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, config);
 
   const exists = expected !== false;
 
@@ -116,6 +142,7 @@ function initPlugin(on, globalConfig = {}) {
 }
 
 module.exports = {
+  applyReplace,
   initPlugin,
   keepKeysFromExpected,
 };

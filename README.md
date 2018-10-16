@@ -28,9 +28,19 @@ describe('data test', () => {
 You can pass the following options to `toMatchSnapshot` to override default behavior.
 ```javascript
 {
-  "ignoreExtraFields": false, // Ignore fields that are not in snapshot
+  "ignoreExtraFields": false,         // Ignore fields that are not in snapshot
+  "ignoreExtraArrayItems": false,     // Ignore if there are extra array items in result
+  "normalizeJson": true,              // Alphabetically sort keys in JSON
+  "replace": {                        // Replace `${key}` in snapshot with `value`.
+      "key": "value",
+  },
+  "replace": (snapshot, subject, config) => snapshot   // Preprocess snapshot before comparison.
 }
 ```
+
+**`replace`**
+Use `replace` with caution. Tests should be deterministic. It's often a better solution to influence your
+test result instead of your snapshot (by mocking data for example).
 
 ## Config Cypress.io
 Add this to your `cypress.json` configuration file:

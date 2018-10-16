@@ -1,4 +1,3 @@
-/* eslint prefer-destructuring: 0 */
 const http = require('http');
 const socketio = require('socket.io');
 const { SAVE } = require('./constants');
@@ -13,7 +12,7 @@ function initServer(config) {
   const io = socketio(server);
 
   io.on('connection', (client) => {
-    const token = client.handshake.query.token;
+    const { token } = client.handshake.query;
     client.on(SAVE, (data) => {
       if (token === config.token) {
         saveSnapshot(data);
