@@ -1,7 +1,11 @@
-[![Travis CI](https://travis-ci.org/meinaart/cypress-plugin-snapshots.svg?branch=master)](https://travis-ci.org/meinaart/cypress-plugin-snapshots)
-
 # cypress-plugin-snapshots
-Plugin for snapshot tests in [Cypress.io](https://www.cypress.io/).
+> Plugin for snapshot tests in [Cypress.io](https://www.cypress.io/).
+
+[![NPM][npm-icon]][npm-url]
+
+[![Build status][ci-image]][ci-url]
+
+![cypress-plugin-snapshots](docs/images/cypress-plugin-snapshots.png)
 
 ## Installation
 `npm i cypress-plugin-snapshots -S`
@@ -95,11 +99,9 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ## Roadmap
 Below is a list of functionality that is under consideration for implementing in a next version.
 
-- Add screenshots to README
 - Make `toMatchSnapshot` work for DOM elements
 - Add warning when trying to update snapshot via UI that contains a replacable field
 - Disable "update snapshots" server in headless mode
-- Contact Cypress team to be included in [official plugin list on Cypress.io](https://docs.cypress.io/plugins/index.html)
 - Add more unit tests
 - Consider moving configuration to `initPlugin`.
 - Extract CSS and javascript to separate files
@@ -112,3 +114,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## License
 This plugin is released under the MIT license.
+
+[npm-icon]: https://nodei.co/npm/cypress-plugin-snapshots.svg?downloads=true
+[npm-url]: https://npmjs.org/package/cypress-plugin-snapshots
+[ci-image]: https://travis-ci.org/meinaart/cypress-plugin-snapshots.svg?branch=master
+[ci-url]: https://travis-ci.org/meinaart/cypress-plugin-snapshots
