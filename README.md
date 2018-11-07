@@ -95,8 +95,6 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ## Roadmap
 Below is a list of functionality that is under consideration for implementing in a next version.
 
-- Add basic Cypress test for demonstration
-- Run basic Cypress test with [Travis](https://travis-ci.org/) based on [Cypress Travis example](https://github.com/cypress-io/cypress-example-kitchensink/blob/master/.travis.yml)
 - Add screenshots to README
 - Make `toMatchSnapshot` work for DOM elements
 - Add warning when trying to update snapshot via UI that contains a replacable field
