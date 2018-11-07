@@ -96,7 +96,7 @@ function initCommands() {
 
       if (!result.passed) {
         log.set('state', 'failed');
-        throw new Error('Snapshots do not match');
+        throw new Error(`Snapshots do not match:\n${result.diff}`);
       }
 
       return subject;

@@ -1,0 +1,21 @@
+{
+  "name": "cypress-plugin-snapshots-test",
+  "version": "1.0.0",
+  "description": "Example setup for cypress-plugin-snapshots",
+  "scripts": {
+    "ci:test": "start-server-and-test start http://localhost:8080 test",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:verify": "cypress verify",
+    "start": "node ./test-server/index.js",
+    "test": "cypress run"
+  },
+  "author": "Meinaart van Straalen",
+  "license": "MIT",
+  "dependencies": {
+    "cypress-plugin-snapshots": "file:../",
+    "cypress": "^3.1.1",
+    "express": "^4.16.4",
+    "start-server-and-test": "^1.7.9"
+  }
+}

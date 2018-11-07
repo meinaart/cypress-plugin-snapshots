@@ -1,0 +1,12 @@
+{
+  "Test > toMatchSnapshot #0": {
+    "number": 1234,
+    "object": {
+      "foo": "bar",
+      "nestedObject": {
+        "bar": "foo"
+      }
+    },
+    "string": "string"
+  }
+}

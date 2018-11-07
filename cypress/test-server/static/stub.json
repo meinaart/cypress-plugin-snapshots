@@ -1,0 +1,10 @@
+{
+  "string": "string",
+  "number": 1234,
+  "object": {
+    "foo": "bar",
+    "nestedObject": {
+      "bar": "foo"
+    }
+  }
+}

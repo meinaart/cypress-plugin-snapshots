@@ -1,15 +1,29 @@
 language: node_js
-
 node_js:
-  - 10.8
+- 10.8
 cache:
   directories:
-    - ~/.npm
-    - ~/.cache
+  - "~/.npm"
+  - "~/.cache"
+  override:
+    - npm ci
+    - npm run cy:verify
 notifications:
   email: false
 install:
-  - npm ci
+- npm ci
+- npm --prefix cypress ci
 script:
-  - npm run lint
-  - npm test
+- npm run lint &
+- npm run ci:test
+# after all tests finish running we need
+# to kill all background jobs
+- kill $(jobs -p) || true
+deploy:
+  provider: npm
+  email: npm@kayenta.nl
+  api_key:
+    secure: xcmDAXXR8rOF9y0ibrE4duJsKoc0ic0qbRMt8cLS2cWTFOp9i2S2jo9cNKzRAON6Qkj4u0YUQBhP7ichdKb3uxK3E8WXUYQ7/MT65cHMCs/vKJR4f1AQ+XzeWCvGO/DrAvMPYaPy5rRUjuhwS0RdrbbkRbnX3lJ8sGb5LaN28Fiw6xODAqYQH/BdACgOXrgpXmtYU/rEFSSNXiz3crlHcyJDUcf3oBTY+adfWfvJiB3iOXLrMb0Sm00Jh2SPp62VGanPEXtPW61D9S+pkXWpZ7MODDBn59H7h5+5JPO19LSwe7AleQEyTx9K+Xwyp9UQzyg/YvWGClGoAvS8b+ZMCRgvcZYOmK58179LyLX0Dvg24SjWuvbM42uW/2PuHP5ASh+P0Pb9MH5I9sRn+XWfkz9gmRCJ/yxi97pljO1G2KcHd1qOXl6oHO5mU7FvRXDjeQh1Tz5vjvcvVCkAH8NULmbS1WiXgSV8z9EVUwuYx96tQJtR3PNKqSb5yPz4f82NBbfiFLnMCzwNEOY/gieqvs/WfxHVSbzpJMINRbcgqIj4p+pAtOWLzRqEvLk+xzmtnsC6OWD+QXEpJgRuFTlGSEB3P9Kp+z2YeMvlrr9U75jbSkVJs8TGRpNryYRsC6KZXTAP3YKdORvPgoKnpHKStDuHmRFhMILP8pxQSWHLlEc=
+  on:
+    tags: true
+    repo: meinaart/cypress-plugin-snapshots

@@ -24,32 +24,37 @@
   "author": "Meinaart van Straalen",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "lint": "eslint *.js"
+    "ci:test": "npm --prefix cypress run ci:test",
+    "cy:open": "npm --prefix cypress run cy:open",
+    "cy:run": "npm --prefix cypress run cy:run",
+    "cy:verify": "npm --prefix cypress run cy:verify",
+    "lint": "eslint *.js",
+    "start": "node cypress/test-server/index.js",
+    "test": "jest & npm --prefix cypress run cy:run"
   },
   "dependencies": {
     "bufferutil": "^4.0.0",
     "diff2html": "^2.4.0",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.9",
     "unidiff": "0.0.4",
     "utf-8-validate": "^5.0.1",
-    "uws": "^10.148.1"
+    "uws": "^10.148.2"
   },
   "peerDependencies": {
-    "cypress": "^3.1.0"
+    "cypress": "^3.1.1"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
+    "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-cypress": "^2.0.1",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-cypress": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.25.1",
+    "eslint-plugin-jest": "^22.0.0",
     "jest": "^23.6.0",
-    "prettier": "^1.13.6"
+    "prettier": "^1.15.1"
   },
   "prettier": {
     "printWidth": 100,
@@ -76,10 +81,14 @@
       "global-require": 0
     }
   },
+  "eslintIgnore": [
+    "cypress/**/*"
+  ],
   "jest": {
     "testPathIgnorePatterns": [
       "<rootDir>/examples/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/cypress/"
     ],
     "clearMocks": true,
     "testEnvironment": "node"

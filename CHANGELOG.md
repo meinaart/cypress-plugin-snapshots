@@ -1,3 +1,13 @@
+1.0.6 / 2018-11-07
+==================
+
+  * Add example Cypress tests
+  * Publish to `npm` via [Travis](https://travis-ci.org/)
+  * Updated vulnerable dependencies
+  * Added diff to log output
+  * Run Cypress on [Travis](https://travis-ci.org/)
+  * Upgraded Cypress peer dependency to 3.1.1
+
 1.0.5 / 2018-10-17
 ==================
 
