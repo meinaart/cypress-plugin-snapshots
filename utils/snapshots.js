@@ -1,5 +1,6 @@
+const unidiff = require('unidiff');
 const path = require('path');
-const { getConfig } = require('./config');
+const { getConfig } = require('../config');
 
 const SNAPSHOTS = [];
 const SNAPSHOT_TITLES = [];
@@ -88,12 +89,65 @@ function subjectToSnapshot(subject, normalize = true) {
   return removeExcludedFields(result);
 }
 
+function formatDiff(subject) {
+  if (typeof subject === 'object') {
+    return formatJson(subject);
+  }
+  return String(subject || '');
+}
+
+function createDiff(expected, actual, snapshotTitle) {
+  return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
+    aname: snapshotTitle,
+    bname: snapshotTitle,
+    context: getConfig().diffLines,
+  });
+}
+
+/**
+ * Create new object based on `subject` that do only contains fields that exist in `expected`
+ * @param {Object} subject
+ * @param {Object} expected
+ * @returns {Object}
+ */
+function keepKeysFromExpected(subject, expected, keepConfig) {
+  const cfg = keepConfig || getConfig();
+
+  if (Array.isArray(expected) && Array.isArray(subject)) {
+    const origin = cfg.ignoreExtraArrayItems ? expected : subject;
+
+    const result = origin
+      .filter((value, index) => index < subject.length)
+      .map((value, index) => keepKeysFromExpected(subject[index], expected[index] || value, cfg));
+
+    // Add extra items not existing in expected from subject to result
+    if (!cfg.ignoreExtraArrayItems && subject.length > expected.length) {
+      return [...result, ...subject.slice(result.length, subject.length)];
+    }
+
+    return result;
+  }
+  if (typeof expected === 'object' && typeof subject === 'object') {
+    const origin = cfg.ignoreExtraFields ? expected : subject;
+    return Object.keys(origin)
+      .reduce((result, key) => {
+        result[key] = keepKeysFromExpected(subject[key], expected[key], cfg);
+        return result;
+      }, {});
+  }
+
+  return subject;
+}
+
 module.exports = {
+  createDiff,
+  formatDiff,
   formatJson,
   formatNormalizedJson,
   getSnapshotFilename,
   getSnapshotTitle,
   getTestTitle,
-  subjectToSnapshot,
+  keepKeysFromExpected,
   snapshotTitleIsUsed,
+  subjectToSnapshot,
 };

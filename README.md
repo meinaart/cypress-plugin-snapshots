@@ -100,13 +100,12 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 Below is a list of functionality that is under consideration for implementing in a next version.
 
 - Make `toMatchSnapshot` work for DOM elements
-- Add warning when trying to update snapshot via UI that contains a replacable field
+- Show snapshot when clicking on "snapshot matches" in Cypress
+- Fix handling of update snapshot via UI that contains a replacable field
 - Disable "update snapshots" server in headless mode
 - Add more unit tests
-- Consider moving configuration to `initPlugin`.
-- Extract CSS and javascript to separate files
 - Add [JSDoc](http://usejsdoc.org/) documentation
-- Investigate code coverage tests with [Coveralls](https://coveralls.io/) and [Istanbul](http://gotwarlost.github.io/istanbul/)
+- Consider code coverage tests with [Coveralls](https://coveralls.io/) and [Istanbul](http://gotwarlost.github.io/istanbul/)
 - Consider implementing visual snapshots with [jest-image-snapshot](https://github.com/americanexpress/jest-image-snapshot)
 
 ## Contributing

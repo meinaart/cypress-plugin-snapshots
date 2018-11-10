@@ -1,13 +1,14 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
 const { merge, cloneDeep } = require('lodash');
-const { MATCH, URL_PREFIX } = require('./constants');
+const { MATCH } = require('./tasks/task-names');
 const { initUi } = require('./ui');
 const {
   formatNormalizedJson, getTestTitle, getSnapshotTitle, getSnapshotFilename, snapshotTitleIsUsed,
-} = require('./snapshot');
+} = require('./utils/snapshots');
 const { CONFIG_KEY } = require('./config');
 
+const URL_PREFIX = '#cypress-plugin-snapshot-';
 const COMMAND_NAME = 'toMatchSnapshot';
 const NO_LOG = { log: false };
 

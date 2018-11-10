@@ -1,13 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`plugin applyReplace object replace 1`] = `
-Object {
-  "text": "Hi Meinaart & Meinaart",
-  "text2": "Hi Meinaart",
-}
-`;
-
-exports[`plugin keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: false 1`] = `
+exports[`utils/snapshot keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: false 1`] = `
 Object {
   "extra": "extra",
   "field": "value",
@@ -38,7 +31,7 @@ Object {
 }
 `;
 
-exports[`plugin keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: true 1`] = `
+exports[`utils/snapshot keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: true 1`] = `
 Object {
   "extra": "extra",
   "field": "value",
@@ -62,7 +55,7 @@ Object {
 }
 `;
 
-exports[`plugin keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: false 1`] = `
+exports[`utils/snapshot keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: false 1`] = `
 Object {
   "field": "value",
   "items": Array [
@@ -91,7 +84,7 @@ Object {
 }
 `;
 
-exports[`plugin keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: true 1`] = `
+exports[`utils/snapshot keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: true 1`] = `
 Object {
   "field": "value",
   "items": Array [
@@ -110,5 +103,20 @@ Object {
       "name": "item3",
     },
   ],
+}
+`;
+
+exports[`utils/snapshot subjectToSnapshot normalizes 1`] = `
+Object {
+  "bar": "foo",
+  "foo": "bar",
+  "sub": Object {
+    "asubsub": Object {
+      "bar": "foo",
+      "foo": "bar",
+    },
+    "bar": "foo",
+    "foo": "bar",
+  },
 }
 `;

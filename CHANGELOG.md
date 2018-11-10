@@ -1,3 +1,11 @@
+1.0.7 / 2018-11-07
+==================
+
+  * Make sure config is always available (fixes #2)
+  * Resolve dependency paths relative to plugin location (fixes #3)
+  * Moved CSS to `assets/styles.css`
+  * Moved javascript to `assets/script.js`
+
 1.0.6 / 2018-11-07
 ==================
 

@@ -1,7 +1,7 @@
 const http = require('http');
 const socketio = require('socket.io');
-const { SAVE } = require('./constants');
-const { saveSnapshot } = require('./plugin-utils');
+const { SAVE } = require('./tasks/task-names');
+const { saveSnapshot } = require('./utils/plugin');
 
 function initServer(config) {
   if (!config.serverEnabled) {

@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs-extra');
 const { merge } = require('lodash');
-const { getConfig } = require('./config');
-const { formatNormalizedJson, subjectToSnapshot } = require('./snapshot');
+const { getConfig } = require('../config');
+const { formatNormalizedJson, subjectToSnapshot } = require('./snapshots');
 
 function getSnapshot(filename, snapshotTitle) {
   fs.ensureDirSync(path.dirname(filename));
