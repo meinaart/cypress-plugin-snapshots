@@ -85,7 +85,7 @@ function initCommands() {
     }
 
     const options = merge({}, cloneDeep(getConfig()), taskOptions);
-    return cy.wrap(commandSubject)
+    return cy.wrap(commandSubject, NO_LOG)
       .then((subject) => commandToMatchSnapshot(subject, options));
   });
 }

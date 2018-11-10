@@ -12,8 +12,12 @@ const {
 } = require('./tasks/paths');
 const { getServerUrl, CONFIG_KEY } = require('./config');
 
+const FILE_CACHE = {};
 function readFile(fileType) {
-  return cy.task(GET_FILE, fileType);
+  if (!FILE_CACHE[fileType]) {
+    FILE_CACHE[fileType] = cy.task(GET_FILE, fileType);
+  }
+  return FILE_CACHE[fileType];
 }
 
 function initUi() {
