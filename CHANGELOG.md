@@ -6,8 +6,9 @@
   * Resolve dependency paths relative to plugin location (fixes #3)
   * Moved CSS to `assets/styles.css`
   * Moved javascript to `assets/script.js`
+  * Clicking on passed snapshot now shows snapshot
   * Added support for DOM elements
-  * Added `prettier` for formatting HTML before comparing
+  * Added [prettier](https://prettier.io/) for formatting HTML before comparing
 
 1.0.6 / 2018-11-07
 ==================

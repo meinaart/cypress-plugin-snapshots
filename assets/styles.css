@@ -27,24 +27,35 @@
 }
 
 a[href^="#cypress-plugin-snapshot-"] {
-  background: #fad7db;
-  color: #e94f5f;
-  border: 1px solid currentColor;
+  background: #08c18d;
   border-radius: 2px;
+  color: white;
   display: inline-block;
   font-size: 11px;
   height: 14px;
   line-height: 16px;
+  margin-top: 1px;
   padding: 0 3px;
   text-transform: uppercase;
 }
 
-.command-state-failed a[href^="#cypress-plugin-snapshot-"],
+.command-state-failed a[href^="#cypress-plugin-snapshot-"] {
+  background: #fad7db;
+  border: 1px solid currentColor;
+  color: #e94f5f;
+}
+
 a[href^="#cypress-plugin-snapshot-"]:active,
 a[href^="#cypress-plugin-snapshot-"]:hover,
 a[href^="#cypress-plugin-snapshot-"]:focus {
   color: white;
   text-decoration: none;
+  background: #08c18d;
+}
+
+.command-state-failed a[href^="#cypress-plugin-snapshot-"]:active,
+.command-state-failed a[href^="#cypress-plugin-snapshot-"]:hover,
+.command-state-failed a[href^="#cypress-plugin-snapshot-"]:focus {
   background-color: #e94f5f;
   border-color: #e94f5f;
 }
@@ -54,8 +65,12 @@ a[href^="#cypress-plugin-snapshot-"]:focus {
 }
 
 a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "<> ";
+  content: "√ ";
   font-weight: bold;
+}
+
+.command-state-failed a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "<> ";
 }
 
 .snapshot-diff {

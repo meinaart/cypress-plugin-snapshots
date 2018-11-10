@@ -37,7 +37,7 @@ function commandToMatchSnapshot(testSubject, options) {
     const args = window.parent.window.btoa(JSON.stringify(result));
     const passedMessage = result.expected ? 'Snapshots match' : 'Snapshot created, autopassed';
     const message = result.passed ?
-        passedMessage
+        `[${passedMessage}](${URL_PREFIX}${args})`
       : `[compare snapshot](${URL_PREFIX}${args})`;
 
     const log = Cypress.log({
