@@ -3,8 +3,8 @@ const {
   cloneDeep
 } = require('lodash');
 const {
+  getSnapshot,
   updateSnapshot,
-  getSnapshot
 } = require('../utils/plugin');
 const {
   createDiff,
@@ -44,27 +44,28 @@ function applyReplace(expected, replace) {
 }
 
 function matchSnapshot({
-  testFile,
+  dataType,
+  options,
   snapshotTitle,
   subject,
-  options,
+  testFile,
 } = {}) {
   const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
-  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle);
+  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType);
   const expected = applyReplace(expectedRaw, config.replace);
-  const actual = keepKeysFromExpected(subjectToSnapshot(subject, config.normalizeJson), expected, config);
+  const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType), expected, config);
 
   const exists = expected !== false;
 
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const passed = (expected && formatDiff(expected) === formatDiff(actual));
-  const diff = passed || autoPassed ? undefined : createDiff(expected, actual, snapshotTitle);
+  const diff = createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
   if ((config.updateSnapshots && !passed) || expected === false) {
-    updateSnapshot(snapshotFile, snapshotTitle, actual);
+    updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }
 

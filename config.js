@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { merge, cloneDeep } = require('lodash');
+const { TYPE_JSON } = require('./constants');
 
 function createToken() {
   return crypto.randomBytes(64).toString('hex');
@@ -10,9 +11,17 @@ const DEFAULT_CONFIG = Object.freeze({
   autopassNewSnapshots: true,
   diffLines: 3,
   excludeFields: [],
-  ignoreExtraFields: false,
   ignoreExtraArrayItems: false,
+  ignoreExtraFields: false,
   normalizeJson: true,
+  prettier: true,
+  prettierConfig: {
+    html: {
+      parser: 'html',
+      tabWidth: 2,
+      endOfLine: 'lf'
+    },
+  },
   serverEnabled: true,
   serverHost: 'localhost',
   serverPort: 2121,
@@ -41,9 +50,19 @@ function getServerUrl(suppliedConfig) {
   return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
 }
 
+function shouldNormalize(dataType) {
+  return dataType === TYPE_JSON && config.normalizeJson;
+}
+
+function getPrettierConfig(dataType) {
+  return config.prettier ? config.prettierConfig[dataType] : undefined;
+}
+
 module.exports = {
   CONFIG_KEY,
-  initConfig,
+  getConfig,
+  shouldNormalize,
+  getPrettierConfig,
   getServerUrl,
-  getConfig
+  initConfig,
 };

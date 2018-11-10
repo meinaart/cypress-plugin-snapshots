@@ -38,6 +38,7 @@
     "diff2html": "^2.4.0",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",
+    "prettier": "^1.15.2",
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.9",
     "unidiff": "0.0.4",
@@ -48,14 +49,13 @@
     "cypress": "^3.1.1"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-cypress": "^2.1.1",
+    "eslint-plugin-cypress": "^2.1.2",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
     "jest": "^23.6.0",
-    "prettier": "^1.15.1",
     "rewire": "^4.0.1"
   },
   "prettier": {

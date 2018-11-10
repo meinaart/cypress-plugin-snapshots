@@ -13,17 +13,24 @@
 ## Usage
 ```javascript
 describe('data test', () => {
-  it('test data', () => {
+  it('toMatchSnapshot - JSON', () => {
     return cy.request('data.json')
       .its('body')
       .toMatchSnapshot();
   });
 
-  it('test data with options', () => {
+  it('toMatchSnapshot - JSON with options', () => {
     return cy.request('data.json')
       .its('body')
       .toMatchSnapshot({
         ignoreExtraFields: true,
+      });
+  });
+
+  it('toMatchSnapshot - HTML', () => {
+    cy.visit('page.html')
+      .then(() => {
+        cy.get('div').toMatchSnapshot();
       });
   });
 });
@@ -72,7 +79,6 @@ Find your `cypress/support/index.js` file and add the following line:
 import 'cypress-plugin-snapshots/commands';
 ```
 
-
 ### Make changes to default configuration
 You can customize the configuration in the `cypress.json` file in the root of your Cypress project.
 
@@ -88,6 +94,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "ignoreExtraArrayItems": false,  // Ignore if there are extra array items in result
     "ignoreExtraFields": false,      // Ignore extra fields that are not in `snapshot`
     "normalizeJson": true,           // Alphabetically sort keys in JSON
+    "prettier": true,                // Enable `prettier` for formatting HTML before comparison
     "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",       // Hostname for "update snapshot server"
     "serverPort": 2121,              // Port number for  "update snapshot server"
@@ -99,8 +106,6 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ## Roadmap
 Below is a list of functionality that is under consideration for implementing in a next version.
 
-- Make `toMatchSnapshot` work for DOM elements
-- Show snapshot when clicking on "snapshot matches" in Cypress
 - Fix handling of update snapshot via UI that contains a replacable field
 - Disable "update snapshots" server in headless mode
 - Add more unit tests

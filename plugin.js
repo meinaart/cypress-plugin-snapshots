@@ -14,13 +14,9 @@ function initPlugin(on, globalConfig = {}) {
   const config = initConfig(globalConfig.env[CONFIG_KEY]);
   initServer(config);
 
-  if (typeof globalConfig.env[CONFIG_KEY] === 'object') {
-    globalConfig.env[CONFIG_KEY] = config;
-  } else {
-    // Adding objects to `Cypress.env` that don't exist doesn't work.
-    // That's why the config is stringifed and parsed again in `commands.js#fixConfig`.
-    globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
-  }
+  // Adding objects/keys to `Cypress.env` that don't exist doesn't work.
+  // That's why the config is stringifed and parsed again in `commands.js#fixConfig`.
+  globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
 
   on('task', tasks);
 }

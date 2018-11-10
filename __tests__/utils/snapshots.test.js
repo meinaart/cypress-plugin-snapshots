@@ -132,7 +132,7 @@ describe('utils/snapshot', () => {
             bar: 'foo',
           }
         }
-      }, true);
+      }, 'json');
 
       expect(normalized).toMatchSnapshot();
     });

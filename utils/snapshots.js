@@ -1,6 +1,12 @@
 const unidiff = require('unidiff');
 const path = require('path');
-const { getConfig } = require('../config');
+const prettier = require('prettier');
+const {
+  getConfig,
+  shouldNormalize,
+  getPrettierConfig
+} = require('../config');
+const { TYPE_JSON } = require('../constants');
 
 const SNAPSHOTS = [];
 const SNAPSHOT_TITLES = [];
@@ -79,14 +85,31 @@ function removeExcludedFields(subject) {
   return subject;
 }
 
-function subjectToSnapshot(subject, normalize = true) {
+function subjectToSnapshot(subject, dataType = TYPE_JSON) {
   let result = subject;
 
-  if (typeof subject === 'object') {
-    result = normalize ? normalizeObject(subject) : subject;
+  if (typeof subject === 'object' && shouldNormalize(dataType)) {
+    result = normalizeObject(subject);
   }
 
-  return removeExcludedFields(result);
+  if (dataType === TYPE_JSON) {
+    result = removeExcludedFields(result);
+  }
+
+  const prettierConfig = getPrettierConfig(dataType);
+  if (prettierConfig) {
+    try {
+      if (typeof result === 'object') {
+        result = JSON.stringify(result, undefined, 2);
+      }
+
+      result = prettier.format(result.trim(), prettierConfig).trim();
+    } catch(err) {
+      throw new Error(`Cannot format subject: ${result}`);
+    }
+  }
+
+  return result;
 }
 
 function formatDiff(subject) {
