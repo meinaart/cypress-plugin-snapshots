@@ -123,15 +123,24 @@ function saveSnapshot({ snapshotFile, snapshotTitle, subject }) {
   return updateSnapshot(snapshotFile, snapshotTitle, subject);
 }
 
+/**
+ * Initializes the plugin:
+ * - registers tasks for `toMatchSnapshot`.
+ * - Make config accessible via `Cypress.env`.
+ * @param {Function} on - Method to register tasks
+ * @param {Object} globalConfig - Object containing global Cypress config
+ */
 function initPlugin(on, globalConfig = {}) {
-  const config = initConfig(globalConfig.env[CONFIG_KEY] || {});
-  if (globalConfig.env[CONFIG_KEY]) {
-    merge(globalConfig.env, {
-      [CONFIG_KEY]: config,
-    });
-  }
-
+  const config = initConfig(globalConfig.env[CONFIG_KEY]);
   initServer(config);
+
+  if (typeof globalConfig.env[CONFIG_KEY] === 'object') {
+    globalConfig.env[CONFIG_KEY] = config;
+  } else {
+    // Adding objects to `Cypress.env` that don't exist doesn't work.
+    // That's why the config is stringifed and parsed again in `commands.js#fixConfig`.
+    globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
+  }
 
   on('task', {
     [MATCH]: matchSnapshot,

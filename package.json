@@ -28,6 +28,7 @@
     "cy:open": "npm --prefix cypress run cy:open",
     "cy:run": "npm --prefix cypress run cy:run",
     "cy:verify": "npm --prefix cypress run cy:verify",
+    "jest": "jest",
     "lint": "eslint *.js",
     "start": "node cypress/test-server/index.js",
     "test": "jest & npm --prefix cypress run cy:run"
@@ -54,7 +55,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
     "jest": "^23.6.0",
-    "prettier": "^1.15.1"
+    "prettier": "^1.15.1",
+    "rewire": "^4.0.1"
   },
   "prettier": {
     "printWidth": 100,

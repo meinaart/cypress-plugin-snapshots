@@ -1,20 +1,5 @@
 {
   "baseUrl": "http://localhost:8080",
-  "env": {
-    "cypress-plugin-snapshots": {
-      "autoCleanUp": false,
-      "autopassNewSnapshots": true,
-      "diffLines": 3,
-      "excludeFields": [],
-      "ignoreExtraArrayItems": false,
-      "ignoreExtraFields": false,
-      "normalizeJson": true,
-      "serverEnabled": true,
-      "serverHost": "localhost",
-      "serverPort": 2121,
-      "updateSnapshots": false
-    }
-  },
   "video": false,
   "ignoreTestFiles": [
     "**/*.snap",

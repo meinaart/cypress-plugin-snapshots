@@ -12,7 +12,13 @@ const COMMAND_NAME = 'toMatchSnapshot';
 const NO_LOG = { log: false };
 
 function getConfig() {
-  return Cypress.env(CONFIG_KEY);
+  fixConfig();
+  const config = Cypress.env(CONFIG_KEY);
+  if (!config) {
+    throw new Error('Config cannot be found.');
+  }
+
+  return config;
 }
 
 // Removes unused snapshots from snapshot file
@@ -57,7 +63,19 @@ function getTestForTask(test) {
   };
 }
 
+/**
+ * Check if config in `Cypress.env` is stringified JSON.
+ * If so parse it and set the parsed value back in `Cypress.env`.
+ */
+function fixConfig() {
+  if (typeof Cypress.env(CONFIG_KEY) === 'string') {
+    Cypress.env(CONFIG_KEY, JSON.parse(Cypress.env(CONFIG_KEY)));
+  }
+}
+
 function initCommands() {
+  fixConfig();
+
   // Inject CSS & JavaScript
   before(() => {
     initUi();
