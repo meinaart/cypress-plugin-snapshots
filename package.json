@@ -9,7 +9,12 @@
   },
   "files": [
     "*.js",
-    "tasks"
+    "*.md",
+    "assets",
+    "docs",
+    "LICENSE",
+    "tasks",
+    "utils"
   ],
   "engines": {
     "node": ">=8.2.1"
