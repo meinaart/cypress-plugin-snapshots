@@ -8,7 +8,13 @@
     "url": "https://github.com/meinaart/cypress-plugin-snapshots.git"
   },
   "files": [
-    "*.js"
+    "*.js",
+    "*.md",
+    "assets",
+    "docs",
+    "LICENSE",
+    "tasks",
+    "utils"
   ],
   "engines": {
     "node": ">=8.2.1"
