@@ -43,6 +43,7 @@
     "bufferutil": "^4.0.0",
     "diff2html": "^2.4.0",
     "fs-extra": "^7.0.1",
+    "js-base64": "^2.4.9",
     "lodash": "^4.17.11",
     "prettier": "^1.15.2",
     "socket.io": "^2.1.1",

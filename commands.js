@@ -1,8 +1,10 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
 const { merge, cloneDeep } = require('lodash');
+const { Base64 } = require('js-base64');
 const { MATCH } = require('./tasks/task-names');
 const { initUi } = require('./ui');
+
 const {
   getTestTitle,
   getSnapshotTitle,
@@ -34,7 +36,7 @@ function commandToMatchSnapshot(testSubject, options) {
   const dataType = isHtml(testSubject) ? TYPE_HTML : TYPE_JSON;
 
   const toMatchSnapshot = (result) => {
-    const args = window.parent.window.btoa(JSON.stringify(result));
+    const args = Base64.encode(JSON.stringify(result));
     const passedMessage = result.expected ? 'Snapshots match' : 'Snapshot created, autopassed';
     const message = result.passed ?
         `[${passedMessage}](${URL_PREFIX}${args})`
