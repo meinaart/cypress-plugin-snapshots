@@ -9,6 +9,7 @@ const {
   PATH_DIFF_JS,
   PATH_JS,
   PATH_SOCKET_JS,
+  PATH_BASE64_JS,
 } = require('./tasks/paths');
 const { getServerUrl, CONFIG_KEY } = require('./config');
 
@@ -30,6 +31,10 @@ function initUi() {
 
   readFile(PATH_DIFF_CSS).then((content) => {
     $head.append(`<style>${content}</style>`);
+  });
+
+  readFile(PATH_BASE64_JS).then((content) => {
+    $head.append(`<script>${content}</script>`);
   });
 
   readFile(PATH_DIFF_JS).then((content) => {
