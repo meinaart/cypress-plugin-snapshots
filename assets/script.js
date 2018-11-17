@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 (function () {
   function htmlEncode(subject) {
     return typeof subject === 'string' ?
@@ -27,7 +28,7 @@
   Cypress.$(document.body).on('click', 'a[href^="#cypress-plugin-snapshot-"]', function (e) {
     e.preventDefault();
 
-    var data = JSON.parse(atob(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
+    var data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
     if (data) {
       var diffHtml = formatResult(data);
 
