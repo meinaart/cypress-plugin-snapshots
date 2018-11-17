@@ -57,7 +57,8 @@ Add this to your `cypress.json` configuration file:
 ```json
 "ignoreTestFiles": [
   "**/*.snap",
-  "**/__snapshot__/*"
+  "**/__snapshot__/*",
+  "**/__image_snapshots__/*"
 ]
 ```
 ### Plugin

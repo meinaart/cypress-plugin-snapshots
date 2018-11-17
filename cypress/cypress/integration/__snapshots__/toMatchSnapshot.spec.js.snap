@@ -1,0 +1,41 @@
+exports[`toMatchSnapshot > toMatchSnapshot - json #0`] = 
+{
+  "number": 1234,
+  "object": {
+    "foo": "bar",
+    "nestedObject": {
+      "bar": "foo"
+    }
+  },
+  "string": "string"
+};
+
+exports[`toMatchSnapshot > toMatchSnapshot - html #0`] = `
+
+<div data-test="test">
+    <h1>Title</h1>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+  </div>
+
+`;
+
+exports[`Test > toMatchSnapshot - json #0`] = 
+{
+  "number": 1234,
+  "object": {
+    "foo": "bar",
+    "nestedObject": {
+      "bar": "foo"
+    }
+  },
+  "string": "string"
+};
+
+exports[`Test > toMatchSnapshot - html #0`] = `
+<div data-test="test">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</div>
+`;

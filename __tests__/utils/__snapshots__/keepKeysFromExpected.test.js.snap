@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: false 1`] = `
+Object {
+  "extra": "extra",
+  "field": "value",
+  "items": Array [
+    Object {
+      "items": Array [
+        Object {
+          "extra": "extra1",
+          "name": "subitem1",
+        },
+        Object {
+          "extra": "extra2",
+          "name": "subitem2",
+        },
+      ],
+      "name": "item1",
+    },
+    Object {
+      "name": "item2",
+    },
+    Object {
+      "name": "item3",
+    },
+    Object {
+      "name": "item4",
+    },
+  ],
+}
+`;
+
+exports[`utils/keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: true 1`] = `
+Object {
+  "extra": "extra",
+  "field": "value",
+  "items": Array [
+    Object {
+      "items": Array [
+        Object {
+          "extra": "extra1",
+          "name": "subitem1",
+        },
+      ],
+      "name": "item1",
+    },
+    Object {
+      "name": "item2",
+    },
+    Object {
+      "name": "item3",
+    },
+  ],
+}
+`;
+
+exports[`utils/keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: false 1`] = `
+Object {
+  "field": "value",
+  "items": Array [
+    Object {
+      "items": Array [
+        Object {
+          "name": "subitem1",
+        },
+        Object {
+          "extra": "extra2",
+          "name": "subitem2",
+        },
+      ],
+      "name": "item1",
+    },
+    Object {
+      "name": "item2",
+    },
+    Object {
+      "name": "item3",
+    },
+    Object {
+      "name": "item4",
+    },
+  ],
+}
+`;
+
+exports[`utils/keepKeysFromExpected ignoreExtraFields: true, ignoreExtraArrayItems: true 1`] = `
+Object {
+  "field": "value",
+  "items": Array [
+    Object {
+      "items": Array [
+        Object {
+          "name": "subitem1",
+        },
+      ],
+      "name": "item1",
+    },
+    Object {
+      "name": "item2",
+    },
+    Object {
+      "name": "item3",
+    },
+  ],
+}
+`;
