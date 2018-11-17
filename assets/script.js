@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { Base64 } = require('js-base64');
+
 (function () {
   function htmlEncode(subject) {
     return typeof subject === 'string' ?
