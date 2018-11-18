@@ -4,6 +4,7 @@ global.Cypress = {
   env: () => ({}),
   config: () => {},
   Commands: { add: jest.fn(), },
+  on: () => ({}),
 };
 
 global.cy = {};

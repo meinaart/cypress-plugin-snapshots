@@ -142,6 +142,7 @@ Below is a list of functionality that is under consideration for implementing in
 
 - Fix handling of "update snapshot" button that contains a replacable field
 - Fix handling of updating image snapshots
+- Resize images before comparison
 - Disable "update snapshots" server in headless mode
 - Add more unit tests
 - Add [JSDoc](http://usejsdoc.org/) documentation
