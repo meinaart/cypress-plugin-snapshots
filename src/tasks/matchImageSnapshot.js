@@ -26,7 +26,7 @@ function matchImageSnapshot(data = {}) {
   const exists = expected !== false;
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const actual = exists ? getImageObject(image.path) : image;
-  const passed = expected && compareImages(expected, actual, diffFilename);
+  const passed = expected && compareImages(expected, actual, diffFilename, options);
 
   let updated = false;
 
@@ -39,7 +39,8 @@ function matchImageSnapshot(data = {}) {
     rimraf(actual.path);
   }
 
-  const diff = passed || autoPassed ? undefined : createDiffObject(diffFilename);
+  const diff = passed || autoPassed || !options.createDiffImage ?
+    undefined : createDiffObject(diffFilename);
 
   const result = {
     actual: getImageData(actual),

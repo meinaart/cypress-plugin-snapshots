@@ -10,7 +10,7 @@
 ## Installation
 `npm i cypress-plugin-snapshots -S`
 
-## Usage
+## Usage for text snapshots
 ```javascript
 describe('data test', () => {
   it('toMatchSnapshot - JSON', () => {
@@ -52,15 +52,43 @@ You can pass the following options to `toMatchSnapshot` to override default beha
 Use `replace` with caution. Tests should be deterministic. It's often a better solution to influence your
 test result instead of your snapshot (by mocking data for example).
 
-## Config Cypress.io
+## Usage for image snapshots
+```javascript
+it('toMatchImageSnapshot - element', () => {
+  cy.visit('/static/stub.html')
+    .then(() => {
+      cy.get('[data-test=test]')
+        .toMatchImageSnapshot();
+    });
+});
+
+it('toMatchImageSnapshot - whole page', () => {
+  cy.visit('/static/stub.html')
+    .then(() => {
+      cy.document()
+        .toMatchImageSnapshot();
+    });
+});
+```
+
+You can pass the following options to `toMatchImageSnapshot` to override default behavior.
+```javascript
+{
+  "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
+  "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
+  "thresholdType": "percent"     // Can be either "pixels" or "percent"
+}
+```
+
+## Configure Cypress.io
 Add this to your `cypress.json` configuration file:
 ```json
 "ignoreTestFiles": [
-  "**/*.snap",
-  "**/__snapshot__/*",
+  "**/__snapshots__/*",
   "**/__image_snapshots__/*"
 ]
 ```
+
 ### Plugin
 Find your `cypress/plugins/index.js` file and change it to look like this:
 
@@ -96,6 +124,11 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "ignoreExtraFields": false,      // Ignore extra fields that are not in `snapshot`
     "normalizeJson": true,           // Alphabetically sort keys in JSON
     "prettier": true,                // Enable `prettier` for formatting HTML before comparison
+    "imageConfig": {
+      "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
+      "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
+      "thresholdType": "percent"     // Can be either "pixels" or "percent"
+    },
     "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",       // Hostname for "update snapshot server"
     "serverPort": 2121,              // Port number for  "update snapshot server"
@@ -107,12 +140,11 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 ## Roadmap
 Below is a list of functionality that is under consideration for implementing in a next version.
 
-- Fix handling of update snapshot via UI that contains a replacable field
+- Fix handling of "update snapshot" button that contains a replacable field
+- Fix handling of updating image snapshots
 - Disable "update snapshots" server in headless mode
 - Add more unit tests
 - Add [JSDoc](http://usejsdoc.org/) documentation
-- Consider code coverage tests with [Coveralls](https://coveralls.io/) and [Istanbul](http://gotwarlost.github.io/istanbul/)
-- Consider implementing visual snapshots with [jest-image-snapshot](https://github.com/americanexpress/jest-image-snapshot)
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style.

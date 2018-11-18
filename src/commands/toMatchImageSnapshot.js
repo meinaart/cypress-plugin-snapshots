@@ -7,6 +7,7 @@ const logMessage = require('../utils/commands/logMessage');
 const { NO_LOG } = require('../constants');
 const { COMMAND_MATCH_IMAGE_SNAPSHOT: commandName } = require('./commandNames');
 const { getImageData } = require('../utils/imageSnapshots');
+const { getConfig, DEFAULT_IMAGE_CONFIG } = require('../config');
 
 const SCREENSHOT_CONFIG = {
   blackout: ['.snapshot-diff'],
@@ -24,7 +25,10 @@ function afterScreenshot(taskData) {
   };
 }
 
-function toMatchImageSnapshot(subject, options) {
+function toMatchImageSnapshot(subject, commandOptions) {
+  const config = getConfig();
+  const options = merge({}, DEFAULT_IMAGE_CONFIG, config.imageOptions, commandOptions);
+
   const taskData = getTaskData({
     commandName,
     options,

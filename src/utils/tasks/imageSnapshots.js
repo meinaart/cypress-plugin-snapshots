@@ -2,9 +2,11 @@ const { createHash } = require('crypto');
 const { PNG } = require('pngjs');
 const fs = require('fs-extra');
 const pixelmatch = require('pixelmatch');
+const { merge } = require('lodash');
 const rimraf = require('rimraf').sync;
 const { getImageSnapshotFilename, getImageData } = require('../imageSnapshots');
 const { IMAGE_TYPE_ACTUAL } = require('../../constants');
+const { DEFAULT_IMAGE_CONFIG } = require('../../config');
 
 function moveActualImageToSnapshotsDirectory({image, snapshotTitle, testFile} = {}) {
   if (image && image.path) {
@@ -85,7 +87,7 @@ function compareImageSizes(expected, actual) {
     actual.height === expected.height;
 }
 
-function compareImages(expected, actual, diffFilename) {
+function compareImages(expected, actual, diffFilename, config) {
   let passed = false;
   rimraf(diffFilename);
 
@@ -104,24 +106,21 @@ function compareImages(expected, actual, diffFilename) {
       threshold: 0.01,
     };
 
-    const imageConfig = {
-      threshold: 0,
-      thresholdType: 'percent', // can be 'percent' or 'pixel'
-    }
+    const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
 
     const imageWidth = actual.image.width;
     const imageHeight = actual.image.height;
 
-    const diffImage = new PNG({
+    const diffImage = config.createDiffImage ? new PNG({
       height: imageHeight,
       width: imageWidth,
-    });
+    }) : null;
 
     const totalPixels = imageWidth * imageHeight;
     const diffPixelCount = pixelmatch(
       actual.image.data,
       expected.image.data,
-      diffImage.data,
+      diffImage ? diffImage.data : null,
       imageWidth,
       imageHeight,
       pixelmatchConfig
@@ -133,10 +132,11 @@ function compareImages(expected, actual, diffFilename) {
       const diffRatio = diffPixelCount / totalPixels;
       passed = diffRatio <= imageConfig.threshold;
     } else {
-      throw new Error(`Unknown thresholdType: ${imageConfig.thresholdType}. Valid options are "pixel" or "percent".`);
+      throw new Error(`Unknown imageConfig.thresholdType: ${imageConfig.thresholdType}. `+
+        `Valid options are "pixel" or "percent".`);
     }
 
-    if (!passed) {
+    if (!passed && diffImage) {
       // Set filter type to Paeth to avoid expensive auto scanline filter detection
       // For more information see https://www.w3.org/TR/PNG-Filters.html
       const pngBuffer = PNG.sync.write(diffImage, {

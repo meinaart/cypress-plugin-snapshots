@@ -81,22 +81,27 @@ function closeSnapshotModal() {
         );
     }
 
-    const imageHeight = data.diff.height;
-    const imageWidth = data.diff.width;
+    const imageHeight = data.diff ? data.diff.height : Math.max(data.actual.height, data.expected.height);
+    const imageWidth = data.diff ? data.diff.width : Math.max(data.actual.width, data.expected.width);
     const imageRatio = Math.round(imageHeight / imageWidth * 10000) / 100;
     const imageStyle = `padding-top: ${imageRatio}%;`;
 
-    return Cypress.Promise.all([
+    const promises = [
       getImageDataUri(data.expected.path),
       getImageDataUri(data.actual.path),
-      getImageDataUri(data.diff.path),
-    ]).then(([expectedImage, actualImage, diffImage]) => {
-      return formatPreview(title,
-        wrapImage('expected', title, expectedImage, imageStyle) +
-        wrapImage('actual', title, actualImage, imageStyle) +
-        createImageDiff(title, expectedImage, diffImage, imageStyle)
-      );
-    });
+    ];
+    if (data.diff) {
+      promises.push(getImageDataUri(data.diff.path));
+    }
+
+    return Cypress.Promise.all(promises)
+      .then(([expectedImage, actualImage, diffImage = '']) => {
+        return formatPreview(title,
+          wrapImage('expected', title, expectedImage, imageStyle) +
+          wrapImage('actual', title, actualImage, imageStyle) +
+          (diffImage ? createImageDiff(title, expectedImage, diffImage, imageStyle) : '')
+        );
+      });
   }
 
   function formatResult(data) {

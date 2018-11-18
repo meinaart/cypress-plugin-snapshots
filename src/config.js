@@ -6,6 +6,12 @@ function createToken() {
   return crypto.randomBytes(64).toString('hex');
 }
 
+const DEFAULT_IMAGE_CONFIG = {
+  createDiffImage: true,
+  threshold: 0,
+  thresholdType: 'percent', // can be 'percent' or 'pixel'
+};
+
 const DEFAULT_CONFIG = Object.freeze({
   autoCleanUp: false,
   autopassNewSnapshots: true,
@@ -15,6 +21,7 @@ const DEFAULT_CONFIG = Object.freeze({
   ignoreExtraFields: false,
   normalizeJson: true,
   prettier: true,
+  imageConfig: DEFAULT_IMAGE_CONFIG,
   prettierConfig: {
     html: {
       parser: 'html',
@@ -60,6 +67,7 @@ function getPrettierConfig(dataType) {
 
 module.exports = {
   CONFIG_KEY,
+  DEFAULT_IMAGE_CONFIG,
   getConfig,
   shouldNormalize,
   getPrettierConfig,
