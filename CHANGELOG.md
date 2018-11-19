@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.1.4](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.2...v1.1.3) - 2018-11-17
+- Read snapshot file as JSON when `require` throws an error (fixes handling of existing `.js.snap` files)
+
 ### [1.1.3](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.2...v1.1.3) - 2018-11-17
 - Fixing the ["Unicode Problem"](https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem) present in `atob`/`btoa` by switching to [js-base64](https://www.npmjs.com/package/js-base64) for base64 encoding/decoding. Thanks to [ddfx](https://github.com/ddffx) for fixing this.
 - Reformatted the changelog

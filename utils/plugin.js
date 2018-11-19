@@ -24,13 +24,14 @@ function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
 
 function readFile(filename) {
   if (fs.existsSync(filename)) {
-    // const content = fs.readFileSync(filename, {encoding: 'utf8'});
-    // if (content[0] === '{') {
-    //   return JSON.parse(content);
-    // }
-
-    // eslint-disable-next-line import/no-dynamic-require
-    return require(filename);
+    let content;
+    try {
+      // eslint-disable-next-line import/no-dynamic-require
+      content = require(filename);
+    } catch(ex) {
+      content = JSON.parse(fs.readFileSync(filename, 'utf8'));
+    }
+    return content;
   }
 
   return {};
