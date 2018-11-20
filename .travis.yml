@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-- 11.2
-- 10.13
-- 8.2.1
+- "node"
+- "lts/*"
 cache:
   directories:
   - "~/.npm"

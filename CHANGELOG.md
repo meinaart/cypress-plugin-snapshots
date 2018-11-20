@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 ## Releases
 ### [1.1.5](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.4...v1.1.5) - 2018-11-20
 - Add better error logging when snapshot file contains an error
-- Run Travis tests against LTS version of node and against `engine` version from Cypress’s `package.json`
+- Run Travis tests against LTS version of node and latest version
 
 ### [1.1.4](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.3...v1.1.4) - 2018-11-19
 - Read snapshot file as JSON when `require` throws an error (fixes handling of existing `.js.snap` files)
