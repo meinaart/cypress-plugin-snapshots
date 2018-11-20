@@ -30,7 +30,7 @@
   "author": "Meinaart van Straalen",
   "license": "MIT",
   "scripts": {
-    "ci:test": "npm --prefix cypress run ci:test",
+    "ci:test": "jest & npm --prefix cypress run ci:test",
     "cy:open": "npm --prefix cypress run cy:open",
     "cy:run": "npm --prefix cypress run cy:run",
     "cy:verify": "npm --prefix cypress run cy:verify",
