@@ -29,8 +29,20 @@ function readFile(filename) {
       // eslint-disable-next-line import/no-dynamic-require
       content = require(filename);
     } catch(ex) {
-      content = JSON.parse(fs.readFileSync(filename, 'utf8'));
+      console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
+      const fileContents = fs.readFileSync(filename, 'utf8');
+
+      if (!fileContents || !fileContents.trim() || fileContents.trim().slice() !== '{') {
+        throw new Error(`Cannot load snapshot file. File "${filename} does not contain valid JSON or javascript`);
+      }
+
+      try {
+        content = JSON.parse(fileContents);
+      } catch(jsonEx) {
+        throw new Error(`Cannot read snapshot "${filename}" as JSON: ${jsonEx}`);
+      }
     }
+
     return content;
   }
 

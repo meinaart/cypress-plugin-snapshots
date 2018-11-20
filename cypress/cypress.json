@@ -2,7 +2,6 @@
   "baseUrl": "http://localhost:8080",
   "video": false,
   "ignoreTestFiles": [
-    "**/*.snap",
-    "**/__snapshot__/*"
+    "**/__snapshots__/*"
   ]
 }
