@@ -32,7 +32,7 @@ function readFile(filename) {
       console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
       const fileContents = fs.readFileSync(filename, 'utf8');
 
-      if (!fileContents || !fileContents.trim() || fileContents.trim().slice() !== '{') {
+      if (!fileContents || !fileContents.trim() || fileContents.trim().slice(0,1) !== '{') {
         throw new Error(`Cannot load snapshot file. File "${filename} does not contain valid JSON or javascript`);
       }
 

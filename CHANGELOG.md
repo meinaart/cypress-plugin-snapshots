@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.1.6](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.5...v1.1.6) - 2018-11-21
+- Fix serious bug in parsing old JSON format `.js.snap` files, was completely broken.
+
 ### [1.1.5](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.4...v1.1.5) - 2018-11-20
 - Add better error logging when snapshot file contains an error
 - Run Travis tests against LTS version of node and latest version
