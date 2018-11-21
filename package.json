@@ -44,6 +44,7 @@
     "diff2html": "^2.4.0",
     "fs-extra": "^7.0.1",
     "get-stdin": "^6.0.0",
+    "image-size": "^0.6.3",
     "js-base64": "^2.4.9",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
@@ -52,6 +53,7 @@
     "prettier": "^1.15.2",
     "rimraf": "^2.6.2",
     "sanitize-filename": "^1.6.1",
+    "sharp": "^0.21.0",
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.9",
     "unidiff": "0.0.4",
@@ -62,6 +64,7 @@
     "cypress": "^3.1.2"
   },
   "devDependencies": {
+    "electron-rebuild": "^1.8.2",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",

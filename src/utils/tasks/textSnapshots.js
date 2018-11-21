@@ -1,9 +1,59 @@
 const path = require('path');
 const fs = require('fs-extra');
 const { merge } = require('lodash');
-const { formatJson } = require('../json');
-const { subjectToSnapshot } = require('../textSnapshots');
+const unidiff = require('unidiff');
+const prettier = require('prettier');
 const { TYPE_JSON } = require('../../dataTypes');
+const {
+  getConfig,
+  shouldNormalize,
+  getPrettierConfig
+} = require('../../config');
+const removeExcludedFields = require('../removeExcludedFields');
+const { formatJson, normalizeObject } = require('../json');
+
+function subjectToSnapshot(subject, dataType = TYPE_JSON) {
+  const config = getConfig();
+  let result = subject;
+
+  if (typeof subject === 'object' && shouldNormalize(dataType)) {
+    result = normalizeObject(subject);
+  }
+
+  if (dataType === TYPE_JSON) {
+    result = removeExcludedFields(result, config.excludeFields);
+  }
+
+  const prettierConfig = getPrettierConfig(dataType);
+  if (prettierConfig) {
+    try {
+      if (typeof result === 'object') {
+        result = JSON.stringify(result, undefined, 2);
+      }
+
+      result = prettier.format(result.trim(), prettierConfig).trim();
+    } catch(err) {
+      throw new Error(`Cannot format subject: ${result}`);
+    }
+  }
+
+  return result;
+}
+
+function formatDiff(subject) {
+  if (typeof subject === 'object') {
+    return formatJson(subject);
+  }
+  return String(subject || '');
+}
+
+function createDiff(expected, actual, snapshotTitle) {
+  return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
+    aname: snapshotTitle,
+    bname: snapshotTitle,
+    context: getConfig().diffLines,
+  });
+}
 
 function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
   fs.ensureDirSync(path.dirname(filename));
@@ -27,6 +77,7 @@ function readFile(filename) {
       // eslint-disable-next-line import/no-dynamic-require
       content = require(filename);
     } catch(ex) {
+      // eslint-disable-next-line no-console
       console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
       const fileContents = fs.readFileSync(filename, 'utf8');
 
@@ -74,7 +125,10 @@ function saveSnapshot(data) {
 }
 
 module.exports = {
+  createDiff,
+  formatDiff,
   getSnapshot,
   saveSnapshot,
+  subjectToSnapshot,
   updateSnapshot,
 };

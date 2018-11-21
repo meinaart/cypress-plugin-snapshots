@@ -4,14 +4,14 @@ const {
 } = require('lodash');
 const applyReplace = require('../utils/tasks/applyReplace');
 const {
+  createDiff,
+  formatDiff,
   getSnapshot,
+  subjectToSnapshot,
   updateSnapshot,
 } = require('../utils/tasks/textSnapshots');
 const {
-  createDiff,
-  formatDiff,
   getSnapshotFilename,
-  subjectToSnapshot,
 } = require('../utils/textSnapshots');
 const keepKeysFromExpected = require('../utils/keepKeysFromExpected');
 const {

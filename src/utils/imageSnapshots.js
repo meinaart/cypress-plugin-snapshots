@@ -2,10 +2,11 @@ const path = require('path');
 const sanitizeFilename = require('sanitize-filename');
 const { DIR_IMAGE_SNAPSHOTS } = require('../constants');
 
-function getImageData(props) {
+function getImageData(props, devicePixelRatio = 1) {
   return props ? {
     height: props.height || props.dimensions && props.dimensions.height,
     path: props.path,
+    devicePixelRatio,
     relativePath: path.relative(process.cwd(), props.path),
     width: props.width || props.dimensions && props.dimensions.width,
   } : props;

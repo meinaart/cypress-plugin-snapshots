@@ -19,7 +19,7 @@ function afterScreenshot(taskData) {
   return ($el, props) => {
     // See this url for contents of `props`:
     // https://docs.cypress.io/api/commands/screenshot.html#Get-screenshot-info-from-the-onAfterScreenshot-callback
-    taskData.image = getImageData(props);
+    taskData.image = getImageData(props, window.devicePixelRatio);
     taskData.isImage = true;
     delete taskData.subject;
   };

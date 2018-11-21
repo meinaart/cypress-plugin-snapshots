@@ -126,6 +126,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "prettier": true,                // Enable `prettier` for formatting HTML before comparison
     "imageConfig": {
       "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
+      "resizeDevicePixelRatio": true,// Resize image to base resolution when Cypress is running on high DPI screen, `cypress run` always runs on base resolution
       "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
       "thresholdType": "percent"     // Can be either "pixels" or "percent"
     },

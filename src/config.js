@@ -8,6 +8,7 @@ function createToken() {
 
 const DEFAULT_IMAGE_CONFIG = {
   createDiffImage: true,
+  resizeDevicePixelRatio: true,
   threshold: 0,
   thresholdType: 'percent', // can be 'percent' or 'pixel'
 };
