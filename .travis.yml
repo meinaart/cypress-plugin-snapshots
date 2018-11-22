@@ -33,9 +33,8 @@ addons:
 install:
 - npm ci
 - npm --prefix cypress ci
-- pwd
-- ls node_modules/sharp/vendor/lib
-- export LD_PRELOAD=$PWD/node_modules/sharp/vendor/lib/libz.so npm rebuild
+- export LD_PRELOAD=$PWD/node_modules/sharp/vendor/lib/libz.so; npm rebuild sharp
+- node-gyp rebuild
 script:
 - npm run lint &
 - npm run ci:test
