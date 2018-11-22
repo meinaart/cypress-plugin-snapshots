@@ -111,8 +111,6 @@ function compareImages(expected, actual, diffFilename, config) {
   let passed = false;
   rimraf(diffFilename);
 
-  console.log('compareImages', expected, actual);
-
   if (actual !== false) {
     const hashMatches = expected.hash === actual.hash;
     if (hashMatches) {
@@ -126,6 +124,7 @@ function compareImages(expected, actual, diffFilename, config) {
 
     const pixelmatchConfig = {
       threshold: 0.01,
+      includeAA: imageConfig.includeAA,
     };
 
     const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);

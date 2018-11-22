@@ -11,9 +11,31 @@ cache:
     - npm run cy:verify
 notifications:
   email: false
+env:
+  # settings from https://electronjs.org/docs/tutorial/using-native-node-modules
+  global:
+    - npm_config_target=1.8.2
+    - npm_config_arch=x64
+    - npm_config_target_arch=x64
+    - npm_config_disturl=https://atom.io/download/electron
+    - npm_config_runtime=electron
+    - npm_config_build_from_source=true
+    - CXX=g++-4.8
+    - VERSION_ZLIB=1.2.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - gcc-4.8
+      - zlib1g
 install:
 - npm ci
 - npm --prefix cypress ci
+- pwd
+- ls node_modules/sharp/vendor/lib
+- export LD_PRELOAD=$PWD/node_modules/sharp/vendor/lib/libz.so npm rebuild
 script:
 - npm run lint &
 - npm run ci:test
