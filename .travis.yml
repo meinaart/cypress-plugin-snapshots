@@ -20,21 +20,15 @@ env:
     - npm_config_disturl=https://atom.io/download/electron
     - npm_config_runtime=electron
     - npm_config_build_from_source=true
-    - CXX=g++-4.8
     - VERSION_ZLIB=1.2.8
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-      - gcc-4.8
       - zlib1g
 install:
 - npm ci
 - npm --prefix cypress ci
 - export LD_PRELOAD=$PWD/node_modules/sharp/vendor/lib/libz.so; npm rebuild sharp
-- node-gyp rebuild
 script:
 - npm run lint &
 - npm run ci:test
