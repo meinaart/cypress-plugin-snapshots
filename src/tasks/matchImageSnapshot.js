@@ -4,7 +4,8 @@ const path = require('path');
 const { getConfig } = require('../config');
 const { getImageSnapshotFilename, getImageData } = require('../utils/imageSnapshots');
 const saveImageSnapshot = require('./saveImageSnapshot');
-const { getImageObject, compareImages, moveActualImageToSnapshotsDirectory, createDiffObject, resizeImage } = require('../utils/tasks/imageSnapshots');
+const { getImageObject, compareImages, moveActualImageToSnapshotsDirectory, createDiffObject } = require('../utils/tasks/imageSnapshots');
+const resizeImage = require('../utils/tasks/resizeImage');
 const { IMAGE_TYPE_DIFF, IMAGE_TYPE_ACTUAL } = require('../constants');
 
 async function matchImageSnapshot(data = {}) {

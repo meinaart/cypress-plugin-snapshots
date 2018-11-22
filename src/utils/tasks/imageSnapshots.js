@@ -4,8 +4,6 @@ const fs = require('fs-extra');
 const pixelmatch = require('pixelmatch');
 const { merge } = require('lodash');
 const rimraf = require('rimraf').sync;
-const sharp = require('sharp');
-const imageSize = require('image-size');
 const { getImageSnapshotFilename, getImageData } = require('../imageSnapshots');
 const { IMAGE_TYPE_ACTUAL } = require('../../constants');
 const { DEFAULT_IMAGE_CONFIG } = require('../../config');
@@ -53,24 +51,6 @@ function getImageObject(filename, addHash = true) {
   }
 
   return false;
-}
-
-function resizeImage(filename, targetFile, devicePixelRatio = 1) {
-  if (devicePixelRatio !== 1 && fs.existsSync(filename)) {
-    const dimensions = imageSize(filename);
-    const targetHeight = Math.floor(dimensions.height / devicePixelRatio);
-    const targetWidth = Math.floor(dimensions.width / devicePixelRatio);
-
-    return sharp(filename)
-      .resize(targetWidth, targetHeight)
-      .toFile(targetFile)
-      .then(() => {
-        rimraf(filename);
-        return true;
-      });
-  }
-
-  return Promise.resolve(false);
 }
 
 function createCompareCanvas(width, height, source) {
@@ -122,12 +102,12 @@ function compareImages(expected, actual, diffFilename, config) {
       makeImagesEqualSize(expected, actual);
     }
 
+    const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
+
     const pixelmatchConfig = {
       threshold: 0.01,
       includeAA: imageConfig.includeAA,
     };
-
-    const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
 
     const imageWidth = actual.image.width;
     const imageHeight = actual.image.height;
@@ -175,5 +155,4 @@ module.exports = {
   createDiffObject,
   getImageObject,
   moveActualImageToSnapshotsDirectory,
-  resizeImage,
 };
