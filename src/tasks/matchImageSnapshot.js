@@ -24,7 +24,7 @@ async function matchImageSnapshot(data = {}) {
   const snapshotFile = getImageSnapshotFilename(testFile, snapshotTitle);
   const resized = options.imageConfig.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
   if (resized) {
-    await resizeImage(image.path, actualFilename, image.devicePixelRatio);
+    await resizeImage(image.path, actualFilename, image.devicePixelRatio, snapshotFile);
   }
   if (resized === false) {
     moveActualImageToSnapshotsDirectory(data);

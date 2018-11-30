@@ -11,24 +11,9 @@ cache:
     - npm run cy:verify
 notifications:
   email: false
-env:
-  # settings from https://electronjs.org/docs/tutorial/using-native-node-modules
-  global:
-    - npm_config_target=1.8.2
-    - npm_config_arch=x64
-    - npm_config_target_arch=x64
-    - npm_config_disturl=https://atom.io/download/electron
-    - npm_config_runtime=electron
-    - npm_config_build_from_source=true
-    - VERSION_ZLIB=1.2.8
-addons:
-  apt:
-    packages:
-      - zlib1g
 install:
 - npm ci
 - npm --prefix cypress ci
-- export LD_PRELOAD=$PWD/node_modules/sharp/vendor/lib/libz.so; npm rebuild sharp
 script:
 - npm run lint &
 - npm run ci:test

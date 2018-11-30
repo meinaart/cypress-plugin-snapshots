@@ -36,7 +36,7 @@ function toMatchImageSnapshot(subject, commandOptions) {
   });
 
   const screenShotConfig = merge({}, SCREENSHOT_CONFIG, {
-    onAfterScreenshot: afterScreenshot(taskData),
+    onAfterScreenshot: afterScreenshot(taskData)
   });
 
   return cy.wrap(subject, NO_LOG)

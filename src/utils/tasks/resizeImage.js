@@ -1,20 +1,21 @@
+const Jimp = require('jimp');
 const fs = require('fs-extra');
-const rimraf = require('rimraf').sync;
-const sharp = require('sharp');
 const imageSize = require('image-size');
 
-function resizeImage(filename, targetFile, devicePixelRatio = 1) {
+function resizeImage(filename, targetFile, devicePixelRatio) {
   if (devicePixelRatio !== 1 && fs.existsSync(filename)) {
     const dimensions = imageSize(filename);
-    const targetHeight = Math.floor(dimensions.height / devicePixelRatio);
-    const targetWidth = Math.floor(dimensions.width / devicePixelRatio);
+    const height = Math.floor(dimensions.height / devicePixelRatio);
+    const width = Math.floor(dimensions.width / devicePixelRatio);
 
-    return sharp(filename)
-      .resize(targetWidth, targetHeight)
-      .toFile(targetFile)
-      .then(() => {
-        rimraf(filename);
-        return true;
+    return Jimp.read(filename)
+      .then(image => image
+        .resize(width, height)
+        .writeAsync(targetFile))
+      .then(() => fs.remove(filename))
+      .then(() => true)
+      .catch(err => {
+        throw new Error(err);
       });
   }
 

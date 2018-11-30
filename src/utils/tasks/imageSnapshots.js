@@ -35,8 +35,9 @@ function createDiffObject(filename) {
  */
 function getImageObject(filename, addHash = true) {
   const exists = fs.existsSync(filename);
+  const size = exists ? fs.statSync(filename).size : 0;
 
-  if (exists) {
+  if (size > 0) {
     const image = PNG.sync.read(fs.readFileSync(filename));
     const hash = addHash !== false ?
       createHash('sha1').update(image.data).digest('base64') : undefined;
@@ -103,10 +104,8 @@ function compareImages(expected, actual, diffFilename, config) {
     }
 
     const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
-
     const pixelmatchConfig = {
       threshold: 0.01,
-      includeAA: imageConfig.includeAA,
     };
 
     const imageWidth = actual.image.width;
@@ -154,5 +153,5 @@ module.exports = {
   compareImages,
   createDiffObject,
   getImageObject,
-  moveActualImageToSnapshotsDirectory,
+  moveActualImageToSnapshotsDirectory
 };

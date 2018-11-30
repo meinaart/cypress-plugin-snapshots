@@ -20,6 +20,13 @@ function initPlugin(on, globalConfig = {
   globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
 
   on('task', tasks);
+  on('before:browser:launch', (browser = {}, args) => {
+    if (browser.name === 'chrome' || browser.name === 'chromium') {
+      args.push('--font-render-hinting=medium');
+      return args;
+    }
+    return args;
+  });
 }
 
 module.exports = {
