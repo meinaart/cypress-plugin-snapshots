@@ -5,10 +5,10 @@
   "scripts": {
     "ci:test": "start-server-and-test start http://localhost:8080 test",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --browser chrome",
     "cy:verify": "cypress verify",
     "start": "node ./test-server/index.js",
-    "test": "cypress run"
+    "test": "cypress run --browser chrome"
   },
   "author": "Meinaart van Straalen",
   "license": "MIT",

@@ -21,9 +21,10 @@ function initPlugin(on, globalConfig = {
 
   on('task', tasks);
   on('before:browser:launch', (browser = {}, args) => {
-    if (browser.name === 'chrome' || browser.name === 'chromium') {
+    if (browser.name === 'chrome') {
       args.push('--font-render-hinting=medium');
-      return args;
+      args.push('--enable-font-antialiasing');
+      args.push('--disable-gpu');
     }
     return args;
   });

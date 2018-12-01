@@ -11,6 +11,8 @@ cache:
     - npm run cy:verify
 notifications:
   email: false
+addons:
+  chrome: stable
 install:
 - npm ci
 - npm --prefix cypress ci
