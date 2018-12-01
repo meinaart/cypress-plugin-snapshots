@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/tasks/applyReplace object replace 1`] = `
+Object {
+  "text": "Hi Meinaart & Meinaart",
+  "text2": "Hi Meinaart",
+}
+`;

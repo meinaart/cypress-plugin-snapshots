@@ -1,3 +1,4 @@
+.command-name-toMatchImageSnapshot .command-method span,
 .command-name-toMatchSnapshot .command-method span {
   border-radius: 2px;
   padding: 0 3px;
@@ -7,21 +8,25 @@
   line-height: 16px;
 }
 
+.command-name-toMatchImageSnapshot.command-state-passed .command-method span,
 .command-name-toMatchSnapshot.command-state-passed .command-method span {
   background-color: #08c18d;
   color: white;
 }
 
+.command-name-toMatchImageSnapshot.command-state-failed .command-method span,
 .command-name-toMatchSnapshot.command-state-failed .command-method span {
   background-color: #e94f5f;
   color: white;
 }
 
+.command-name-toMatchImageSnapshot.command-state-pending .command-method span,
 .command-name-toMatchSnapshot.command-state-pending .command-method span {
   background-color: #428BCA;
   color: white;
 }
 
+.command-name-toMatchImageSnapshot.command-state-failed+.command-name-then.command-state-failed,
 .command-name-toMatchSnapshot.command-state-failed+.command-name-then.command-state-failed {
   display: none;
 }
@@ -88,6 +93,11 @@ a[href^="#cypress-plugin-snapshot-"]:before {
   box-shadow: 0 1px 3px #ccc;
 }
 
+.snapshot-diff--image {
+  width: 90vw;
+  height: 90vh;
+}
+
 .snapshot-diff .d2h-wrapper {
   margin: 1em;
 }
@@ -131,4 +141,52 @@ a[href^="#cypress-plugin-snapshot-"]:before {
 
 .snapshot-diff header button.snapshot-btn-close {
   float: right;
+}
+
+.snapshot-image {
+  display: inline-block;
+  width: 50%;
+}
+
+.snapshot-image--single {
+  width: 100%;
+}
+
+.snapshot-image__wrapper {
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.snapshot-image__image {
+  position: absolute;
+  top: 0;
+  height: auto;
+  width: 100%;
+}
+
+.snapshot-image--diff {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: all ease-in-out 100ms;
+}
+.snapshot-image--diff:active,
+.snapshot-image--diff:hover {
+  opacity: 1;
+}
+.snapshot-image--diff .snapshot-image__wrapper {
+  background-blend-mode: difference;
+}
+
+.snapshot-image__title {
+  color: #555;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: .75em;
+  text-align: center;
 }

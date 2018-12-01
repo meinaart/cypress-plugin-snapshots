@@ -1,6 +1,7 @@
-const configModule = require('../config');
+/* eslint no-template-curly-in-string: 0 */
+const configModule = require('../src/config');
 
-jest.mock("../config.js");
+jest.mock("../src/config.js");
 
 jest.spyOn(configModule, 'initConfig')
   .mockImplementation((config) => config);
@@ -31,6 +32,6 @@ describe('plugin', () => {
     const { initPlugin } = require('../plugin');
 
     initPlugin(on, globalConfig);
-    expect(on).toBeCalledTimes(1);
+    expect(on).toBeCalledTimes(2);
   });
 });
