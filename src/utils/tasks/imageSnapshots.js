@@ -149,9 +149,16 @@ function compareImages(expected, actual, diffFilename, config) {
   return passed;
 }
 
+function saveImageSnapshot(data) {
+  rimraf(data.expected.path);
+  rimraf(data.diff.path);
+  fs.moveSync(data.actual.path, data.expected.path);
+}
+
 module.exports = {
   compareImages,
   createDiffObject,
   getImageObject,
+  saveImageSnapshot,
   moveActualImageToSnapshotsDirectory
 };

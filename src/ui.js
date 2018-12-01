@@ -4,6 +4,7 @@ const { getServerUrl, CONFIG_KEY } = require('./config');
 const {
   GET_FILE,
   SAVE_TEXT,
+  SAVE_IMAGE,
 } = require('./tasks/taskNames');
 const {
   PATH_CSS,
@@ -53,7 +54,8 @@ function initUi() {
         var socket = io('${getServerUrl(config)}');
 
         return (data) => {
-          socket.emit('${SAVE_TEXT}', data);
+          const action = data.isImage ? '${SAVE_IMAGE}' : '${SAVE_TEXT}';
+          socket.emit(action, data);
         };
       })();
       </script>`);

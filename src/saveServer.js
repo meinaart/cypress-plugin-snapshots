@@ -1,7 +1,8 @@
 const http = require('http');
 const socketio = require('socket.io');
-const { SAVE_TEXT } = require('./tasks/taskNames');
+const { SAVE_TEXT, SAVE_IMAGE } = require('./tasks/taskNames');
 const { saveSnapshot } = require('./utils/tasks/textSnapshots');
+const { saveImageSnapshot } = require('./utils/tasks/imageSnapshots');
 
 function initServer(config) {
   if (!config.serverEnabled) {
@@ -16,6 +17,11 @@ function initServer(config) {
     client.on(SAVE_TEXT, (data) => {
       if (token === config.token) {
         saveSnapshot(data);
+      }
+    });
+    client.on(SAVE_IMAGE, (data) => {
+      if (token === config.token) {
+        saveImageSnapshot(data);
       }
     });
   });
