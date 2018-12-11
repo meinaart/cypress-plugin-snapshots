@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 ## Releases
 ### [1.2.1](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.0...v1.2.1) - 2018-12-11
 - Expose screenshot settings to `toMatchImageSnapshot`
+- Upgraded Cypress to 3.1.3
+- Upgraded dependencies: `eslint`, `eslint-config-prettier`, `eslint-plugin-jest`, `prettier`, `socket.io` and `diff2html` to latest version
 
 ### [1.2.0](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.1.6...v1.2.0) - 2018-12-01
 - Add `toMatchImageSnapshot` functionality
