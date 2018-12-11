@@ -14,19 +14,19 @@ function closeSnapshotModal() {
   // Bug: `cy.readFile` only works first time, as a fix I wrap it in a cached `Cypress.Promise`.
   // @TODO: file a bug report about this.
   const __readFileCache__ = {};
-  function readFile(url, encoding = 'base64', options = { log: false }) {
+  function readFile(fullPath, encoding = 'base64', options = { log: false }) {
     if (!__readFileCache__[encoding]) {
       __readFileCache__[encoding] = {};
     }
 
     const cache = __readFileCache__[encoding];
-    if (!cache[url]) {
-      cache[url] = new Cypress.Promise((resolve) => {
-        cy.readFile(url, encoding, options).then(resolve);
+    if (!cache[fullPath]) {
+      cache[fullPath] = new Cypress.Promise((resolve) => {
+        cy.readFile(fullPath, encoding, options).then(resolve);
       });
     }
 
-    return cache[url];
+    return cache[fullPath];
   }
 
   function getImageDataUri(url) {

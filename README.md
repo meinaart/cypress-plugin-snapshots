@@ -76,8 +76,18 @@ You can pass the following options to `toMatchImageSnapshot` to override default
 {
   "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
   "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
-  "thresholdType": "percent"     // Can be either "pixels" or "percent"
+  "thresholdType": "percent",    // Can be either "pixels" or "percent"
 }
+```
+
+You can also use any option from the `cypress.screenshot` [arguments list](https://docs.cypress.io/api/commands/screenshot.html#Arguments).
+
+For example:
+```javascript
+cy.get('.element')
+  .toMatchImageSnapshot({
+    clip: { x: 0, y: 0, width: 100, height: 100 },
+  });
 ```
 
 ## Configure Cypress.io
@@ -129,6 +139,15 @@ Add the configuration below to your `cypress.json` file to make changes to the d
       "resizeDevicePixelRatio": true,// Resize image to base resolution when Cypress is running on high DPI screen, `cypress run` always runs on base resolution
       "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
       "thresholdType": "percent"     // Can be either "pixels" or "percent"
+    },
+    "screenshotConfig": {            // See https://docs.cypress.io/api/commands/screenshot.html#Arguments
+      "blackout": [],
+      "capture": 'fullPage',
+      "clip": null,
+      "disableTimersAndAnimations": true,
+      "log": false,
+      "scale": false,
+      "timeout": 30000,
     },
     "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",       // Hostname for "update snapshot server"

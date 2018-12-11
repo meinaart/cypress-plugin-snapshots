@@ -22,7 +22,7 @@ async function matchImageSnapshot(data = {}) {
   const diffFilename = getImageSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_DIFF);
   const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getImageSnapshotFilename(testFile, snapshotTitle);
-  const resized = options.imageConfig.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
+  const resized = options && options.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
   if (resized) {
     await resizeImage(image.path, actualFilename, image.devicePixelRatio, snapshotFile);
   }

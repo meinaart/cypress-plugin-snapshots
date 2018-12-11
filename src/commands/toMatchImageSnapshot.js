@@ -1,19 +1,12 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
-const { merge } = require('lodash');
 const { MATCH_IMAGE } = require('../tasks/taskNames');
 const getTaskData = require('../utils/commands/getTaskData');
 const logMessage = require('../utils/commands/logMessage');
 const { NO_LOG } = require('../constants');
 const { COMMAND_MATCH_IMAGE_SNAPSHOT: commandName } = require('./commandNames');
 const { getImageData } = require('../utils/imageSnapshots');
-const { getConfig, DEFAULT_IMAGE_CONFIG } = require('../config');
-
-const SCREENSHOT_CONFIG = {
-  blackout: ['.snapshot-diff'],
-  capture: 'fullPage',
-  log: false,
-}
+const { getImageConfig, getScreenshotConfig } = require('../config');
 
 function afterScreenshot(taskData) {
   return ($el, props) => {
@@ -26,8 +19,7 @@ function afterScreenshot(taskData) {
 }
 
 function toMatchImageSnapshot(subject, commandOptions) {
-  const config = getConfig();
-  const options = merge({}, DEFAULT_IMAGE_CONFIG, config.imageOptions, commandOptions);
+  const options = getImageConfig(commandOptions);
 
   const taskData = getTaskData({
     commandName,
@@ -35,9 +27,17 @@ function toMatchImageSnapshot(subject, commandOptions) {
     subject,
   });
 
-  const screenShotConfig = merge({}, SCREENSHOT_CONFIG, {
-    onAfterScreenshot: afterScreenshot(taskData)
-  });
+  const screenShotConfig = getScreenshotConfig(commandOptions);
+  const afterScreenshotFn = afterScreenshot(taskData);
+  if (screenShotConfig.onAfterScreenshot) {
+    const afterScreenshotCallback = screenShotConfig.onAfterScreenshot;
+    screenShotConfig.onAfterScreenshot = (...args) => {
+      afterScreenshotFn.apply(this, args);
+      afterScreenshotCallback.apply(this, args);
+    }
+  } else {
+    screenShotConfig.onAfterScreenshot = afterScreenshotFn;
+  }
 
   return cy.wrap(subject, NO_LOG)
     .screenshot(taskData.snapshotTitle, screenShotConfig)

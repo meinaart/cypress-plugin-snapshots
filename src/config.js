@@ -6,6 +6,16 @@ function createToken() {
   return crypto.randomBytes(64).toString('hex');
 }
 
+const DEFAULT_SCREENSHOT_CONFIG = {
+  blackout: [],
+  capture: 'fullPage',
+  clip: null,
+  disableTimersAndAnimations: true,
+  log: false,
+  scale: false,
+  timeout: 30000,
+};
+
 const DEFAULT_IMAGE_CONFIG = {
   createDiffImage: true,
   resizeDevicePixelRatio: true,
@@ -30,6 +40,7 @@ const DEFAULT_CONFIG = Object.freeze({
       endOfLine: 'lf'
     },
   },
+  screenshotConfig: DEFAULT_SCREENSHOT_CONFIG,
   serverEnabled: true,
   serverHost: 'localhost',
   serverPort: 2121,
@@ -53,6 +64,35 @@ function getConfig() {
   return config;
 }
 
+function getImageConfig(options = {}) {
+  return Object.keys(DEFAULT_IMAGE_CONFIG)
+    .filter((key) => options && options[key] !== undefined)
+    .reduce(
+      (imageConfig, key) => {
+        imageConfig[key] = options[key];
+        return imageConfig;
+      },
+      merge({}, DEFAULT_IMAGE_CONFIG, config.imageConfig)
+    );
+}
+
+
+function getScreenshotConfig(options = {}) {
+  const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
+    .filter((key) => options && options[key] !== undefined)
+    .reduce(
+      (imageConfig, key) => {
+        imageConfig[key] = options[key];
+        return imageConfig;
+      },
+      merge({}, DEFAULT_SCREENSHOT_CONFIG, config.screenshotConfig)
+    );
+
+  screenshotConfig.blackout = (screenshotConfig.blackout || []);
+  screenshotConfig.blackout.push('.snapshot-diff');
+  return screenshotConfig;
+}
+
 function getServerUrl(suppliedConfig) {
   const cfg = suppliedConfig || getConfig();
   return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
@@ -69,9 +109,12 @@ function getPrettierConfig(dataType) {
 module.exports = {
   CONFIG_KEY,
   DEFAULT_IMAGE_CONFIG,
+  DEFAULT_SCREENSHOT_CONFIG,
   getConfig,
-  shouldNormalize,
+  getImageConfig,
   getPrettierConfig,
+  getScreenshotConfig,
   getServerUrl,
   initConfig,
+  shouldNormalize,
 };
