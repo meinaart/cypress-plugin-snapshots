@@ -58,7 +58,10 @@ function getSubject(testSubject) {
 }
 
 function isJQuery(subject) {
-  return subject && subject.constructor.name === 'jQuery'
+  return subject && (
+    subject.constructor.name === 'jQuery' ||
+    subject.constructor.prototype.jquery
+  );
 }
 
 function isHtml(subject) {
