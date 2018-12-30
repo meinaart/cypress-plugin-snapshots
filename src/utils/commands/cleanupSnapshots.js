@@ -1,9 +1,7 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
 const { formatNormalizedJson, } = require('../../utils/json');
-const {
-  getSnapshotFilename,
-} = require('../../utils/textSnapshots');
+const getTextSnapshotFilename = require('../text/getSnapshotFilename');
 const { snapshotTitleIsUsed } = require('../../utils/snapshotTitles');
 const getConfig = require('./getConfig');
 const { NO_LOG } = require('../../constants');
@@ -15,7 +13,7 @@ function cleanUpSnapshots() {
     return;
   }
 
-  const filename = getSnapshotFilename(Cypress.spec.relative);
+  const filename = getTextSnapshotFilename(Cypress.spec.relative);
   cy.readFile(filename, NO_LOG).then((content) => {
     if (content) {
       const snapshot = JSON.parse(content);

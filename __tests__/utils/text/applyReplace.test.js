@@ -1,6 +1,6 @@
 /* eslint no-template-curly-in-string: 0 */
 describe('utils/tasks/applyReplace', () => {
-  const applyReplace = require('../../../src/utils/tasks/applyReplace');
+  const applyReplace = require('../../../src/utils/text/applyReplace');
 
   it('object replace', () => {
     const expected = {

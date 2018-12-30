@@ -2,7 +2,7 @@ const {
   merge,
   cloneDeep
 } = require('lodash');
-const applyReplace = require('../utils/tasks/applyReplace');
+const applyReplace = require('../utils/text/applyReplace');
 const {
   createDiff,
   formatDiff,
@@ -10,10 +10,8 @@ const {
   subjectToSnapshot,
   updateSnapshot,
 } = require('../utils/tasks/textSnapshots');
-const {
-  getSnapshotFilename,
-} = require('../utils/textSnapshots');
-const keepKeysFromExpected = require('../utils/keepKeysFromExpected');
+const getSnapshotFilename = require('../utils/text/getSnapshotFilename');
+const keepKeysFromExpected = require('../utils/text/keepKeysFromExpected');
 const {
   getConfig
 } = require('../config');

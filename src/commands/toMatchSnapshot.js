@@ -7,15 +7,16 @@ const { NO_LOG } = require('../constants');
 const { COMMAND_MATCH_SNAPSHOT: commandName } = require('./commandNames');
 
 function toMatchSnapshot(subject, options) {
-  return cy.task(
-    MATCH_TEXT,
-    getTaskData({
+  return getTaskData({
       commandName,
       options,
       subject,
-    }),
-    NO_LOG
-  ).then(logMessage);
+    }).then(taskData => cy.task(
+        MATCH_TEXT,
+        taskData,
+        NO_LOG
+      ).then(logMessage)
+    );
 }
 
 module.exports = toMatchSnapshot;

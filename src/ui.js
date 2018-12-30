@@ -3,9 +3,11 @@ const { getServerUrl, CONFIG_KEY } = require('./config');
 
 const {
   GET_FILE,
+} = require('./tasks/taskNames');
+const {
   SAVE_TEXT,
   SAVE_IMAGE,
-} = require('./tasks/taskNames');
+} = require('./server/actions');
 const {
   PATH_CSS,
   PATH_DIFF_CSS,

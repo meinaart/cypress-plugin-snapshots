@@ -2,10 +2,11 @@ const { merge, cloneDeep } = require('lodash');
 const rimraf = require('rimraf').sync;
 const path = require('path');
 const { getConfig } = require('../config');
-const { getImageSnapshotFilename, getImageData } = require('../utils/imageSnapshots');
-const saveImageSnapshot = require('./saveImageSnapshot');
+const getSnapshotFilename = require('../utils/image/getSnapshotFilename');
+const getImageData = require('../utils/image/getImageData');
+const saveImageSnapshot = require('../save/saveImageSnapshot');
 const { getImageObject, compareImages, moveActualImageToSnapshotsDirectory, createDiffObject } = require('../utils/tasks/imageSnapshots');
-const resizeImage = require('../utils/tasks/resizeImage');
+const resizeImage = require('../utils/image/resizeImage');
 const { IMAGE_TYPE_DIFF, IMAGE_TYPE_ACTUAL } = require('../constants');
 
 async function matchImageSnapshot(data = {}) {
@@ -18,13 +19,19 @@ async function matchImageSnapshot(data = {}) {
     subject,
     testFile,
   } = data;
-  const actualFilename = getImageSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_ACTUAL);
-  const diffFilename = getImageSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_DIFF);
+  if (!image) {
+    throw new Error(`'image' not defined`);
+  } else if (!image.devicePixelRatio) {
+    throw new Error(`'image.devicePixelRatio' not defined`);
+  }
+
+  const actualFilename = getSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_ACTUAL);
+  const diffFilename = getSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_DIFF);
   const config = merge({}, cloneDeep(getConfig()), options);
-  const snapshotFile = getImageSnapshotFilename(testFile, snapshotTitle);
+  const snapshotFile = getSnapshotFilename(testFile, snapshotTitle);
   const resized = options && options.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
   if (resized) {
-    await resizeImage(image.path, actualFilename, image.devicePixelRatio, snapshotFile);
+    await resizeImage(image.path, actualFilename, image.devicePixelRatio);
   }
   if (resized === false) {
     moveActualImageToSnapshotsDirectory(data);

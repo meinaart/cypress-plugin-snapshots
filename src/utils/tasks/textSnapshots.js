@@ -9,7 +9,7 @@ const {
   shouldNormalize,
   getPrettierConfig
 } = require('../../config');
-const removeExcludedFields = require('../removeExcludedFields');
+const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
 
 function subjectToSnapshot(subject, dataType = TYPE_JSON) {

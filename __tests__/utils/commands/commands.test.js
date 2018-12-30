@@ -1,6 +1,6 @@
 const rewire = require('rewire');
 
-const DEFAULT_CONFIG = rewire('../../src/config').__get__('DEFAULT_CONFIG');
+const DEFAULT_CONFIG = rewire('../../../src/config').__get__('DEFAULT_CONFIG');
 
 global.Cypress = {
   env: () => {},
@@ -27,19 +27,19 @@ describe('utils/command', () => {
         return returnValue;
       };
 
-      const getConfig = require('../../src/utils/commands/getConfig');
+      const getConfig = require('../../../src/utils/commands/getConfig');
       expect(getConfig()).toMatchObject(DEFAULT_CONFIG);
     });
 
     it('with config', () => {
       global.Cypress.env = () => CONFIG;
-      const getConfig = require('../../src/utils/commands/getConfig');
+      const getConfig = require('../../../src/utils/commands/getConfig');
       expect(getConfig()).toMatchObject(CONFIG);
     });
 
     it('without config - error should be thrown', () => {
       global.Cypress.env = () => undefined;
-      const getConfig = require('../../src/utils/commands/getConfig');
+      const getConfig = require('../../../src/utils/commands/getConfig');
       expect(() => { getConfig(); }).toThrow();
     });
   });

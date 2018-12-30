@@ -5,23 +5,24 @@ const getTaskData = require('../utils/commands/getTaskData');
 const logMessage = require('../utils/commands/logMessage');
 const { NO_LOG } = require('../constants');
 const { COMMAND_MATCH_IMAGE_SNAPSHOT: commandName } = require('./commandNames');
-const { getImageData } = require('../utils/imageSnapshots');
+const getImageData = require('../utils/image/getImageData');
 const { getImageConfig, getScreenshotConfig } = require('../config');
 
 function afterScreenshot(taskData) {
   return ($el, props) => {
     // See this url for contents of `props`:
     // https://docs.cypress.io/api/commands/screenshot.html#Get-screenshot-info-from-the-onAfterScreenshot-callback
-    taskData.image = getImageData(props, window.devicePixelRatio);
+    const win = $el.get(0).ownerDocument.defaultView;
+    taskData.image = getImageData(props, win.devicePixelRatio);
     taskData.isImage = true;
     delete taskData.subject;
   };
 }
 
-function toMatchImageSnapshot(subject, commandOptions) {
+async function toMatchImageSnapshot(subject, commandOptions) {
   const options = getImageConfig(commandOptions);
 
-  const taskData = getTaskData({
+  const taskData = await getTaskData({
     commandName,
     options,
     subject,

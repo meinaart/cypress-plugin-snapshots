@@ -4,13 +4,14 @@ const fs = require('fs-extra');
 const pixelmatch = require('pixelmatch');
 const { merge } = require('lodash');
 const rimraf = require('rimraf').sync;
-const { getImageSnapshotFilename, getImageData } = require('../imageSnapshots');
+const getSnapshotFilename = require('../image/getSnapshotFilename');
+const getImageData = require('../image/getImageData');
 const { IMAGE_TYPE_ACTUAL } = require('../../constants');
 const { DEFAULT_IMAGE_CONFIG } = require('../../config');
 
 function moveActualImageToSnapshotsDirectory({image, snapshotTitle, testFile} = {}) {
   if (image && image.path) {
-    const filename = getImageSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_ACTUAL);
+    const filename = getSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_ACTUAL);
     rimraf(filename);
     if (fs.existsSync(image.path)) {
       fs.moveSync(image.path, filename);

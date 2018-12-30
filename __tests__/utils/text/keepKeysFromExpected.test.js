@@ -25,7 +25,7 @@ describe('utils/keepKeysFromExpected', () => {
       ignoreExtraFields: false,
       ignoreExtraArrayItems: false,
     };
-    const keepKeysFromExpected = require('../../src/utils/keepKeysFromExpected');
+    const keepKeysFromExpected = require('../../../src/utils/text/keepKeysFromExpected');
     const result = keepKeysFromExpected(actual, expected, config);
     expect(result).toMatchSnapshot();
   });
@@ -35,7 +35,7 @@ describe('utils/keepKeysFromExpected', () => {
       ignoreExtraFields: true,
       ignoreExtraArrayItems: false,
     };
-    const keepKeysFromExpected = require('../../src/utils/keepKeysFromExpected');
+    const keepKeysFromExpected = require('../../../src/utils/text/keepKeysFromExpected');
     const result = keepKeysFromExpected(actual, expected, config);
     expect(result).toMatchSnapshot();
   });
@@ -45,7 +45,7 @@ describe('utils/keepKeysFromExpected', () => {
       ignoreExtraFields: true,
       ignoreExtraArrayItems: true,
     };
-    const keepKeysFromExpected = require('../../src/utils/keepKeysFromExpected');
+    const keepKeysFromExpected = require('../../../src/utils/text/keepKeysFromExpected');
     const result = keepKeysFromExpected(actual, expected, config);
     expect(result).toMatchSnapshot();
   });
@@ -55,7 +55,7 @@ describe('utils/keepKeysFromExpected', () => {
       ignoreExtraFields: false,
       ignoreExtraArrayItems: true,
     };
-    const keepKeysFromExpected = require('../../src/utils/keepKeysFromExpected');
+    const keepKeysFromExpected = require('../../../src/utils/text/keepKeysFromExpected');
     const result = keepKeysFromExpected(actual, expected, config);
     expect(result).toMatchSnapshot();
   });

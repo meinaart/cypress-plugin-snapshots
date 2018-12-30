@@ -1,5 +1,6 @@
 const getTestTitle = require('../getTestTitle');
 const { getSnapshotTitle } = require('../snapshotTitles');
+const getSpec = require('./getSpec');
 const {
   getTestForTask,
   getSubject,
@@ -20,7 +21,7 @@ function getDataType({commandName, subject}) {
   return isHtml(subject) ? TYPE_HTML : TYPE_JSON;
 }
 
-function getTaskData({
+async function getTaskData({
     commandName,
     options,
     subject: testSubject
@@ -28,7 +29,8 @@ function getTaskData({
   const subjectIsImage = isImage(commandName);
   const test = getTestForTask();
   const testTitle = getTestTitle(test);
-  const testFile = Cypress.spec.absolute;
+  const spec = await getSpec();
+  const testFile = spec.absolute;
   const snapshotTitle = getSnapshotTitle(test, subjectIsImage);
   const subject = subjectIsImage ? testSubject : getSubject(testSubject);
   const dataType = getDataType({commandName, subject: testSubject});
