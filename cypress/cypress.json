@@ -1,9 +1,15 @@
 {
-  "baseUrl": "http://localhost:8080",
+  "baseUrl": "http://localhost:8888",
   "ignoreTestFiles": [
     "**/__snapshots__/*",
     "**/__image_snapshots__/*"
   ],
+  "env": {
+    "cypress-plugin-snapshots": {
+      "serverPort": 2222,
+      "excludeFields": ["ignore"]
+    }
+  },
   "video": false,
   "viewportWidth": 660,
   "viewportHeight": 1000

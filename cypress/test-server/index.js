@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const port = 8080
+const port = 8888
 
 app.get('/', (req, res) => res.send('Test server running!'))
 app.use('/static', express.static(path.join(__dirname, 'static')))

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.2.4](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.3...v1.2.4) - 2019-01-04
+- Fix broken `excludedFields` functionality
+
 ### [1.2.3](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.2...v1.2.3) - 2018-12-30
 - Fixing snapshot filenames when running all tests (Fixes #10) (added my own `Cypress.spec` implementation)
 - Renamed "save server" to "server"
