@@ -2,7 +2,6 @@
 const { initConfig, CONFIG_KEY } = require('./src/config');
 const initServer = require('./src/server/initServer');
 const tasks = require('./src/tasks/');
-const initSetSpecInServer = require('./src/plugin/initSetSpecInServer');
 
 /**
  * Initializes the plugin:
@@ -15,7 +14,6 @@ function initPlugin(on, globalConfig = {
 }) {
   const config = initConfig(globalConfig.env[CONFIG_KEY]);
   initServer(config);
-  initSetSpecInServer(on, config);
 
   // Adding sub objects/keys to `Cypress.env` that don't exist in `cypress.json` doesn't work.
   // That's why the config is stringified and parsed again in `src/utils/commands/getConfig.js#fixConfig`.

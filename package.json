@@ -39,7 +39,6 @@
     "test": "jest & npm --prefix cypress run cy:run"
   },
   "dependencies": {
-    "@cypress/browserify-preprocessor": "^1.1.2",
     "bufferutil": "^4.0.0",
     "chalk": "^2.4.1",
     "diff2html": "^2.5.0",

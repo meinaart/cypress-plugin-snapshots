@@ -32,6 +32,6 @@ describe('plugin', () => {
     const { initPlugin } = require('../plugin');
 
     initPlugin(on, globalConfig);
-    expect(on).toBeCalledTimes(3);
+    expect(on).toBeCalledTimes(2);
   });
 });
