@@ -3,6 +3,8 @@
 exports[`utils/keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: false 1`] = `
 Object {
   "extra": "extra",
+  "extraNull": null,
+  "extraUndefined": undefined,
   "field": "value",
   "items": Array [
     Object {
@@ -13,8 +15,14 @@ Object {
         },
         Object {
           "extra": "extra2",
+          "extraNull": null,
+          "extraUndefined": undefined,
           "name": "subitem2",
+          "null": null,
+          "undefined": undefined,
         },
+        null,
+        undefined,
       ],
       "name": "item1",
     },
@@ -25,15 +33,33 @@ Object {
       "name": "item3",
     },
     Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
+    null,
+    undefined,
+    Object {
       "name": "item4",
     },
+    Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
   ],
+  "null": null,
+  "undefined": undefined,
 }
 `;
 
 exports[`utils/keepKeysFromExpected ignoreExtraFields: false, ignoreExtraArrayItems: true 1`] = `
 Object {
   "extra": "extra",
+  "extraNull": null,
+  "extraUndefined": undefined,
   "field": "value",
   "items": Array [
     Object {
@@ -51,7 +77,17 @@ Object {
     Object {
       "name": "item3",
     },
+    Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
+    null,
+    undefined,
   ],
+  "null": null,
+  "undefined": undefined,
 }
 `;
 
@@ -66,8 +102,14 @@ Object {
         },
         Object {
           "extra": "extra2",
+          "extraNull": null,
+          "extraUndefined": undefined,
           "name": "subitem2",
+          "null": null,
+          "undefined": undefined,
         },
+        null,
+        undefined,
       ],
       "name": "item1",
     },
@@ -78,9 +120,25 @@ Object {
       "name": "item3",
     },
     Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
+    null,
+    undefined,
+    Object {
       "name": "item4",
     },
+    Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
   ],
+  "null": null,
+  "undefined": undefined,
 }
 `;
 
@@ -102,6 +160,16 @@ Object {
     Object {
       "name": "item3",
     },
+    Object {
+      "name": null,
+    },
+    Object {
+      "name": undefined,
+    },
+    null,
+    undefined,
   ],
+  "null": null,
+  "undefined": undefined,
 }
 `;

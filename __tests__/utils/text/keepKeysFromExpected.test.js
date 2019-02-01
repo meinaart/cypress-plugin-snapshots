@@ -1,23 +1,53 @@
-
 describe('utils/keepKeysFromExpected', () => {
   const expected = {
-    field: "value",
+    field: 'value',
+    undefined: undefined,
+    null: null,
     items: [
-      {name: "item1", "items": [{name: "subitem1"}]},
-      {name: "item2"},
-      {name: "item3"},
-    ]
+      { name: 'item1', items: [{ name: 'subitem1' }] },
+      { name: 'item2' },
+      { name: 'item3' },
+      { name: null },
+      { name: undefined },
+      null,
+      undefined,
+    ],
   };
 
   const actual = {
-    field: "value",
-    extra: "extra",
+    field: 'value',
+    undefined: undefined,
+    null: null,
+    extra: 'extra',
+    extraUndefined: undefined,
+    extraNull: null,
     items: [
-      {name: "item1", "items": [{name: "subitem1", extra: 'extra1'}, {name: "subitem2", extra: 'extra2'}]},
-      {name: "item2"},
-      {name: "item3"},
-      {name: "item4"},
-    ]
+      {
+        name: 'item1',
+        items: [
+          { name: 'subitem1', extra: 'extra1' },
+          {
+            name: 'subitem2',
+            extra: 'extra2',
+            undefined: undefined,
+            null: null,
+            extraUndefined: undefined,
+            extraNull: null,
+          },
+          null,
+          undefined,
+        ],
+      },
+      { name: 'item2' },
+      { name: 'item3' },
+      { name: null },
+      { name: undefined },
+      null,
+      undefined,
+      { name: 'item4' },
+      { name: null },
+      { name: undefined },
+    ],
   };
 
   it('ignoreExtraFields: false, ignoreExtraArrayItems: false', () => {
