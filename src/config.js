@@ -1,12 +1,12 @@
 const crypto = require('crypto');
-const { merge, cloneDeep } = require('lodash');
+const { merge, cloneDeep, clone } = require('lodash');
 const { TYPE_JSON } = require('./dataTypes');
 
 function createToken() {
   return crypto.randomBytes(64).toString('hex');
 }
 
-const DEFAULT_SCREENSHOT_CONFIG = {
+const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
   blackout: [],
   capture: 'fullPage',
   clip: null,
@@ -14,25 +14,26 @@ const DEFAULT_SCREENSHOT_CONFIG = {
   log: false,
   scale: false,
   timeout: 30000,
-};
+});
 
-const DEFAULT_IMAGE_CONFIG = {
+const DEFAULT_IMAGE_CONFIG = Object.freeze({
   createDiffImage: true,
   resizeDevicePixelRatio: true,
   threshold: 0.1,
   thresholdType: 'percent', // can be 'percent' or 'pixel'
-};
+});
 
 const DEFAULT_CONFIG = Object.freeze({
   autoCleanUp: false,
   autopassNewSnapshots: true,
   diffLines: 3,
   excludeFields: [],
+  formatJson: true,
   ignoreExtraArrayItems: false,
   ignoreExtraFields: false,
+  imageConfig: clone(DEFAULT_IMAGE_CONFIG),
   normalizeJson: true,
   prettier: true,
-  imageConfig: DEFAULT_IMAGE_CONFIG,
   prettierConfig: {
     html: {
       parser: 'html',
@@ -40,7 +41,7 @@ const DEFAULT_CONFIG = Object.freeze({
       endOfLine: 'lf'
     },
   },
-  screenshotConfig: DEFAULT_SCREENSHOT_CONFIG,
+  screenshotConfig: clone(DEFAULT_SCREENSHOT_CONFIG),
   serverEnabled: true,
   serverHost: 'localhost',
   serverPort: 2121,
@@ -50,12 +51,11 @@ const DEFAULT_CONFIG = Object.freeze({
 
 const CONFIG_KEY = 'cypress-plugin-snapshots';
 
-let config = DEFAULT_CONFIG;
+let config = cloneDeep(DEFAULT_CONFIG);
 
 function initConfig(initialConfig) {
-  config = cloneDeep(DEFAULT_CONFIG);
   if (initialConfig) {
-    merge(config, initialConfig);
+    config = merge(config, initialConfig);
   }
   return config;
 }
@@ -72,7 +72,7 @@ function getImageConfig(options = {}) {
         imageConfig[key] = options[key];
         return imageConfig;
       },
-      merge({}, DEFAULT_IMAGE_CONFIG, config.imageConfig)
+      merge({}, DEFAULT_IMAGE_CONFIG, getConfig().imageConfig)
     );
 }
 
@@ -85,7 +85,7 @@ function getScreenshotConfig(options = {}) {
         imageConfig[key] = options[key];
         return imageConfig;
       },
-      merge({}, DEFAULT_SCREENSHOT_CONFIG, config.screenshotConfig)
+      merge({}, DEFAULT_SCREENSHOT_CONFIG, getConfig().screenshotConfig)
     );
 
   screenshotConfig.blackout = (screenshotConfig.blackout || []);
@@ -98,12 +98,16 @@ function getServerUrl(suppliedConfig) {
   return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
 }
 
-function shouldNormalize(dataType) {
-  return dataType === TYPE_JSON && config.normalizeJson;
+function shouldNormalize(dataType, suppliedConfig) {
+  const cfg = suppliedConfig && suppliedConfig.normalizeJson !== undefined ?
+    suppliedConfig : getConfig();
+  return dataType === TYPE_JSON && cfg.normalizeJson;
 }
 
-function getPrettierConfig(dataType) {
-  return config.prettier ? config.prettierConfig[dataType] : undefined;
+function getPrettierConfig(dataType, suppliedConfig) {
+  const cfg = suppliedConfig && suppliedConfig.prettierConfig ?
+    suppliedConfig : getConfig();
+  return cfg.prettier && cfg.prettierConfig ? cfg.prettierConfig[dataType] : undefined;
 }
 
 module.exports = {

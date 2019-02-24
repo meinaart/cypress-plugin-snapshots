@@ -12,11 +12,10 @@ const {
 const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
 
-function subjectToSnapshot(subject, dataType = TYPE_JSON) {
-  const config = getConfig();
+function subjectToSnapshot(subject, dataType = TYPE_JSON, config) {
   let result = subject;
 
-  if (typeof subject === 'object' && shouldNormalize(dataType)) {
+  if (typeof subject === 'object' && shouldNormalize(dataType, config)) {
     result = normalizeObject(subject);
   }
 
@@ -24,17 +23,19 @@ function subjectToSnapshot(subject, dataType = TYPE_JSON) {
     result = removeExcludedFields(result, config.excludeFields);
   }
 
-  const prettierConfig = getPrettierConfig(dataType);
+  const prettierConfig = getPrettierConfig(dataType, config);
   if (prettierConfig) {
     try {
       if (typeof result === 'object') {
-        result = JSON.stringify(result, undefined, 2);
+        result = formatJson(result, undefined, 2);
       }
 
       result = prettier.format(result.trim(), prettierConfig).trim();
     } catch(err) {
       throw new Error(`Cannot format subject: ${result}`);
     }
+  } else if(dataType === TYPE_JSON && config.formatJson) {
+    result = formatJson(result);
   }
 
   return result;
@@ -98,9 +99,9 @@ function readFile(filename) {
   return {};
 }
 
-function updateSnapshot(filename, snapshotTitle, subject, dataType) {
+function updateSnapshot(filename, snapshotTitle, subject) {
   const store = readFile(filename);
-  store[snapshotTitle] = subjectToSnapshot(subject, dataType);
+  store[snapshotTitle] = subject;
 
   // Reformat to `exports` format which is nicer for Git diffs
   const saveResult = Object.keys(store).reduce((result, key) => {
@@ -121,7 +122,7 @@ function updateSnapshot(filename, snapshotTitle, subject, dataType) {
 }
 
 function saveSnapshot(data) {
-  return updateSnapshot(data.snapshotFile, data.snapshotTitle, data.subject, data.dataType);
+  return updateSnapshot(data.snapshotFile, data.snapshotTitle, data.subject);
 }
 
 module.exports = {
