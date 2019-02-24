@@ -5,10 +5,10 @@ function saveTextSnapshot(data) {
   const {
     snapshotFile,
     snapshotTitle,
-    subject,
+    actual,
     dataType,
   } = data;
-  updateSnapshot(snapshotFile, snapshotTitle, subject, dataType);
+  updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
   return merge({}, data, {
     saved: true
   });

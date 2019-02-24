@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const unidiff = require('unidiff');
 const prettier = require('prettier');
-const { TYPE_JSON, TYPE_HTML } = require('../../dataTypes');
+const { TYPE_JSON } = require('../../dataTypes');
 const {
   getConfig,
   shouldNormalize,
@@ -100,22 +100,22 @@ function readFile(filename) {
 
 function updateSnapshot(filename, snapshotTitle, subject, dataType = TYPE_JSON) {
   const store = readFile(filename);
-
-  if (dataType === TYPE_HTML) {
-    store[snapshotTitle] = subject.replace(/\\/g, '\\\\');
+  if (dataType === TYPE_JSON) {
+    store[snapshotTitle] = JSON.parse(subject);
   } else {
     store[snapshotTitle] = subject;
   }
+
 
   // Reformat to `exports` format which is nicer for Git diffs
   const saveResult = Object.keys(store).reduce((result, key) => {
     let value = store[key];
     if (typeof value === 'string') {
-      value = `\`\n${value.trim().replace(/`/g, '\\`')}\n\``;
+      value = ` \`\n${value.trim().replace(/\\/g, '\\\\').replace(/`/g, '\\`')}\n\``;
     } else {
       value = `\n${formatJson(value)}`;
     }
-    result += `exports[\`${key}\`] = ${value}`;
+    result += `exports[\`${key}\`] =${value}`;
     result += ";\n\n";
 
     return result;

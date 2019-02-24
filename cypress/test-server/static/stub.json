@@ -1,5 +1,5 @@
 {
-  "string": "string",
+  "string": "string\\d",
   "number": 1234,
   "ignore": "this field should be ignored",
   "object": {
