@@ -118,7 +118,7 @@ function closeSnapshotModal() {
       ));
     }
 
-    return Cypress.Promise.resolve(formatPreview(title, htmlEncode(data.expected)));
+    return Cypress.Promise.resolve(formatPreview(title, htmlEncode(data.actual)));
   }
 
   Cypress.$(document.body).on('click', 'a[href^="#cypress-plugin-snapshot-"]', function (e) {

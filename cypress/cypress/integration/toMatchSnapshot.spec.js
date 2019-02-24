@@ -11,4 +11,11 @@ describe('toMatchSnapshot', () => {
         cy.get('[data-test=test]').toMatchSnapshot();
       });
   });
+
+  it('toMatchSnapshot - html escaping', () => {
+    cy.visit('/static/input.html')
+      .then(() => {
+        cy.get('#input-element').toMatchSnapshot();
+      });
+  });
 });

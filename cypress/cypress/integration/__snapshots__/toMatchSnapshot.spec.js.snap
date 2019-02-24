@@ -32,11 +32,22 @@ exports[`Test > toMatchSnapshot - json #0`] =
 };
 
 exports[`Test > toMatchSnapshot - html #0`] = `
-
 <div data-test="test">
   <h1>Title</h1>
   <p>Paragraph 1</p>
   <p>Paragraph 2</p>
 </div>
+`;
 
+exports[`toMatchSnapshot > toMatchSnapshot - html escaping #0`] = `
+<span class="input input--number input--required" id="input-element">
+  <input
+    type="number"
+    name="new_address.house_number"
+    value=""
+    pattern="\\d*"
+    required=""
+    data-date-format="mm/dd/yyyy"
+  />
+</span>
 `;
