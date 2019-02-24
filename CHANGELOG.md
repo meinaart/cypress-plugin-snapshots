@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.2.6](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.6...v1.2.6) - 2019-02-25
+- fixed a bug that null values cause keepKeysFromExpected to fail (fixes #26)
+- Fix escaping of slashes (fixes #28)
+- Fixing caching of snapshot files (fixes #13)
+
 ### [1.2.5](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.4...v1.2.5) - 2019-01-11
 - Breaking snapshot functionality when running all tests, previous fix breaks other functionality (Reopens #10) (Fixes #14)
 
