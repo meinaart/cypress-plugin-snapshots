@@ -1,9 +1,8 @@
 const path = require('path');
 const fs = require('fs-extra');
-const { merge } = require('lodash');
 const unidiff = require('unidiff');
 const prettier = require('prettier');
-const { TYPE_JSON } = require('../../dataTypes');
+const { TYPE_JSON, TYPE_HTML } = require('../../dataTypes');
 const {
   getConfig,
   shouldNormalize,
@@ -12,14 +11,14 @@ const {
 const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
 
-function subjectToSnapshot(subject, dataType = TYPE_JSON, config) {
+function subjectToSnapshot(subject, dataType = TYPE_JSON, config = {}) {
   let result = subject;
 
   if (typeof subject === 'object' && shouldNormalize(dataType, config)) {
     result = normalizeObject(subject);
   }
 
-  if (dataType === TYPE_JSON) {
+  if (dataType === TYPE_JSON && config && config.excludeFields) {
     result = removeExcludedFields(result, config.excludeFields);
   }
 
@@ -75,8 +74,8 @@ function readFile(filename) {
   if (fs.existsSync(filename)) {
     let content;
     try {
-      // eslint-disable-next-line import/no-dynamic-require
-      content = require(filename);
+      delete require.cache[filename];
+      content = require(filename); // eslint-disable-line import/no-dynamic-require
     } catch(ex) {
       // eslint-disable-next-line no-console
       console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
@@ -99,15 +98,20 @@ function readFile(filename) {
   return {};
 }
 
-function updateSnapshot(filename, snapshotTitle, subject) {
+function updateSnapshot(filename, snapshotTitle, subject, dataType = TYPE_JSON) {
   const store = readFile(filename);
-  store[snapshotTitle] = subject;
+
+  if (dataType === TYPE_HTML) {
+    store[snapshotTitle] = subject.replace(/\\/g, '\\\\');
+  } else {
+    store[snapshotTitle] = subject;
+  }
 
   // Reformat to `exports` format which is nicer for Git diffs
   const saveResult = Object.keys(store).reduce((result, key) => {
     let value = store[key];
     if (typeof value === 'string') {
-      value = `\`\n${value.replace(/`/g, '\\`')}\n\``;
+      value = `\`\n${value.trim().replace(/`/g, '\\`')}\n\``;
     } else {
       value = `\n${formatJson(value)}`;
     }
@@ -118,18 +122,12 @@ function updateSnapshot(filename, snapshotTitle, subject) {
   }, '');
 
   fs.writeFileSync(filename, `${saveResult.trim()}\n`);
-  return merge({}, subject, { saved: true });
-}
-
-function saveSnapshot(data) {
-  return updateSnapshot(data.snapshotFile, data.snapshotTitle, data.subject);
 }
 
 module.exports = {
   createDiff,
   formatDiff,
   getSnapshot,
-  saveSnapshot,
   subjectToSnapshot,
   updateSnapshot,
 };

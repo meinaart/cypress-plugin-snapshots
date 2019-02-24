@@ -27,7 +27,7 @@ function matchTextSnapshot({
   const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
   const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType);
-  const expected = applyReplace(expectedRaw, config.replace);
+  let expected = applyReplace(expectedRaw, config.replace);
   const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, config), expected, config);
 
   const exists = expected !== false;
@@ -41,6 +41,10 @@ function matchTextSnapshot({
   if ((config.updateSnapshots && !passed) || expected === false) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
+  }
+
+  if (autoPassed) {
+    expected = actual;
   }
 
   const result = {
