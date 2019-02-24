@@ -50,6 +50,7 @@ function matchTextSnapshot({
   const result = {
     actual,
     commandName,
+    dataType,
     diff,
     exists,
     expected,
