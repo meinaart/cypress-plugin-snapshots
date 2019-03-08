@@ -30,4 +30,14 @@
           });
         });
     });
+
+    it('toMatchImageSnapshot - no base snapshot', () => {
+      cy.visit('/static/stub.html')
+        .then(() => {
+          cy.wait(1000); // seems a bug with webfonts that requires this
+          cy.document().toMatchImageSnapshot({
+            threshold: 0.1
+          });
+        });
+    });
   });
