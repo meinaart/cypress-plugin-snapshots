@@ -5,7 +5,7 @@ function getImageData(props, devicePixelRatio = 1) {
     height: props.height || props.dimensions && props.dimensions.height,
     path: props.path,
     devicePixelRatio,
-    relativePath: path.relative(process.cwd(), props.path),
+    relativePath: (props.path) ? path.relative(process.cwd(), props.path) : '',
     width: props.width || props.dimensions && props.dimensions.width,
   };
 }
