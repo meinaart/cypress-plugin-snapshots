@@ -7,6 +7,7 @@
     "type": "git",
     "url": "https://github.com/meinaart/cypress-plugin-snapshots.git"
   },
+  "types": "types/index.d.ts",
   "files": [
     "*.js",
     "*.md",
