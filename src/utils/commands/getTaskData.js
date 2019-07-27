@@ -24,6 +24,7 @@ function getDataType({commandName, subject}) {
 async function getTaskData({
     commandName,
     options,
+    customName,
     subject: testSubject
   } = {}) {
   const subjectIsImage = isImage(commandName);
@@ -31,7 +32,7 @@ async function getTaskData({
   const testTitle = getTestTitle(test);
   const spec = await getSpec();
   const testFile = spec.absolute;
-  const snapshotTitle = getSnapshotTitle(test, subjectIsImage);
+  const snapshotTitle = getSnapshotTitle(test, customName, subjectIsImage);
   const subject = subjectIsImage ? testSubject : getSubject(testSubject);
   const dataType = getDataType({commandName, subject: testSubject});
 
