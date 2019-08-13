@@ -13,8 +13,8 @@
   "author": "Meinaart van Straalen",
   "license": "MIT",
   "dependencies": {
+    "cypress": "^3.4.1",
     "cypress-plugin-snapshots": "file:../",
-    "cypress": "^3.1.5",
     "express": "^4.16.4",
     "start-server-and-test": "^1.7.9"
   }

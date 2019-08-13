@@ -48,7 +48,7 @@
     "image-size": "^0.7.2",
     "jimp": "^0.6.0",
     "js-base64": "^2.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mkdirp": "^0.5.1",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
@@ -58,12 +58,12 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "source-map-support": "^0.5.10",
-    "unidiff": "1.0.1",
+    "unidiff": "1.0.2",
     "utf-8-validate": "^5.0.2",
     "uws": "^100.0.1"
   },
   "peerDependencies": {
-    "cypress": "^3.1.5"
+    "cypress": "^3.4.1"
   },
   "devDependencies": {
     "electron-rebuild": "^1.8.4",

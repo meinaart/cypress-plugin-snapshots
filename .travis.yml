@@ -16,8 +16,6 @@ addons:
   apt:
     packages:
     - libgconf-2-4
-services:
-  - xvfb
 install:
 - npm ci
 - npm --prefix cypress ci
