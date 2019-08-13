@@ -47,6 +47,7 @@ const DEFAULT_CONFIG = Object.freeze({
   serverPort: 2121,
   token: createToken(),
   updateSnapshots: false,
+  name: '',
 });
 
 const CONFIG_KEY = 'cypress-plugin-snapshots';
@@ -93,6 +94,11 @@ function getScreenshotConfig(options = {}) {
   return screenshotConfig;
 }
 
+function getCustomName(suppliedConfig) {
+  const cfg = suppliedConfig || getConfig();
+  return cfg.name;
+}
+
 function getServerUrl(suppliedConfig) {
   const cfg = suppliedConfig || getConfig();
   return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
@@ -118,6 +124,7 @@ module.exports = {
   getImageConfig,
   getPrettierConfig,
   getScreenshotConfig,
+  getCustomName,
   getServerUrl,
   initConfig,
   shouldNormalize,

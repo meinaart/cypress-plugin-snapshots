@@ -10,17 +10,17 @@ function snapshotTitleIsUsed(snapshotTitle, isImage = false) {
   return (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).indexOf(snapshotTitle) !== -1;
 }
 
-function getSnapshotTitle(test, isImage = false) {
-  const testTitle = getTestTitle(test);
+function getSnapshotTitle(test, customName, isImage = false) {
+  const name = customName || getTestTitle(test);
   const snapshots = isImage ? SNAPSHOTS_IMAGE : SNAPSHOTS_TEXT;
 
-  if (snapshots[testTitle] !== undefined) {
-    snapshots[testTitle] += 1;
+  if (snapshots[name] !== undefined) {
+    snapshots[name] += 1;
   } else {
-    snapshots[testTitle] = 0;
+    snapshots[name] = 0;
   }
 
-  const snapshotTitle = `${testTitle} #${snapshots[testTitle]}`;
+  const snapshotTitle = `${name} #${snapshots[name]}`;
   (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).push(snapshotTitle);
   return snapshotTitle;
 }

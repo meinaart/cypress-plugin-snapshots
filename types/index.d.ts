@@ -13,13 +13,15 @@ declare namespace Cypress {
       ignoreExtralFields: boolean,
       ignoreExtraArrayItems: boolean,
       normalizeJson: boolean,
-      replace: any
+      replace: any,
+      name: string
     }>): Chainable<null>;
 
     toMatchImageSnapshot(options?: Partial<{
       createDiffImage: boolean,
       threshold: number,
       thresholdType: "percent" | "pixels",
+      name: string
     }> & Partial<ScreenshotDefaultsOptions>): Chainable<null>;
   }
 }
