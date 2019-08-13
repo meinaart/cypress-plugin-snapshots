@@ -158,7 +158,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
 }
 ```
 \
-## Caveats :warning: 
+## Caveats :warning:
 There is currently an issue when running "All Tests" in Cypress with this plugin. You can follow the progress on the issue [here](https://github.com/meinaart/cypress-plugin-snapshots/issues/10) and [here](https://github.com/cypress-io/cypress/issues/3090). When running "All Tests" any tests that utilize `cypress-plugin-snapshots` will throw an error.
 
 ## Roadmap

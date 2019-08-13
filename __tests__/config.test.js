@@ -20,17 +20,24 @@ describe('config', () => {
 
   it('getScreenshotConfig', () => {
     const config = {
-      screenshotConfig: {
-        log: true,
-        bar: 'should be ignored',
-      },
-      foo: 'should be ignored',
+      log: true,
+      clip: {
+        x: 0,
+        y: 0,
+        height: 100,
+        width: 100,
+      }
     };
 
     expect(getScreenshotConfig(config)).toEqual({
       blackout: ['.snapshot-diff'],
       capture: 'fullPage',
-      clip: null,
+      clip: {
+        x: 0,
+        y: 0,
+        height: 100,
+        width: 100,
+      },
       disableTimersAndAnimations: true,
       log: true,
       scale: false,
