@@ -43,8 +43,15 @@ function initCommands() {
     }
   }
 
-  // Close snapshot modal before all test restart
-  Cypress.on('window:before:unload', closeSnapshotModal);
+  function clearFileCache() {
+    Cypress.__readFileCache__ = {};
+  }
+
+  // Close snapshot modal and reset image files cache before all test restart
+  Cypress.on('window:before:unload', () => {
+    closeSnapshotModal()
+    clearFileCache()
+  });
 
   // Clean up unused snapshots
   after(() => {

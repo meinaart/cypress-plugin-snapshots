@@ -13,13 +13,13 @@ function closeSnapshotModal() {
 
   // Bug: `cy.readFile` only works first time, as a fix I wrap it in a cached `Cypress.Promise`.
   // @TODO: file a bug report about this.
-  const __readFileCache__ = {};
   function readFile(fullPath, encoding = 'base64', options = { log: false }) {
-    if (!__readFileCache__[encoding]) {
-      __readFileCache__[encoding] = {};
+    if (!Cypress.__readFileCache__) Cypress.__readFileCache__ = {};
+    if (!Cypress.__readFileCache__[encoding]) {
+      Cypress.__readFileCache__[encoding] = {};
     }
 
-    const cache = __readFileCache__[encoding];
+    const cache = Cypress.__readFileCache__[encoding];
     if (!cache[fullPath]) {
       cache[fullPath] = new Cypress.Promise((resolve) => {
         cy.readFile(fullPath, encoding, options).then(resolve);
