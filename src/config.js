@@ -67,10 +67,10 @@ function getConfig() {
 
 function getImageConfig(options = {}) {
   return Object.keys(DEFAULT_IMAGE_CONFIG)
-    .filter((key) => options && options[key] !== undefined)
+    .filter((key) => options.imageConfig && options.imageConfig[key] !== undefined)
     .reduce(
       (imageConfig, key) => {
-        imageConfig[key] = options[key];
+        imageConfig[key] = options.imageConfig[key];
         return imageConfig;
       },
       merge({}, DEFAULT_IMAGE_CONFIG, getConfig().imageConfig)
@@ -80,10 +80,10 @@ function getImageConfig(options = {}) {
 
 function getScreenshotConfig(options = {}) {
   const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
-    .filter((key) => options && options[key] !== undefined)
+    .filter((key) => options.screenshotConfig && options.screenshotConfig[key] !== undefined)
     .reduce(
       (imageConfig, key) => {
-        imageConfig[key] = options[key];
+        imageConfig[key] = options.screenshotConfig[key];
         return imageConfig;
       },
       merge({}, DEFAULT_SCREENSHOT_CONFIG, getConfig().screenshotConfig)
