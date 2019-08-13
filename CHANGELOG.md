@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.2.7](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.6...v1.2.7) - 2019-08-13
+- Update dependencies with security vulnerabilities
+- Fix imageConfig loading from cypress.json (#40) (thanks @rndmerle)
+- Update readme to reflect proper thresholdTypes (#44) (thanks @bautistaaa)
+- Added typescript definitions (thanks @basarat)
+- Adds caveat section; mentions issue #10 (thanks @sgnl)
+- Properly handle undefined path (thanks @renelux)
+
 ### [1.2.6](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.6...v1.2.6) - 2019-02-25
 - fixed a bug that null values cause keepKeysFromExpected to fail (fixes #26)
 - Fix escaping of slashes (fixes #28)
