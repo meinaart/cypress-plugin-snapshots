@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.2.8](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.7...v1.2.8) - 2019-08-13
+- Fix `clip` argument for `toMatchImageSnapshot` (was broken in 1.2.7)
+
+
 ### [1.2.7](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.6...v1.2.7) - 2019-08-13
 - Update dependencies with security vulnerabilities
 - Fix imageConfig loading from cypress.json (#40) (thanks @rndmerle)
