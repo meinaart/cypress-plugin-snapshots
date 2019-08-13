@@ -13,6 +13,11 @@ notifications:
   email: false
 addons:
   chrome: stable
+  apt:
+    packages:
+    - libgconf-2-4
+services:
+  - xvfb
 install:
 - npm ci
 - npm --prefix cypress ci
