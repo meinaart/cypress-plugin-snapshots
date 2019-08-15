@@ -154,6 +154,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "serverHost": "localhost",       // Hostname for "update snapshot server"
     "serverPort": 2121,              // Port number for  "update snapshot server"
     "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
+    "backgroundBlend": "difference", // background-blend-mode for diff image, useful to switch to "overlay" 
   }
 }
 ```

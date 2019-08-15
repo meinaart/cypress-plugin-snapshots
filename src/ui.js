@@ -39,6 +39,12 @@ function initUi() {
     $head.append(`<style>${content}</style>`);
   });
 
+  $head.append(`<style>
+  .snapshot-image--diff .snapshot-image__wrapper {
+    background-blend-mode: ${config.backgroundBlend ? config.backgroundBlend : 'difference'}
+  }
+  </style>`);
+
   readFile(PATH_BASE64_JS).then((content) => {
     $head.append(`<script>${content}</script>`);
   });

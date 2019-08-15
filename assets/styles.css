@@ -186,9 +186,6 @@ a[href^="#cypress-plugin-snapshot-"]:before {
 .snapshot-image--diff:hover {
   opacity: 1;
 }
-.snapshot-image--diff .snapshot-image__wrapper {
-  background-blend-mode: difference;
-}
 
 .snapshot-image__title {
   color: #555;
