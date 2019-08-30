@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.2.9](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.8...v1.2.9) - 2019-08-30
+- Upgraded Cypress to 3.4.1 & other dependencies to newer versions
+- Publish the `types` folder (#57) (thanks @allout58)
+- Bump eslint-utils from 1.3.1 to 1.4.2 (#56)  …
+- feat: Adds ability to change background-blend-mode (#53) (thanks @johnmcclumpha)
+
 ### [1.2.8](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.7...v1.2.8) - 2019-08-13
 - Fix `clip` argument for `toMatchImageSnapshot` (was broken in 1.2.7)
 
