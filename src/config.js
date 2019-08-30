@@ -47,6 +47,7 @@ const DEFAULT_CONFIG = Object.freeze({
   serverPort: 2121,
   token: createToken(),
   updateSnapshots: false,
+  backgroundBlend: 'difference',
   name: '',
 });
 
