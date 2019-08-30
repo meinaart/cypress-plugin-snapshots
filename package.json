@@ -14,7 +14,8 @@
     "assets",
     "docs",
     "LICENSE",
-    "src"
+    "src",
+    "types"
   ],
   "engines": {
     "node": ">=8.2.1"
