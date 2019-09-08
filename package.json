@@ -41,16 +41,12 @@
     "test": "jest & npm --prefix cypress run cy:run"
   },
   "dependencies": {
-    "bufferutil": "^4.0.1",
-    "chalk": "^2.4.2",
     "diff2html": "^2.7.0",
     "fs-extra": "^7.0.1",
-    "get-stdin": "^6.0.0",
     "image-size": "^0.7.2",
     "jimp": "^0.6.0",
     "js-base64": "^2.5.1",
     "lodash": "^4.17.13",
-    "mkdirp": "^0.5.1",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
     "prettier": "^1.16.4",
@@ -59,15 +55,12 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "source-map-support": "^0.5.10",
-    "unidiff": "1.0.2",
-    "utf-8-validate": "^5.0.2",
-    "uws": "^100.0.1"
+    "unidiff": "1.0.2"
   },
   "peerDependencies": {
     "cypress": "^3.4.1"
   },
   "devDependencies": {
-    "electron-rebuild": "^1.8.4",
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.0.0",
