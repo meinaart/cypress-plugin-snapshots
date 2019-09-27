@@ -9,6 +9,7 @@ const commands = require('./src/commands/index');
 const cleanUpSnapshots = require('./src/utils/commands/cleanupSnapshots');
 const getConfig = require('./src/utils/commands/getConfig');
 const { NO_LOG } = require('./src/constants');
+const { CLEANUP_FOLDERS } = require('./src/tasks/taskNames');
 
 function addCommand(commandName, method) {
   Cypress.Commands.add(commandName, {
@@ -56,6 +57,7 @@ function initCommands() {
   // Clean up unused snapshots
   after(() => {
     cleanUpSnapshots();
+    cy.task(CLEANUP_FOLDERS, Cypress.config('screenshotsFolder'), NO_LOG).then(console.log);
   });
 
   // Add commands
