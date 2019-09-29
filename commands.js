@@ -1,10 +1,7 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
-const {
-  merge,
-  cloneDeep
-} = require('lodash');
-const { initUi } = require('./src/ui');
+const { merge, cloneDeep } = require('lodash');
+const { initUi, closeSnapshotModals } = require('./src/ui');
 const commands = require('./src/commands/index');
 const cleanUpSnapshots = require('./src/utils/commands/cleanupSnapshots');
 const getConfig = require('./src/utils/commands/getConfig');
@@ -29,19 +26,15 @@ function initCommands() {
   // Initialize config by getting it once
   getConfig();
 
-  // Inject CSS & JavaScript
-  before(() => {
-    initUi();
-  });
+  if (!Cypress.browser.isHeadless) {
 
-  function closeSnapshotModal() {
-    try {
-      if (window.top.closeSnapshotModal) {
-        window.top.closeSnapshotModal();
-      }
-    } catch(ex) {
-      window.console.error(ex);
-    }
+    // Inject CSS & JavaScript
+    before(() => {
+      initUi();
+
+      // Close snapshot modal before all test restart
+      closeSnapshotModals();
+    });
   }
 
   function clearFileCache() {
@@ -50,14 +43,13 @@ function initCommands() {
 
   // Close snapshot modal and reset image files cache before all test restart
   Cypress.on('window:before:unload', () => {
-    closeSnapshotModal()
-    clearFileCache()
+    clearFileCache();
   });
 
-  // Clean up unused snapshots
+  // Add test icons and clean up unused snapshots
   after(() => {
     cleanUpSnapshots();
-    cy.task(CLEANUP_FOLDERS, Cypress.config('screenshotsFolder'), NO_LOG).then(console.log);
+    cy.task(CLEANUP_FOLDERS, Cypress.config('screenshotsFolder'), NO_LOG).then(console.log); 
   });
 
   // Add commands

@@ -1,10 +1,5 @@
-const crypto = require('crypto');
 const { merge, cloneDeep, clone } = require('lodash');
 const { TYPE_JSON } = require('./dataTypes');
-
-function createToken() {
-  return crypto.randomBytes(64).toString('hex');
-}
 
 const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
   blackout: [],
@@ -42,10 +37,6 @@ const DEFAULT_CONFIG = Object.freeze({
     },
   },
   screenshotConfig: clone(DEFAULT_SCREENSHOT_CONFIG),
-  serverEnabled: true,
-  serverHost: 'localhost',
-  serverPort: 2121,
-  token: createToken(),
   updateSnapshots: false,
   backgroundBlend: 'difference',
   name: '',
@@ -100,11 +91,6 @@ function getCustomName(suppliedConfig) {
   return cfg.name;
 }
 
-function getServerUrl(suppliedConfig) {
-  const cfg = suppliedConfig || getConfig();
-  return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
-}
-
 function shouldNormalize(dataType, suppliedConfig) {
   const cfg = suppliedConfig && suppliedConfig.normalizeJson !== undefined ?
     suppliedConfig : getConfig();
@@ -126,7 +112,6 @@ module.exports = {
   getPrettierConfig,
   getScreenshotConfig,
   getCustomName,
-  getServerUrl,
   initConfig,
   shouldNormalize,
 };

@@ -1,22 +1,8 @@
 /* eslint-env browser */
-const { getServerUrl, CONFIG_KEY } = require('./config');
-
-const {
-  GET_FILE,
-} = require('./tasks/taskNames');
-const {
-  SAVE_TEXT,
-  SAVE_IMAGE,
-} = require('./server/actions');
-const {
-  PATH_CSS,
-  PATH_DIFF_CSS,
-  PATH_DIFF_JS,
-  PATH_JS,
-  PATH_SOCKET_JS,
-  PATH_BASE64_JS,
-} = require('./paths');
-const { NO_LOG } = require('./constants');
+const { CONFIG_KEY } = require('./config');
+const { GET_FILE } = require('./tasks/taskNames');
+const { PATH_CSS, PATH_DIFF_CSS } = require('./paths');
+const { NO_LOG, URL_PREFIX } = require('./constants');
 
 const FILE_CACHE = {};
 
@@ -28,8 +14,18 @@ function readFile(fileType) {
 }
 
 function initUi() {
+  const Modal = require('./ui/Modal'); // placed inside function for Jest testing
+
   const $head = Cypress.$(window.parent.window.document.head);
   const config = Cypress.env(CONFIG_KEY);
+
+  Cypress.$(window.parent.window.document).on('click', `a[href^="${URL_PREFIX}"]`, function (e) {
+    e.preventDefault();
+
+    const data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
+
+    new Modal(data, e.delegateTarget.body, this);
+  });
 
   if ($head.find('#cypress-plugin-snapshot').length > 0) {
     return;
@@ -41,44 +37,24 @@ function initUi() {
 
   $head.append(`<style>
   .snapshot-image--diff .snapshot-image__wrapper {
-    background-blend-mode: ${config.backgroundBlend ? config.backgroundBlend : 'difference'}
+    background-blend-mode: ${config.backgroundBlend ? config.backgroundBlend : 'screen, difference'}
   }
   </style>`);
-
-  readFile(PATH_BASE64_JS).then((content) => {
-    $head.append(`<script>${content}</script>`);
-  });
-
-  readFile(PATH_DIFF_JS).then((content) => {
-    $head.append(`<script>${content}</script>`);
-  });
-
-  if (config.serverEnabled) {
-    readFile(PATH_SOCKET_JS).then((content) => {
-      $head.append(`<script>
-      ${content}
-
-      var saveSnapshot = ((data) => {
-        var socket = io('${getServerUrl(config)}');
-
-        return (data) => {
-          const action = data.isImage ? '${SAVE_IMAGE}' : '${SAVE_TEXT}';
-          socket.emit(action, data);
-        };
-      })();
-      </script>`);
-    });
-  }
 
   readFile(PATH_CSS).then((content) => {
     $head.append(`<style id="cypress-plugin-snapshot">${content}</style>`);
   });
+}
 
-  readFile(PATH_JS).then((content) => {
-    $head.append(`<script>${content}</script>`);
-  });
+function closeSnapshotModals() {
+  try {
+    Cypress.$(window.parent.window.document).find('.d2h-wrapper').remove();
+  } catch (ex) {
+    console.log(ex);
+  }
 }
 
 module.exports = {
   initUi,
+  closeSnapshotModals
 };

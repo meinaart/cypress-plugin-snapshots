@@ -5,6 +5,10 @@ global.Cypress = {
   config: () => {},
   Commands: { add: jest.fn(), },
   on: () => ({}),
+  browser: {
+    isHeadless: true
+  },
+  $: () => ({})
 };
 
 global.cy = {};
@@ -21,6 +25,5 @@ describe('commands', () => {
     expect(global.Cypress.Commands.add.mock.calls.length).toEqual(2);
     expect(global.Cypress.Commands.add.mock.calls[0][0]).toEqual('toMatchSnapshot');
     expect(global.after).toBeCalled();
-    expect(global.before).toBeCalled();
   });
 });

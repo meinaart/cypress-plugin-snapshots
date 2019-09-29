@@ -47,12 +47,16 @@ function formatDiff(subject) {
   return String(subject || '');
 }
 
-function createDiff(expected, actual, snapshotTitle) {
+function getDiff(expected, actual, snapshotTitle) {
   return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
     aname: snapshotTitle,
     bname: snapshotTitle,
     context: getConfig().diffLines,
   });
+}
+
+function createDiff(expected, actual, snapshotTitle) {
+  return getDiff(expected, actual, snapshotTitle) || getDiff('', expected, snapshotTitle);
 }
 
 function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
@@ -130,4 +134,5 @@ module.exports = {
   getSnapshot,
   subjectToSnapshot,
   updateSnapshot,
+  getDiff
 };
