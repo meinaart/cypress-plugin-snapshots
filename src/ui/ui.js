@@ -1,8 +1,8 @@
 /* eslint-env browser */
-const { CONFIG_KEY } = require('./config');
-const { GET_FILE } = require('./tasks/taskNames');
-const { PATH_CSS, PATH_DIFF_CSS } = require('./paths');
-const { NO_LOG, URL_PREFIX } = require('./constants');
+const { CONFIG_KEY } = require('../config');
+const { GET_FILE } = require('../tasks/taskNames');
+const { PATH_CSS, PATH_DIFF_CSS } = require('../paths');
+const { NO_LOG, URL_PREFIX } = require('../constants');
 
 const FILE_CACHE = {};
 
@@ -14,7 +14,7 @@ function readFile(fileType) {
 }
 
 function initUi() {
-  const Modal = require('./ui/Modal'); // placed inside function for Jest testing
+  const Modal = require('./Modal'); // placed inside function for Jest testing
 
   const $head = Cypress.$(window.parent.window.document.head);
   const config = Cypress.env(CONFIG_KEY);

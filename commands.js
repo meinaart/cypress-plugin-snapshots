@@ -1,7 +1,7 @@
 /* globals Cypress, before, after, cy */
 /* eslint-env browser */
 const { merge, cloneDeep } = require('lodash');
-const { initUi, closeSnapshotModals } = require('./src/ui');
+const { initUi, closeSnapshotModals } = require('./src/ui/ui');
 const commands = require('./src/commands/index');
 const cleanUpSnapshots = require('./src/utils/commands/cleanupSnapshots');
 const getConfig = require('./src/utils/commands/getConfig');
