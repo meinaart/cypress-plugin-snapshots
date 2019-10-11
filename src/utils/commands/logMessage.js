@@ -21,6 +21,7 @@ function cleanupImage(image) {
 function getLogMessage(result) {
   const linkResult = cloneDeep(result);
   if (linkResult.isImage) {
+    linkResult.expected.relativePath = linkResult.expected.relativePath || linkResult.snapshotFile;
     cleanupImage(linkResult.actual);
     cleanupImage(linkResult.expected);
     cleanupImage(linkResult.diff);

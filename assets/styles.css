@@ -109,8 +109,9 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 /* Modal */
 .d2h-wrapper {
   background: white;
-  min-width: 65vw;
-  max-height: 100vh;
+  min-width: 40vw;
+  max-height: 99vh;
+  max-width: 99vw;
   overflow-y: auto;
   position: fixed;
   left: 50%;
@@ -125,13 +126,12 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 .d2h-file-wrapper {
   border: none;
   margin-bottom: 0;
-  height: 100%;
-  box-sizing: border-box;
 }
 
 /* Header */
 .d2h-file-name-wrapper {
-    height: 100%;
+  height: 100%;
+  white-space: nowrap;
 }
 
 .btn-group {
@@ -171,7 +171,6 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 .d2h-file-name-wrapper button:hover {
   transform: scale(1.07);
   -webkit-transform: scale(1.07);
-  /*background-color: rgba(0, 0, 0, 0.1); rgb(245, 250, 254);*/
 }
 
 .d2h-file-name-wrapper .snapshot-btn-approve {
@@ -194,7 +193,7 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 .state-passed .d2h-tag:before {
   border: #08c18d 1px solid;
   color: #08c18d;
-  content: 'NO CHANGES';
+  content: 'PASSED';
 }
 
 .state-updated .d2h-tag:before {
@@ -206,9 +205,20 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 .state-failed .d2h-tag:before {
   border: #e94f5f 1px solid;
   color: #e94f5f;
-  content: 'CHANGED';
+  content: 'FAILED';
 }
 
+
+/* Content */
+.d2h-file-diff {
+  position: relative;
+  overflow-x: auto;
+}
+
+.d2h-file-side-diff {
+  overflow-x: auto;
+  margin-bottom: -3px;
+}
 
 /* Content - Text (Overrides default diff2Html to display diff w/o changes) */
 .state-passed .d2h-diff-tbody tr:nth-child(1),
@@ -239,12 +249,15 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
   margin-bottom: .25em;
   text-align: center;
   font-size: 14px;
+  text-transform: capitalize;
 }
 
-.snapshot-image__image {
-  position: absolute;
-  top: 0;
-  width: 100%;
+.snapshot-image img {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  max-height: calc(100vh - 65px);
+  max-width: 100%;
 }
 
 /* Content - Image - Single */
@@ -252,15 +265,7 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
   width: 100%;
 }
 
-.snapshot-image--single .snapshot-image__image {
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-}
-
-.state-passed .snapshot-image--single h2, 
-.state-updated .snapshot-image--single h2 {
+.snapshot-image--single h2 {
   display: none;
 }
 
@@ -270,19 +275,14 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
   left: 0;
   opacity: 0;
   transition: all ease-in-out 100ms;
-}
-
-.snapshot-image--diff:active,
-.snapshot-image--diff:hover {
-  opacity: 1;
+  height: 100%;
 }
 
 .snapshot-image--diff h2 {
   visibility: hidden;
 }
 
-.snapshot-image__wrapper {
-  position: relative;
-  display: block;
-  margin: 0 auto;
+.snapshot-image--diff:active,
+.snapshot-image--diff:hover {
+  opacity: 1;
 }

@@ -1,4 +1,5 @@
 /* eslint-env browser */
+const { Base64 } = require('js-base64');
 const { CONFIG_KEY } = require('../config');
 const { GET_FILE } = require('../tasks/taskNames');
 const { PATH_CSS, PATH_DIFF_CSS } = require('../paths');
@@ -24,7 +25,7 @@ function initUi() {
 
     const data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
 
-    new Modal(data, e.delegateTarget.body, this);
+    new Modal(data, e.delegateTarget.body, this); /* eslint-disable-line no-new */
   });
 
   if ($head.find('#cypress-plugin-snapshot').length > 0) {
@@ -36,7 +37,7 @@ function initUi() {
   });
 
   $head.append(`<style>
-  .snapshot-image--diff .snapshot-image__wrapper {
+  .snapshot-image--diff div {
     background-blend-mode: ${config.backgroundBlend ? config.backgroundBlend : 'screen, difference'}
   }
   </style>`);

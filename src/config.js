@@ -40,6 +40,7 @@ const DEFAULT_CONFIG = Object.freeze({
   updateSnapshots: false,
   backgroundBlend: 'difference',
   name: '',
+  diffFormat: 'side-by-side'
 });
 
 const CONFIG_KEY = 'cypress-plugin-snapshots';
