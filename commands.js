@@ -12,7 +12,7 @@ function addCommand(commandName, method) {
   Cypress.Commands.add(commandName, {
     prevSubject: true
   }, (commandSubject, taskOptions) => {
-    if (!commandSubject) {
+    if (commandSubject === undefined) {
       return commandSubject;
     }
 
@@ -57,7 +57,7 @@ function initCommands() {
 }
 
 module.exports = {
-  initCommands,
+  initCommands
 };
 
 if (!process.env.JEST_WORKER_ID) {

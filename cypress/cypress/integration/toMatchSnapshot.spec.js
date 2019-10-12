@@ -8,9 +8,8 @@ describe('toMatchSnapshot', () => {
       });
   });
 
-  /* bug #34 - [undefined, null, false] */
   /* bug #65 - [date, string] */
   runSuites('toMatchSnapshot', function (item) {
     cy.wrap(item).toMatchSnapshot();
-  }, ['undefined', 'null', 'false', 'date', 'string']);
+  }, ['date', 'string']);
 });

@@ -106,3 +106,9 @@ exports[`toMatchSnapshot > toMatchSnapshot > html > NodeList #0`] = `
 exports[`toMatchSnapshot > toMatchSnapshot > html > svg #0`] = `
 <svg height="20" width="40"><path d="M10 0 L0 20 L20 20 Z"></path></svg>
 `;
+
+exports[`toMatchSnapshot > toMatchSnapshot > json > false #0`] =
+false;
+
+exports[`toMatchSnapshot > toMatchSnapshot > json > null #0`] =
+null;
