@@ -3,15 +3,13 @@ const { runSuites, dataRaw, dataFormatted } = require('../fixtures/test-data');
 const { isHtml, getSubject } = require('../../../src/utils/commands/index');
 
 describe('text - utils', () => {
-  /* bug #67 - [undefined, null, true, string, number, date, array, object, HTMLCollection, NodeList] */
   runSuites('isHtml', function (item, itemName, suiteName) {
     expect(isHtml(item)).to.equal(suiteName == 'html');
-  }, ['undefined', 'null', 'true', 'string', 'number', 'date', 'array', 'object', 'HTMLCollection', 'NodeList']);
+  });
 
-  /* bug #67 - [HTMLCollection, NodeList, jquery-get, cy-get-element] */
   runSuites('getSubject', function (item, itemName, suiteName) {
     expect(getSubject(item)).to.equal(dataFormatted[suiteName][itemName]);
-  }, ['HTMLCollection', 'NodeList', 'jquery-get', 'cy-get-element']);
+  });
 
   describe('normalizeObject', () => {
     it('true', () => {
