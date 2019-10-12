@@ -8,8 +8,7 @@ describe('toMatchSnapshot', () => {
       });
   });
 
-  /* bug #65 - [date, string] */
   runSuites('toMatchSnapshot', function (item) {
     cy.wrap(item).toMatchSnapshot();
-  }, ['date', 'string']);
+  });
 });

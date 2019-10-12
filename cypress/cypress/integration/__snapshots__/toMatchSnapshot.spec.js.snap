@@ -112,3 +112,11 @@ false;
 
 exports[`toMatchSnapshot > toMatchSnapshot > json > null #0`] =
 null;
+
+exports[`toMatchSnapshot > toMatchSnapshot > json > string #0`] = `
+kylie
+`;
+
+exports[`toMatchSnapshot > toMatchSnapshot > json > date #0`] = `
+2019-02-11T05:00:00.000Z
+`;

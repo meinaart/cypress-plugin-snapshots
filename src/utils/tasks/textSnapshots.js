@@ -3,11 +3,7 @@ const fs = require('fs-extra');
 const unidiff = require('unidiff');
 const prettier = require('prettier');
 const { TYPE_JSON } = require('../../dataTypes');
-const {
-  getConfig,
-  shouldNormalize,
-  getPrettierConfig
-} = require('../../config');
+const { getConfig, shouldNormalize, getPrettierConfig } = require('../../config');
 const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
 
@@ -64,13 +60,14 @@ function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
 
   if (fs.existsSync(filename)) {
     const snapshots = readFile(filename);
-    if (snapshots[snapshotTitle]) {
-      return subjectToSnapshot(snapshots[snapshotTitle], dataType, config);
+    let snap = snapshots[snapshotTitle];
+    if (snap && snap.replace) {
+      snap = snap.replace(/^\n|\n$/g, '');
     }
-  } else {
-    fs.writeFileSync(filename, '{}');
+    return subjectToSnapshot(snap, dataType, config);
   }
 
+  fs.writeFileSync(filename, '{}');
   return false;
 }
 
