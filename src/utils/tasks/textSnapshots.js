@@ -51,7 +51,7 @@ function getDiff(expected, actual, snapshotTitle) {
   return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
     aname: snapshotTitle,
     bname: snapshotTitle,
-    context: getConfig().diffLines,
+    context: getConfig().diffLines
   });
 }
 
@@ -65,7 +65,7 @@ function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
   if (fs.existsSync(filename)) {
     const snapshots = readFile(filename);
     if (snapshots[snapshotTitle]) {
-      return subjectToSnapshot(snapshots[snapshotTitle], dataType);
+      return subjectToSnapshot(snapshots[snapshotTitle], dataType, config);
     }
   } else {
     fs.writeFileSync(filename, '{}');
@@ -85,7 +85,7 @@ function readFile(filename) {
       console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
       const fileContents = fs.readFileSync(filename, 'utf8');
 
-      if (!fileContents || !fileContents.trim() || fileContents.trim().slice(0,1) !== '{') {
+      if (!fileContents || !fileContents.trim() || fileContents.trim().slice(0, 1) !== '{') {
         throw new Error(`Cannot load snapshot file. File "${filename} does not contain valid JSON or javascript`);
       }
 
@@ -120,7 +120,7 @@ function updateSnapshot(filename, snapshotTitle, subject, dataType = TYPE_JSON) 
       value = `\n${formatJson(value)}`;
     }
     result += `exports[\`${key}\`] =${value}`;
-    result += ";\n\n";
+    result += ';\n\n';
 
     return result;
   }, '');

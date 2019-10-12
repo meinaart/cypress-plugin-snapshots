@@ -16,8 +16,7 @@ describe('text - utils', () => {
       cy.wrap(dataRaw.json.object).toMatchSnapshot({ normalizeJson: true });
     });
 
-    /* bug #66 */
-    it.skip('false', () => {
+    it('false', () => {
       cy.wrap(dataRaw.json.object).toMatchSnapshot({ normalizeJson: false });
     });
   });
