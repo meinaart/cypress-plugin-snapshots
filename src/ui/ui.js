@@ -23,8 +23,7 @@ function initUi() {
   Cypress.$(window.parent.window.document).on('click', `a[href^="${URL_PREFIX}"]`, function (e) {
     e.preventDefault();
 
-    const data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
-
+    const data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace(URL_PREFIX, '')));
     new Modal(data, e.delegateTarget.body, this); /* eslint-disable-line no-new */
   });
 

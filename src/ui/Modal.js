@@ -35,13 +35,13 @@ Modal.prototype.show = function (data, diffHtml, target) {
     commandName,
     updated,
     passed,
-    isImage
+    isImage,
+    state
   } = data;
 
   // Modal
   const modal = $(diffHtml)
-    .addClass(commandName)
-    .addClass(`state-${updated ? 'updated' : passed ? 'passed' : 'failed'}`) /* eslint-disable-line no-nested-ternary */
+    .addClass(`${commandName} state-${state}`)
     .appendTo(this.win);
 
   // Header
@@ -70,7 +70,7 @@ Modal.prototype.show = function (data, diffHtml, target) {
           arg: data,
           timeout: 5000
         }).then(function (updatedData) {
-          $(target).text('Snapshot').addClass('command-state-updated')
+          $(target).addClass('updated')
             .attr('href', `${URL_PREFIX}${Base64.encode(JSON.stringify(updatedData))}`);
 
           closeSnapshotModal();

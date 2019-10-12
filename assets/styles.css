@@ -1,10 +1,25 @@
 /* Log */
+.command-name-toMatchImageSnapshot .command-message-text,
+.command-name-toMatchSnapshot .command-message-text {
+  overflow: visible;
+}
+
 .command-name-toMatchImageSnapshot .command-method span,
 .command-name-toMatchSnapshot .command-method span,
 a[href^="#cypress-plugin-snapshot-"] {
   border-radius: 2px;
-  padding: 0px 3px;
+  padding: 0px 4px;
   font-size: 11px;
+  color: white;
+}
+
+.command-name-toMatchImageSnapshot .command-method span:hover,
+.command-name-toMatchSnapshot .command-method span:hover,
+a[href^="#cypress-plugin-snapshot-"]:hover,
+a[href^="#cypress-plugin-snapshot-"]:active,
+a[href^="#cypress-plugin-snapshot-"]:focus {
+  box-shadow: 0 2px 4px 0 rgba(111, 111, 111, 0.6), 0 1px 1px 0 rgba(111, 111, 111, 0.6);
+  text-decoration: none;
   color: white;
 }
 
@@ -12,6 +27,12 @@ a[href^="#cypress-plugin-snapshot-"] {
 .command-name-toMatchImageSnapshot .command-method span,
 .command-name-toMatchSnapshot .command-method span {
   float: right;
+  background-color: #565554;
+}
+
+.command-name-toMatchImageSnapshot.command-state-failed+.command-name-then,
+.command-name-toMatchSnapshot.command-state-failed+.command-name-then {
+  display: none;
 }
 
 .command-name-toMatchImageSnapshot .command-method span:after,
@@ -29,82 +50,48 @@ a[href^="#cypress-plugin-snapshot-"] {
   content: "\f0f6";
 }
 
-.command-name-toMatchImageSnapshot.command-state-passed .command-method span,
-.command-name-toMatchSnapshot.command-state-passed .command-method span {
+/* Log - Snapshot State */
+a[href^="#cypress-plugin-snapshot-"] {
+  display: inline-block;
+  margin-top: 1px;
+  color: white;
+  margin-left: 2px;
+  font-weight: bold;
+}
+
+.command-state-passed a[href^="#cypress-plugin-snapshot-"] {
   background-color: #08c18d;
 }
 
-.command-name-toMatchImageSnapshot.command-state-failed .command-method span,
-.command-name-toMatchSnapshot.command-state-failed .command-method span {
-  background-color: #e94f5f;
-}
-
-.command-name-toMatchImageSnapshot.command-state-pending .command-method span,
-.command-name-toMatchSnapshot.command-state-pending .command-method span {
-  background-color: #428BCA;
-}
-
-.command-name-toMatchImageSnapshot.command-state-failed+.command-name-then.command-state-failed,
-.command-name-toMatchSnapshot.command-state-failed+.command-name-then.command-state-failed {
-  display: none;
-}
-
-/* Log - Snapshots match/Compare snapshots */
-a[href^="#cypress-plugin-snapshot-"] {
-    background: #08c18d;
-    text-transform: uppercase;
-    display: inline-block;
-    line-height: 12px;
-    border: 1px solid #08c18d;
-    vertical-align: middle;
-    margin-top: 1px;
+.command-state-passed a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "√ PASSED";
 }
 
 .command-state-failed a[href^="#cypress-plugin-snapshot-"] {
-  background: #fad7db;
-  border: 1px solid currentColor;
-  color: #e94f5f;
-}
-
-a[href^="#cypress-plugin-snapshot-"]:active,
-a[href^="#cypress-plugin-snapshot-"]:hover,
-a[href^="#cypress-plugin-snapshot-"]:focus {
-  color: white;
-  text-decoration: none;
-  background: #08c18d;
-}
-
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:active,
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:hover,
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:focus {
   background-color: #e94f5f;
-  border-color: #e94f5f;
-  color: #fad7db;
-}
-
-a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "√ ";
-  font-weight: bold;
 }
 
 .command-state-failed a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "<> ";
+  content: "<> COMPARE SNAPSHOTS";
 }
 
-a[href^="#cypress-plugin-snapshot-"].command-state-updated,
-a[href^="#cypress-plugin-snapshot-"].command-state-updated:active,
-a[href^="#cypress-plugin-snapshot-"].command-state-updated:hover,
-a[href^="#cypress-plugin-snapshot-"].command-state-updated:focus {
-  background-color: #428BCA;
-  border-color: #428BCA;
-  color: white;
+.command-state-new a[href^="#cypress-plugin-snapshot-"] {
+  background-color: #3366ff;
 }
 
-a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
-  content: "√ ";
-  font-weight: bold;
+.command-state-new a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "√ NEW";
 }
 
+.command-state-new a[href^="#cypress-plugin-snapshot-"],
+a[href^="#cypress-plugin-snapshot-"].updated {
+  background-color: #8000ff;
+}
+
+.command-state-new a[href^="#cypress-plugin-snapshot-"]:before,
+a[href^="#cypress-plugin-snapshot-"].updated:before {
+  content: "√ UPDATED";
+}
 
 /* Modal */
 .d2h-wrapper {
@@ -197,8 +184,8 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
 }
 
 .state-updated .d2h-tag:before {
-  border: #428BCA 1px solid;
-  color: #428BCA;
+  border: #8000ff 1px solid;
+  color: #8000ff;
   content: 'UPDATED';
 }
 
@@ -206,6 +193,12 @@ a[href^="#cypress-plugin-snapshot-"].command-state-updated:before {
   border: #e94f5f 1px solid;
   color: #e94f5f;
   content: 'FAILED';
+}
+
+.state-new .d2h-tag:before {
+  border: #3366ff 1px solid;
+  color: #3366ff;
+  content: 'NEW';
 }
 
 
