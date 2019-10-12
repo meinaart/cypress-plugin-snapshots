@@ -1,21 +1,16 @@
+const { runSuites } = require('../fixtures/test-data');
+
 describe('toMatchSnapshot', () => {
-  it('toMatchSnapshot - json', () => {
-    cy.request('/static/stub.json')
-      .its('body')
-      .toMatchSnapshot();
-  });
-
-  it('toMatchSnapshot - html', () => {
-    cy.visit('/static/stub.html')
-      .then(() => {
-        cy.get('[data-test=test]').toMatchSnapshot();
-      });
-  });
-
-  it('toMatchSnapshot - html escaping', () => {
+  it('html escaping', () => {
     cy.visit('/static/input.html')
       .then(() => {
         cy.get('#input-element').toMatchSnapshot();
       });
   });
+
+  /* bug #34 - [undefined, null, false] */
+  /* bug #65 - [date, string] */
+  runSuites('toMatchSnapshot', function (item) {
+    cy.wrap(item).toMatchSnapshot();
+  }, ['undefined', 'null', 'false', 'date', 'string']);
 });
