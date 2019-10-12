@@ -151,7 +151,8 @@ Add the configuration below to your `cypress.json` file to make changes to the d
       "timeout": 30000,
     },
     "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
-    "backgroundBlend": "difference", // background-blend-mode for diff image, useful to switch to "overlay" 
+    "backgroundBlend": "difference", // background-blend-mode for diff image, useful to switch to "overlay"
+    "diffFormat": "side-by-side"     // Options: side-by-side or line-by-line 
   }
 }
 ```
