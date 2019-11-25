@@ -1,16 +1,7 @@
+const { Cypress } = global;
 const rewire = require('rewire');
 
 const DEFAULT_CONFIG = rewire('../../../src/config').__get__('DEFAULT_CONFIG');
-
-global.Cypress = {
-  env: () => {},
-  config: () => {},
-  Commands: {
-    add: jest.fn(),
-  },
-};
-
-global.cy = {};
 
 describe('utils/command', () => {
   describe('should retrieve config', () => {
@@ -20,7 +11,7 @@ describe('utils/command', () => {
 
     it('with string config', () => {
       let returnValue = JSON.stringify(DEFAULT_CONFIG);
-      global.Cypress.env = (name, value) => {
+      Cypress.env = (name, value) => {
         if (value) {
           returnValue = value;
         }
@@ -32,13 +23,13 @@ describe('utils/command', () => {
     });
 
     it('with config', () => {
-      global.Cypress.env = () => CONFIG;
+      Cypress.env = () => CONFIG;
       const getConfig = require('../../../src/utils/commands/getConfig');
       expect(getConfig()).toMatchObject(CONFIG);
     });
 
     it('without config - error should be thrown', () => {
-      global.Cypress.env = () => undefined;
+      Cypress.env = () => undefined;
       const getConfig = require('../../../src/utils/commands/getConfig');
       expect(() => { getConfig(); }).toThrow();
     });

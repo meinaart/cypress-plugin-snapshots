@@ -127,9 +127,13 @@
     "testPathIgnorePatterns": [
       "<rootDir>/examples/",
       "<rootDir>/node_modules/",
-      "<rootDir>/cypress/"
+      "<rootDir>/cypress/",
+      "<rootDir>/__tests__/setup.js"
     ],
     "clearMocks": true,
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/__tests__/setup.js"
+    ]
   }
 }
