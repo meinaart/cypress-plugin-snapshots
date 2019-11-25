@@ -1,7 +1,3 @@
-const {
-  merge,
-  cloneDeep
-} = require('lodash');
 const applyReplace = require('../utils/text/applyReplace');
 const {
   createDiff,
@@ -12,9 +8,6 @@ const {
 } = require('../utils/tasks/textSnapshots');
 const getSnapshotFilename = require('../utils/text/getSnapshotFilename');
 const keepKeysFromExpected = require('../utils/text/keepKeysFromExpected');
-const {
-  getConfig
-} = require('../config');
 
 function matchTextSnapshot({
   commandName,
@@ -24,21 +17,20 @@ function matchTextSnapshot({
   subject,
   testFile
 } = {}) {
-  const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
-  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType, config);
-  let expected = applyReplace(expectedRaw, config.replace);
-  const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, config), expected, config);
+  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType, options);
+  let expected = applyReplace(expectedRaw, options.replace);
+  const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, options), expected, options);
 
-  const exists = expected !== false;
+  const exists = expected !== undefined;
 
-  const autoPassed = config.autopassNewSnapshots && expected === false;
+  const autoPassed = options.autopassNewSnapshots && expected === undefined;
   const passed = expected && formatDiff(expected) === formatDiff(actual);
   const diff = createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if ((options.updateSnapshots && !passed) || expected === undefined) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }
