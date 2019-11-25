@@ -55,7 +55,7 @@ function createDiff(expected, actual, snapshotTitle) {
   return getDiff(expected, actual, snapshotTitle) || getDiff('', expected, snapshotTitle);
 }
 
-function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
+function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON, config = {}) {
   fs.ensureDirSync(path.dirname(filename));
 
   if (fs.existsSync(filename)) {
