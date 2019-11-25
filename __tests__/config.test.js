@@ -1,47 +1,84 @@
-const { getImageConfig, getScreenshotConfig } = require('../src/config');
+const rewire = require('rewire');
+const { cloneDeep } = require('lodash');
+const { initCommands } = require('../commands');
+const { getConfig, mergeConfig } = require('../src/config');
+const { COMMAND_MATCH_SNAPSHOT, COMMAND_MATCH_IMAGE_SNAPSHOT } = require('../src/commands/commandNames');
+
+const DEFAULT_CONFIG = cloneDeep(rewire('../src/config').__get__('DEFAULT_CONFIG')); /* eslint-disable-line */
 
 describe('config', () => {
-  it('getImageConfig', () => {
-    const config = {
-      imageConfig: {
-        threshold: 0.5,
-        bar: 'should be ignored',
-      },
-      foo: 'should be ignored',
-    };
+  it('verify default config', () => {
+    initCommands({}); // set config to default config
+    expect(getConfig()).toEqual(DEFAULT_CONFIG);
+  });
 
-    expect(getImageConfig(config)).toEqual({
-      createDiffImage: true,
-      resizeDevicePixelRatio: true,
-      threshold: 0.5,
-      thresholdType: 'percent',
+  describe('toMatchSnapshot', () => {
+    it('mergeConfig', () => {
+      const config = mergeConfig(COMMAND_MATCH_SNAPSHOT, {
+        ignoreExtraFields: true,
+        ignoreExtraArrayItems: true,
+        normalizeJson: false,
+        foo: 'should be ignored'
+      });
+
+      expect(config).toMatchSnapshot();
+    });
+
+    it('config should not have changed', () => {
+      expect(getConfig()).toEqual(DEFAULT_CONFIG);
     });
   });
 
-  it('getScreenshotConfig', () => {
-    const config = {
-      log: true,
-      clip: {
-        x: 0,
-        y: 0,
-        height: 100,
-        width: 100,
-      }
-    };
+  describe('toMatchImageSnapshot w/ custom name', () => {
+    it('mergeConfig', () => {
+      const config = mergeConfig(COMMAND_MATCH_IMAGE_SNAPSHOT, {
+        createDiffImage: false,
+        threshold: 0.5,
+        name: 'custom image name',
+        thresholdType: 'pixels',
+        resizeDevicePixelRatio: false,
+        blackout: ['.blackout'],
+        log: true,
+        clip: {
+          x: 0,
+          y: 0,
+          height: 100,
+          width: 100
+        },
+        foo: 'should be ignored'
+      });
 
-    expect(getScreenshotConfig(config)).toEqual({
-      blackout: ['.snapshot-diff'],
-      capture: 'fullPage',
-      clip: {
-        x: 0,
-        y: 0,
-        height: 100,
-        width: 100,
-      },
-      disableTimersAndAnimations: true,
-      log: true,
-      scale: false,
-      timeout: 30000,
+      expect(config).toMatchSnapshot();
+    });
+
+    it('config should not have changed', () => {
+      expect(getConfig()).toEqual(DEFAULT_CONFIG);
+    });
+  });
+
+  describe('toMatchImageSnapshot w/o custom name', () => {
+    it('mergeConfig', () => {
+      const config = mergeConfig(COMMAND_MATCH_IMAGE_SNAPSHOT, {
+        createDiffImage: false,
+        threshold: 0.5,
+        thresholdType: 'pixels',
+        resizeDevicePixelRatio: false,
+        blackout: ['.blackout'],
+        log: true,
+        clip: {
+          x: 0,
+          y: 0,
+          height: 100,
+          width: 100
+        },
+        foo: 'should be ignored'
+      });
+
+      expect(config).toMatchSnapshot();
+    });
+
+    it('config should not have changed', () => {
+      expect(getConfig()).toEqual(DEFAULT_CONFIG);
     });
   });
 });

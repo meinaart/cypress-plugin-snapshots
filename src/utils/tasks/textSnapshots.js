@@ -3,9 +3,17 @@ const fs = require('fs-extra');
 const unidiff = require('unidiff');
 const prettier = require('prettier');
 const { TYPE_JSON } = require('../../dataTypes');
-const { getConfig, shouldNormalize, getPrettierConfig } = require('../../config');
+const { getConfig } = require('../../config');
 const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
+
+function shouldNormalize(dataType, cfg) {
+  return dataType === TYPE_JSON && cfg.normalizeJson;
+}
+
+function getPrettierConfig(dataType, cfg) {
+  return cfg.prettier && cfg.prettierConfig ? cfg.prettierConfig[dataType] : undefined;
+}
 
 function subjectToSnapshot(subject, dataType = TYPE_JSON, config = {}) {
   let result = subject;

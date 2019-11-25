@@ -1,21 +1,13 @@
-const { merge, cloneDeep, clone } = require('lodash');
-const { TYPE_JSON } = require('./dataTypes');
+const { merge, cloneDeep, clone, pick } = require('lodash');
+const { COMMAND_MATCH_SNAPSHOT } = require('./commands/commandNames');
 
-const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
-  blackout: [],
-  capture: 'fullPage',
-  clip: null,
-  disableTimersAndAnimations: true,
-  log: false,
-  scale: false,
-  timeout: 30000,
-});
+const CONFIG_KEY = 'cypress-plugin-snapshots';
 
 const DEFAULT_IMAGE_CONFIG = Object.freeze({
   createDiffImage: true,
   resizeDevicePixelRatio: true,
   threshold: 0.1,
-  thresholdType: 'percent', // can be 'percent' or 'pixel'
+  thresholdType: 'percent' // can be 'percent' or 'pixel'
 });
 
 const DEFAULT_CONFIG = Object.freeze({
@@ -34,22 +26,25 @@ const DEFAULT_CONFIG = Object.freeze({
       parser: 'html',
       tabWidth: 2,
       endOfLine: 'lf'
-    },
+    }
   },
-  screenshotConfig: clone(DEFAULT_SCREENSHOT_CONFIG),
+  screenshotConfig: {
+    blackout: ['.snapshot-diff'],
+    log: false
+  },
   updateSnapshots: false,
   backgroundBlend: 'difference',
-  name: '',
   diffFormat: 'side-by-side'
 });
-
-const CONFIG_KEY = 'cypress-plugin-snapshots';
 
 let config = cloneDeep(DEFAULT_CONFIG);
 
 function initConfig(initialConfig) {
-  if (initialConfig) {
-    config = merge(config, initialConfig);
+  config = merge({}, DEFAULT_CONFIG, initialConfig);
+
+  config.screenshotConfig.blackout = config.screenshotConfig.blackout || [];
+  if (!config.screenshotConfig.blackout.includes('.snapshot-diff')) {
+    config.screenshotConfig.blackout.push('.snapshot-diff');
   }
   return config;
 }
@@ -58,61 +53,41 @@ function getConfig() {
   return config;
 }
 
-function getImageConfig(options = {}) {
-  return Object.keys(DEFAULT_IMAGE_CONFIG)
-    .filter((key) => options.imageConfig && options.imageConfig[key] !== undefined)
-    .reduce(
-      (imageConfig, key) => {
-        imageConfig[key] = options.imageConfig[key];
-        return imageConfig;
-      },
-      merge({}, DEFAULT_IMAGE_CONFIG, getConfig().imageConfig)
-    );
-}
+function mergeConfig(commandName, taskOptions) {
+  const options = cloneDeep(config);
 
+  if (commandName === COMMAND_MATCH_SNAPSHOT) {
+    merge(options, taskOptions);
+    return pick(options, Object.keys(DEFAULT_CONFIG));
+  }
 
-function getScreenshotConfig(options = {}) {
-  const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
-    .filter((key) => options && options[key] !== undefined)
-    .reduce(
-      (imageConfig, key) => {
-        imageConfig[key] = options[key];
-        return imageConfig;
-      },
-      merge({}, DEFAULT_SCREENSHOT_CONFIG, getConfig().screenshotConfig)
-    );
+  const screenshotConfigOptions = [
+    'log',
+    'blackout',
+    'capture',
+    'clip',
+    'disableTimersAndAnimations',
+    'padding',
+    'scale',
+    'timeout',
+    'onBeforeScreenshot',
+    'onAfterScreenshot'
+  ];
 
-  screenshotConfig.blackout = (screenshotConfig.blackout || []);
-  screenshotConfig.blackout.push('.snapshot-diff');
-  return screenshotConfig;
-}
+  merge(options.imageConfig, pick(taskOptions, Object.keys(DEFAULT_CONFIG.imageConfig)));
+  merge(options.screenshotConfig, pick(taskOptions, screenshotConfigOptions));
 
-function getCustomName(suppliedConfig) {
-  const cfg = suppliedConfig || getConfig();
-  return cfg.name;
-}
+  if (taskOptions && taskOptions.name) {
+    options.name = taskOptions.name;
+  }
 
-function shouldNormalize(dataType, suppliedConfig) {
-  const cfg = suppliedConfig && suppliedConfig.normalizeJson !== undefined ?
-    suppliedConfig : getConfig();
-  return dataType === TYPE_JSON && cfg.normalizeJson;
-}
-
-function getPrettierConfig(dataType, suppliedConfig) {
-  const cfg = suppliedConfig && suppliedConfig.prettierConfig ?
-    suppliedConfig : getConfig();
-  return cfg.prettier && cfg.prettierConfig ? cfg.prettierConfig[dataType] : undefined;
+  return options;
 }
 
 module.exports = {
   CONFIG_KEY,
   DEFAULT_IMAGE_CONFIG,
-  DEFAULT_SCREENSHOT_CONFIG,
-  getConfig,
-  getImageConfig,
-  getPrettierConfig,
-  getScreenshotConfig,
-  getCustomName,
   initConfig,
-  shouldNormalize,
+  getConfig,
+  mergeConfig
 };
