@@ -69,6 +69,9 @@ function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON, config = {})
   if (fs.existsSync(filename)) {
     const snapshots = readFile(filename);
     let snap = snapshots[snapshotTitle];
+    if(snap === undefined) {
+      return false;
+    }
     if (snap && snap.replace) {
       snap = snap.replace(/^\n|\n$/g, '');
     }

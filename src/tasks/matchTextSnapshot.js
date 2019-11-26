@@ -22,15 +22,15 @@ function matchTextSnapshot({
   let expected = applyReplace(expectedRaw, options.replace);
   const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, options), expected, options);
 
-  const exists = expected !== undefined;
+  const exists = expectedRaw !== false;
 
-  const autoPassed = options.autopassNewSnapshots && expected === undefined;
+  const autoPassed = options.autopassNewSnapshots && !exists;
   const passed = expected && formatDiff(expected) === formatDiff(actual);
   const diff = createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
-  if ((options.updateSnapshots && !passed) || expected === undefined) {
+  if ((options.updateSnapshots && !passed) || autoPassed) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }
