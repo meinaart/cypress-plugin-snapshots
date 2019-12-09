@@ -11,7 +11,6 @@ exports[`text - utils > normalizeObject > true #0`] =
     },
     null
   ],
-  "date": "2019-02-11T05:00:00.000Z",
   "false": false,
   "nested": {
     "array": [
@@ -20,7 +19,6 @@ exports[`text - utils > normalizeObject > true #0`] =
       true,
       null,
       null,
-      "2019-02-11T05:00:00.000Z",
       {
         "a": 1,
         "b": 2
@@ -49,7 +47,6 @@ exports[`text - utils > normalizeObject > false #0`] =
     },
     null
   ],
-  "date": "2019-02-11T05:00:00.000Z",
   "nested": {
     "array": [
       2,
@@ -57,7 +54,6 @@ exports[`text - utils > normalizeObject > false #0`] =
       true,
       null,
       null,
-      "2019-02-11T05:00:00.000Z",
       {
         "b": 2,
         "a": 1

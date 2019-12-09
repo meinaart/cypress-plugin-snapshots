@@ -16,5 +16,5 @@ describe('toMatchSnapshot', () => {
 
   runSuites('toMatchSnapshot', function (item) {
     cy.wrap(item).toMatchSnapshot();
-  });
+  }, ['date']);
 });

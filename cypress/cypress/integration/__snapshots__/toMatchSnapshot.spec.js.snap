@@ -23,7 +23,6 @@ exports[`toMatchSnapshot > toMatchSnapshot > json > array #0`] =
   "string",
   false,
   null,
-  "2019-02-11T05:00:00.000Z",
   {
     "a": 1,
     "b": 2
@@ -45,7 +44,6 @@ exports[`toMatchSnapshot > toMatchSnapshot > json > object #0`] =
     },
     null
   ],
-  "date": "2019-02-11T05:00:00.000Z",
   "false": false,
   "nested": {
     "array": [
@@ -54,7 +52,6 @@ exports[`toMatchSnapshot > toMatchSnapshot > json > object #0`] =
       true,
       null,
       null,
-      "2019-02-11T05:00:00.000Z",
       {
         "a": 1,
         "b": 2
@@ -119,4 +116,8 @@ kylie
 
 exports[`toMatchSnapshot > toMatchSnapshot > json > date #0`] = `
 2019-02-11T05:00:00.000Z
+`;
+
+exports[`toMatchSnapshot > custom name #0`] = `
+test
 `;

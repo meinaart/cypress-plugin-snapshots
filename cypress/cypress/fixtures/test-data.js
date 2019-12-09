@@ -7,16 +7,16 @@ const dataRaw = {
     'string': 'kylie',
     'number': 5,
     'date': new Date(2019, 1, 11),
-    'array': [1, 'string', false, null, new Date(2019, 1, 11), { b: 2, a: 1, e: undefined }, undefined, 11 ],
+    'array': [1, 'string', false, null, /* new Date(2019, 1, 11), */ { b: 2, a: 1, e: undefined }, undefined, 11 ],
     'object': {
       false: false,
       string: 'string',
       null: null,
       undefined: undefined,
       array: ['string', 5, true, null, { b: 2, a: 1, e: undefined }, undefined ],
-      date: new Date(2019, 1, 11),
+      // date: new Date(2019, 1, 11),
       nested: {
-        array: [2, 'string', true, null, undefined, new Date(2019, 1, 11), { b: 2, a: 1 } ],
+        array: [2, 'string', true, null, undefined, /* new Date(2019, 1, 11), */ { b: 2, a: 1 } ],
         true: true,
         number: 1,
         undefined: undefined
