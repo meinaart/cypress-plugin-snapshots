@@ -1,3 +1,4 @@
 .DS_Store
 node_modules
 /cypress/cypress/screenshots
+cypress/cypress/integration/__image_snapshots__/toMatchImageSnapshot  failOnSnapshotDiff #0.png

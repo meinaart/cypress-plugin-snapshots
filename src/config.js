@@ -4,6 +4,7 @@ const { COMMAND_MATCH_SNAPSHOT } = require('./commands/commandNames');
 const CONFIG_KEY = 'cypress-plugin-snapshots';
 
 const DEFAULT_IMAGE_CONFIG = Object.freeze({
+  failOnSnapshotDiff: true,
   createDiffImage: true,
   resizeDevicePixelRatio: true,
   threshold: 0.1,

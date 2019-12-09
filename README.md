@@ -74,6 +74,7 @@ it('toMatchImageSnapshot - whole page', () => {
 You can pass the following options to `toMatchImageSnapshot` to override default behavior.
 ```javascript
 {
+  "failOnSnapshotDiff": true,    // Should the test fail when snapshots do not match
   "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
   "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
   "name": "custom image name",   // Naming resulting image file with a custom name rather than concatenating test titles
@@ -136,6 +137,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "normalizeJson": true,           // Alphabetically sort keys in JSON
     "prettier": true,                // Enable `prettier` for formatting HTML before comparison
     "imageConfig": {
+      "failOnSnapshotDiff": true,    // Should the test fail when snapshots do not match
       "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
       "resizeDevicePixelRatio": true,// Resize image to base resolution when Cypress is running on high DPI screen, `cypress run` always runs on base resolution
       "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid

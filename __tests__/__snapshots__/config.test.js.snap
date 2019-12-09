@@ -13,6 +13,7 @@ Object {
   "ignoreExtraFields": false,
   "imageConfig": Object {
     "createDiffImage": false,
+    "failOnSnapshotDiff": true,
     "resizeDevicePixelRatio": false,
     "threshold": 0.5,
     "thresholdType": "pixels",
@@ -56,6 +57,7 @@ Object {
   "ignoreExtraFields": false,
   "imageConfig": Object {
     "createDiffImage": false,
+    "failOnSnapshotDiff": true,
     "resizeDevicePixelRatio": false,
     "threshold": 0.5,
     "thresholdType": "pixels",
@@ -98,6 +100,7 @@ Object {
   "ignoreExtraFields": true,
   "imageConfig": Object {
     "createDiffImage": true,
+    "failOnSnapshotDiff": true,
     "resizeDevicePixelRatio": true,
     "threshold": 0.1,
     "thresholdType": "percent",
