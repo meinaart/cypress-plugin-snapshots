@@ -8,6 +8,12 @@ describe('toMatchSnapshot', () => {
       });
   });
 
+  it('custom name', () => {
+    cy.wrap('test').toMatchSnapshot({
+      name: 'screenshot with custom name'
+    });
+  });
+
   runSuites('toMatchSnapshot', function (item) {
     cy.wrap(item).toMatchSnapshot();
   });
