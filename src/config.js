@@ -100,6 +100,11 @@ function getCustomName(suppliedConfig) {
   return cfg.name;
 }
 
+function getCustomSeparator(suppliedConfig) {
+  const cfg = suppliedConfig || getConfig();
+  return cfg.separator;
+}
+
 function getServerUrl(suppliedConfig) {
   const cfg = suppliedConfig || getConfig();
   return `http://${cfg.serverHost}:${cfg.serverPort}/?token=${cfg.token}`;
@@ -126,6 +131,7 @@ module.exports = {
   getPrettierConfig,
   getScreenshotConfig,
   getCustomName,
+  getCustomSeparator,
   getServerUrl,
   initConfig,
   shouldNormalize,

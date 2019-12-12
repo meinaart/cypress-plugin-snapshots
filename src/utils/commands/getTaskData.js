@@ -25,6 +25,7 @@ async function getTaskData({
     commandName,
     options,
     customName,
+    customSeparator,
     subject: testSubject
   } = {}) {
   const subjectIsImage = isImage(commandName);

@@ -6,7 +6,7 @@ const logMessage = require('../utils/commands/logMessage');
 const { NO_LOG } = require('../constants');
 const { COMMAND_MATCH_IMAGE_SNAPSHOT: commandName } = require('./commandNames');
 const getImageData = require('../utils/image/getImageData');
-const { getImageConfig, getScreenshotConfig, getCustomName } = require('../config');
+const { getImageConfig, getScreenshotConfig, getCustomName, getCustomSeparator } = require('../config');
 
 function afterScreenshot(taskData) {
   return ($el, props) => {
@@ -22,11 +22,13 @@ function afterScreenshot(taskData) {
 async function toMatchImageSnapshot(subject, commandOptions) {
   const options = getImageConfig(commandOptions);
   const customName = getCustomName(commandOptions);
+  const customSeparator = getCustomSeparator(commandOptions);
 
   const taskData = await getTaskData({
     commandName,
     options,
     customName,
+    customSeparator,
     subject,
   });
 

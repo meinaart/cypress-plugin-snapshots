@@ -10,7 +10,7 @@ function snapshotTitleIsUsed(snapshotTitle, isImage = false) {
   return (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).indexOf(snapshotTitle) !== -1;
 }
 
-function getSnapshotTitle(test, customName, isImage = false) {
+function getSnapshotTitle(test, customName, customSeparator, isImage = false) {
   const name = customName || getTestTitle(test);
   const separator = customSeparator || ' #';
   const snapshots = isImage ? SNAPSHOTS_IMAGE : SNAPSHOTS_TEXT;
