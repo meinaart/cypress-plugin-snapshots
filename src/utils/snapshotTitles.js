@@ -12,6 +12,7 @@ function snapshotTitleIsUsed(snapshotTitle, isImage = false) {
 
 function getSnapshotTitle(test, customName, isImage = false) {
   const name = customName || getTestTitle(test);
+  const separator = customSeparator || ' #';
   const snapshots = isImage ? SNAPSHOTS_IMAGE : SNAPSHOTS_TEXT;
 
   if (snapshots[name] !== undefined) {
@@ -20,7 +21,7 @@ function getSnapshotTitle(test, customName, isImage = false) {
     snapshots[name] = 0;
   }
 
-  const snapshotTitle = `${name} #${snapshots[name]}`;
+  const snapshotTitle = `${name}${separator}${snapshots[name]}`;
   (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).push(snapshotTitle);
   return snapshotTitle;
 }
