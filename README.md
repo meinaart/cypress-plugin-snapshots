@@ -148,13 +148,13 @@ Add the configuration below to your `cypress.json` file to make changes to the d
       "disableTimersAndAnimations": true,
       "log": false,
       "scale": false,
-      "timeout": 30000,
+      "timeout": 30000
     },
     "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",       // Hostname for "update snapshot server"
     "serverPort": 2121,              // Port number for  "update snapshot server"
     "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
-    "backgroundBlend": "difference", // background-blend-mode for diff image, useful to switch to "overlay" 
+    "backgroundBlend": "difference"  // background-blend-mode for diff image, useful to switch to "overlay" 
   }
 }
 ```
