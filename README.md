@@ -143,7 +143,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     },
     "screenshotConfig": {            // See https://docs.cypress.io/api/commands/screenshot.html#Arguments
       "blackout": [],
-      "capture": 'fullPage',
+      "capture": "fullPage",
       "clip": null,
       "disableTimersAndAnimations": true,
       "log": false,
