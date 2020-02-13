@@ -19,13 +19,12 @@ function initPlugin(on, globalConfig = {
   // That's why the config is stringified and parsed again in `src/utils/commands/getConfig.js#fixConfig`.
   globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
 
-  on('before:browser:launch', (browser = {}, args) => {
+  on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.name === 'chrome') {
-      args.push('--font-render-hinting=medium');
-      args.push('--enable-font-antialiasing');
-      args.push('--disable-gpu');
+      launchOptions.args.push('--font-render-hinting=medium');
+      launchOptions.args.push('--enable-font-antialiasing');
+      launchOptions.args.push('--disable-gpu');
     }
-    return args;
   });
 
   on('task', tasks);
