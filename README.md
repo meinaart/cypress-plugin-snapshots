@@ -37,13 +37,13 @@ describe('data test', () => {
 ```
 
 You can pass the following options to `toMatchSnapshot` to override default behavior.
-```javascript
+```json
 {
   "ignoreExtraFields": false,         // Ignore fields that are not in snapshot
   "ignoreExtraArrayItems": false,     // Ignore if there are extra array items in result
   "normalizeJson": true,              // Alphabetically sort keys in JSON
   "replace": {                        // Replace `${key}` in snapshot with `value`.
-    "key": "value",
+    "key": "value"
   }
 }
 ```
@@ -72,12 +72,12 @@ it('toMatchImageSnapshot - whole page', () => {
 ```
 
 You can pass the following options to `toMatchImageSnapshot` to override default behavior.
-```javascript
+```json
 {
   "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
   "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
   "name": "custom image name",   // Naming resulting image file with a custom name rather than concatenating test titles
-  "thresholdType": "percent",    // Can be either "pixel" or "percent"
+  "thresholdType": "percent"     // Can be either "pixel" or "percent"
 }
 ```
 
@@ -94,10 +94,12 @@ cy.get('.element')
 ## Configure Cypress.io
 Add this to your `cypress.json` configuration file:
 ```json
-"ignoreTestFiles": [
-  "**/__snapshots__/*",
-  "**/__image_snapshots__/*"
-]
+{
+    "ignoreTestFiles": [
+      "**/__snapshots__/*",
+      "**/__image_snapshots__/*"
+    ]
+}
 ```
 
 ### Plugin
@@ -119,43 +121,56 @@ Find your `cypress/support/index.js` file and add the following line:
 import 'cypress-plugin-snapshots/commands';
 ```
 
-### Make changes to default configuration
-You can customize the configuration in the `cypress.json` file in the root of your Cypress project.
+### Default configuration
+
+The following (basic) configuration is required to be placed in your `cypress.json` file:
+
+```json
+{
+    "env": {
+      "cypress-plugin-snapshots": {}
+    }
+}
+```
+
+This will use all the basics settings. You can customize the configuration in the `cypress.json` file in the root of your Cypress project.
 
 Add the configuration below to your `cypress.json` file to make changes to the default values.
 
-```javascript
-"env": {
-  "cypress-plugin-snapshots": {
-    "autoCleanUp": false,            // Automatically remove snapshots that are not used by test
-    "autopassNewSnapshots": true,    // Automatically save & pass new/non-existing snapshots
-    "diffLines": 3,                  // How many lines to include in the diff modal
-    "excludeFields": [],             // Array of fieldnames that should be excluded from snapshot
-    "ignoreExtraArrayItems": false,  // Ignore if there are extra array items in result
-    "ignoreExtraFields": false,      // Ignore extra fields that are not in `snapshot`
-    "normalizeJson": true,           // Alphabetically sort keys in JSON
-    "prettier": true,                // Enable `prettier` for formatting HTML before comparison
-    "imageConfig": {
-      "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
-      "resizeDevicePixelRatio": true,// Resize image to base resolution when Cypress is running on high DPI screen, `cypress run` always runs on base resolution
-      "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
-      "thresholdType": "percent"     // Can be either "pixels" or "percent"
-    },
-    "screenshotConfig": {            // See https://docs.cypress.io/api/commands/screenshot.html#Arguments
-      "blackout": [],
-      "capture": 'fullPage',
-      "clip": null,
-      "disableTimersAndAnimations": true,
-      "log": false,
-      "scale": false,
-      "timeout": 30000,
-    },
-    "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
-    "serverHost": "localhost",       // Hostname for "update snapshot server"
-    "serverPort": 2121,              // Port number for  "update snapshot server"
-    "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
-    "backgroundBlend": "difference", // background-blend-mode for diff image, useful to switch to "overlay" 
-  }
+```json
+{
+    "env": {
+      "cypress-plugin-snapshots": {
+        "autoCleanUp": false,            // Automatically remove snapshots that are not used by test
+        "autopassNewSnapshots": true,    // Automatically save & pass new/non-existing snapshots
+        "diffLines": 3,                  // How many lines to include in the diff modal
+        "excludeFields": [],             // Array of fieldnames that should be excluded from snapshot
+        "ignoreExtraArrayItems": false,  // Ignore if there are extra array items in result
+        "ignoreExtraFields": false,      // Ignore extra fields that are not in `snapshot`
+        "normalizeJson": true,           // Alphabetically sort keys in JSON
+        "prettier": true,                // Enable `prettier` for formatting HTML before comparison
+        "imageConfig": {
+          "createDiffImage": true,       // Should a "diff image" be created, can be disabled for performance
+          "resizeDevicePixelRatio": true,// Resize image to base resolution when Cypress is running on high DPI screen, `cypress run` always runs on base resolution
+          "threshold": 0.01,             // Amount in pixels or percentage before snapshot image is invalid
+          "thresholdType": "percent"     // Can be either "pixels" or "percent"
+        },
+        "screenshotConfig": {            // See https://docs.cypress.io/api/commands/screenshot.html#Arguments
+          "blackout": [],
+          "capture": "fullPage",
+          "clip": null,
+          "disableTimersAndAnimations": true,
+          "log": false,
+          "scale": false,
+          "timeout": 30000
+        },
+        "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
+        "serverHost": "localhost",       // Hostname for "update snapshot server"
+        "serverPort": 2121,              // Port number for  "update snapshot server"
+        "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
+        "backgroundBlend": "difference" // background-blend-mode for diff image, useful to switch to "overlay" 
+      }
+    }
 }
 ```
 
