@@ -21,7 +21,6 @@ function initPlugin(on, globalConfig = {
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.name === 'chrome') {
-      launchOptions.args = launchOptions.args || [];
       launchOptions.args.push('--font-render-hinting=medium');
       launchOptions.args.push('--enable-font-antialiasing');
       launchOptions.args.push('--disable-gpu');
