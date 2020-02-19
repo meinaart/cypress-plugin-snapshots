@@ -25,7 +25,7 @@ function initPlugin(on, globalConfig = {
       launchOptions.args.push('--enable-font-antialiasing');
       launchOptions.args.push('--disable-gpu');
     }
-    return launchOptions.args;
+    return launchOptions;
   });
 
   on('task', tasks);
