@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.3.0](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.9...v1.3.0) - 2020-02-20
+- Added support for adding a customSeparator (#82) (thanks @erwinheitzman)
+- Bump handlebars from 4.1.2 to 4.5.3 (#86)
+- Update for cypress 4.x.x compatibility (thanks @diggabyte)
+- Update README.md (#87) (thanks @memee)
+
 ### [1.2.9](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.8...v1.2.9) - 2019-08-30
 - Upgraded Cypress to 3.4.1 & other dependencies to newer versions
 - Publish the `types` folder (#57) (thanks @allout58)
