@@ -1,15 +1,6 @@
 const { Base64 } = require('js-base64');
 const { cloneDeep } = require('lodash');
 const { URL_PREFIX } = require('../../constants');
-const { TYPE_IMAGE } = require('../../dataTypes');
-
-function getErrorMessage(result) {
-  if (result.dataType === TYPE_IMAGE) {
-    return `Snapshots do not match.`;
-  }
-
-  return `Snapshots do not match:\n${result.diff}`;
-}
 
 function cleanupImage(image) {
   if (image) {
@@ -21,37 +12,47 @@ function cleanupImage(image) {
 function getLogMessage(result) {
   const linkResult = cloneDeep(result);
   if (linkResult.isImage) {
+    linkResult.expected.relativePath = linkResult.expected.relativePath || linkResult.snapshotFile;
     cleanupImage(linkResult.actual);
     cleanupImage(linkResult.expected);
     cleanupImage(linkResult.diff);
   }
 
   const args = Base64.encode(JSON.stringify(linkResult));
-  const passedMessage = result.expected ? 'Snapshots match' : 'Snapshot created, autopassed';
-  const message = result.passed ?
-    `[${passedMessage}](${URL_PREFIX}${args})` :
-    `[compare snapshot](${URL_PREFIX}${args})`;
-
-  return message;
+  return `[ ](${URL_PREFIX}${args})`;
 }
 
 function logMessage(result) {
-  const { subject } = result;
-  const message = getLogMessage(result);
-  const log = Cypress.log({
-    $el: subject,
-    name: result.commandName,
-    displayName: 'snapshot',
-    message,
-    consoleProps: () => result,
-  });
+  const {
+    passed,
+    exists,
+    updated
+  } = result;
 
-  if (!result.passed) {
-    log.set('state', 'failed');
-    throw new Error(getErrorMessage(result));
+  if (passed) {
+    result.state = 'passed';
+  } else if(!exists) {
+    result.state = 'new';
+  } else if (updated) {
+    result.state = 'updated';
+  } else {
+    result.state = 'failed';
   }
 
-  return subject;
+  const log = Cypress.log({
+    name: result.commandName,
+    displayName: 'snapshot',
+    message: getLogMessage(result),
+    consoleProps: () => result
+  });
+
+  log.set('state', result.state);
+
+  if (!passed) {
+    throw new Error('Snapshots do not match.');
+  }
+
+  return result;
 }
 
 module.exports = logMessage;

@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`config toMatchImageSnapshot w/ custom name mergeConfig 1`] = `
+Object {
+  "autoCleanUp": false,
+  "autopassNewSnapshots": true,
+  "backgroundBlend": "difference",
+  "diffFormat": "side-by-side",
+  "diffLines": 3,
+  "excludeFields": Array [],
+  "formatJson": true,
+  "ignoreExtraArrayItems": false,
+  "ignoreExtraFields": false,
+  "imageConfig": Object {
+    "createDiffImage": false,
+    "failOnSnapshotDiff": true,
+    "resizeDevicePixelRatio": false,
+    "threshold": 0.5,
+    "thresholdType": "pixels",
+  },
+  "name": "custom image name",
+  "normalizeJson": true,
+  "prettier": true,
+  "prettierConfig": Object {
+    "html": Object {
+      "endOfLine": "lf",
+      "parser": "html",
+      "tabWidth": 2,
+    },
+  },
+  "screenshotConfig": Object {
+    "blackout": Array [
+      ".blackout",
+    ],
+    "clip": Object {
+      "height": 100,
+      "width": 100,
+      "x": 0,
+      "y": 0,
+    },
+    "log": true,
+  },
+  "updateSnapshots": false,
+}
+`;
+
+exports[`config toMatchImageSnapshot w/o custom name mergeConfig 1`] = `
+Object {
+  "autoCleanUp": false,
+  "autopassNewSnapshots": true,
+  "backgroundBlend": "difference",
+  "diffFormat": "side-by-side",
+  "diffLines": 3,
+  "excludeFields": Array [],
+  "formatJson": true,
+  "ignoreExtraArrayItems": false,
+  "ignoreExtraFields": false,
+  "imageConfig": Object {
+    "createDiffImage": false,
+    "failOnSnapshotDiff": true,
+    "resizeDevicePixelRatio": false,
+    "threshold": 0.5,
+    "thresholdType": "pixels",
+  },
+  "normalizeJson": true,
+  "prettier": true,
+  "prettierConfig": Object {
+    "html": Object {
+      "endOfLine": "lf",
+      "parser": "html",
+      "tabWidth": 2,
+    },
+  },
+  "screenshotConfig": Object {
+    "blackout": Array [
+      ".blackout",
+    ],
+    "clip": Object {
+      "height": 100,
+      "width": 100,
+      "x": 0,
+      "y": 0,
+    },
+    "log": true,
+  },
+  "updateSnapshots": false,
+}
+`;
+
+exports[`config toMatchSnapshot mergeConfig 1`] = `
+Object {
+  "autoCleanUp": false,
+  "autopassNewSnapshots": true,
+  "backgroundBlend": "difference",
+  "diffFormat": "side-by-side",
+  "diffLines": 3,
+  "excludeFields": Array [],
+  "formatJson": true,
+  "ignoreExtraArrayItems": true,
+  "ignoreExtraFields": true,
+  "imageConfig": Object {
+    "createDiffImage": true,
+    "failOnSnapshotDiff": true,
+    "resizeDevicePixelRatio": true,
+    "threshold": 0.1,
+    "thresholdType": "percent",
+  },
+  "normalizeJson": false,
+  "prettier": true,
+  "prettierConfig": Object {
+    "html": Object {
+      "endOfLine": "lf",
+      "parser": "html",
+      "tabWidth": 2,
+    },
+  },
+  "screenshotConfig": Object {
+    "blackout": Array [
+      ".snapshot-diff",
+    ],
+    "log": false,
+  },
+  "updateSnapshots": false,
+}
+`;

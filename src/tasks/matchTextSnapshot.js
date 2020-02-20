@@ -1,20 +1,13 @@
-const {
-  merge,
-  cloneDeep
-} = require('lodash');
 const applyReplace = require('../utils/text/applyReplace');
 const {
   createDiff,
   formatDiff,
   getSnapshot,
   subjectToSnapshot,
-  updateSnapshot,
+  updateSnapshot
 } = require('../utils/tasks/textSnapshots');
 const getSnapshotFilename = require('../utils/text/getSnapshotFilename');
 const keepKeysFromExpected = require('../utils/text/keepKeysFromExpected');
-const {
-  getConfig
-} = require('../config');
 
 function matchTextSnapshot({
   commandName,
@@ -22,23 +15,22 @@ function matchTextSnapshot({
   options,
   snapshotTitle,
   subject,
-  testFile,
+  testFile
 } = {}) {
-  const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile);
-  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType);
-  let expected = applyReplace(expectedRaw, config.replace);
-  const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, config), expected, config);
+  const expectedRaw = getSnapshot(snapshotFile, snapshotTitle, dataType, options);
+  let expected = applyReplace(expectedRaw, options.replace);
+  const actual = keepKeysFromExpected(subjectToSnapshot(subject, dataType, options), expected, options);
 
-  const exists = expected !== false;
+  const exists = expectedRaw !== false;
 
-  const autoPassed = (config.autopassNewSnapshots && expected === false);
-  const passed = (expected && formatDiff(expected) === formatDiff(actual));
+  const autoPassed = options.autopassNewSnapshots && !exists;
+  const passed = expected && formatDiff(expected) === formatDiff(actual);
   const diff = createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if ((options.updateSnapshots && !passed) || autoPassed) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }
@@ -58,7 +50,7 @@ function matchTextSnapshot({
     snapshotFile,
     snapshotTitle,
     subject,
-    updated,
+    updated
   };
 
   return result;

@@ -3,13 +3,17 @@ const fs = require('fs-extra');
 const unidiff = require('unidiff');
 const prettier = require('prettier');
 const { TYPE_JSON } = require('../../dataTypes');
-const {
-  getConfig,
-  shouldNormalize,
-  getPrettierConfig
-} = require('../../config');
+const { getConfig } = require('../../config');
 const removeExcludedFields = require('../text/removeExcludedFields');
 const { formatJson, normalizeObject } = require('../json');
+
+function shouldNormalize(dataType, cfg) {
+  return dataType === TYPE_JSON && cfg.normalizeJson;
+}
+
+function getPrettierConfig(dataType, cfg) {
+  return cfg.prettier && cfg.prettierConfig ? cfg.prettierConfig[dataType] : undefined;
+}
 
 function subjectToSnapshot(subject, dataType = TYPE_JSON, config = {}) {
   let result = subject;
@@ -47,26 +51,34 @@ function formatDiff(subject) {
   return String(subject || '');
 }
 
-function createDiff(expected, actual, snapshotTitle) {
+function getDiff(expected, actual, snapshotTitle) {
   return unidiff.diffAsText(formatDiff(expected), formatDiff(actual), {
     aname: snapshotTitle,
     bname: snapshotTitle,
-    context: getConfig().diffLines,
+    context: getConfig().diffLines
   });
 }
 
-function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
+function createDiff(expected, actual, snapshotTitle) {
+  return getDiff(expected, actual, snapshotTitle) || getDiff('', expected, snapshotTitle);
+}
+
+function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON, config = {}) {
   fs.ensureDirSync(path.dirname(filename));
 
   if (fs.existsSync(filename)) {
     const snapshots = readFile(filename);
-    if (snapshots[snapshotTitle]) {
-      return subjectToSnapshot(snapshots[snapshotTitle], dataType);
+    let snap = snapshots[snapshotTitle];
+    if(snap === undefined) {
+      return false;
     }
-  } else {
-    fs.writeFileSync(filename, '{}');
+    if (snap && snap.replace) {
+      snap = snap.replace(/^\n|\n$/g, '');
+    }
+    return subjectToSnapshot(snap, dataType, config);
   }
 
+  fs.writeFileSync(filename, '{}');
   return false;
 }
 
@@ -81,7 +93,7 @@ function readFile(filename) {
       console.warn(`Cannot read snapshot file "${filename}" as javascript, falling back to JSON parser:`, ex);
       const fileContents = fs.readFileSync(filename, 'utf8');
 
-      if (!fileContents || !fileContents.trim() || fileContents.trim().slice(0,1) !== '{') {
+      if (!fileContents || !fileContents.trim() || fileContents.trim().slice(0, 1) !== '{') {
         throw new Error(`Cannot load snapshot file. File "${filename} does not contain valid JSON or javascript`);
       }
 
@@ -116,7 +128,7 @@ function updateSnapshot(filename, snapshotTitle, subject, dataType = TYPE_JSON) 
       value = `\n${formatJson(value)}`;
     }
     result += `exports[\`${key}\`] =${value}`;
-    result += ";\n\n";
+    result += ';\n\n';
 
     return result;
   }, '');
@@ -130,4 +142,5 @@ module.exports = {
   getSnapshot,
   subjectToSnapshot,
   updateSnapshot,
+  getDiff
 };

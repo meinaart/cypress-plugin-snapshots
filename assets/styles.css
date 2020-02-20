@@ -1,88 +1,105 @@
+/* Log */
+.command-name-toMatchImageSnapshot .command-message-text,
+.command-name-toMatchSnapshot .command-message-text {
+  overflow: visible;
+}
+
+.command-name-toMatchImageSnapshot .command-method span,
+.command-name-toMatchSnapshot .command-method span,
+a[href^="#cypress-plugin-snapshot-"] {
+  border-radius: 2px;
+  padding: 0px 4px;
+  font-size: 11px;
+  color: white;
+}
+
+.command-name-toMatchImageSnapshot .command-method span:hover,
+.command-name-toMatchSnapshot .command-method span:hover,
+a[href^="#cypress-plugin-snapshot-"]:hover,
+a[href^="#cypress-plugin-snapshot-"]:active,
+a[href^="#cypress-plugin-snapshot-"]:focus {
+  box-shadow: 0 2px 4px 0 rgba(111, 111, 111, 0.6), 0 1px 1px 0 rgba(111, 111, 111, 0.6);
+  text-decoration: none;
+  color: white;
+}
+
+/* Log - Snapshot */
 .command-name-toMatchImageSnapshot .command-method span,
 .command-name-toMatchSnapshot .command-method span {
-  border-radius: 2px;
-  padding: 0 3px;
-  font-size: 11px;
-  display: inline-block;
-  height: 14px;
-  line-height: 16px;
+  float: right;
+  background-color: #565554;
 }
 
-.command-name-toMatchImageSnapshot.command-state-passed .command-method span,
-.command-name-toMatchSnapshot.command-state-passed .command-method span {
-  background-color: #08c18d;
-  color: white;
-}
-
-.command-name-toMatchImageSnapshot.command-state-failed .command-method span,
-.command-name-toMatchSnapshot.command-state-failed .command-method span {
-  background-color: #e94f5f;
-  color: white;
-}
-
-.command-name-toMatchImageSnapshot.command-state-pending .command-method span,
-.command-name-toMatchSnapshot.command-state-pending .command-method span {
-  background-color: #428BCA;
-  color: white;
-}
-
-.command-name-toMatchImageSnapshot.command-state-failed+.command-name-then.command-state-failed,
-.command-name-toMatchSnapshot.command-state-failed+.command-name-then.command-state-failed {
+.command-name-toMatchImageSnapshot.command-state-failed+.command-name-then,
+.command-name-toMatchSnapshot.command-state-failed+.command-name-then {
   display: none;
 }
 
+.command-name-toMatchImageSnapshot .command-method span:after,
+.command-name-toMatchSnapshot .command-method span:after {
+  font-family: FontAwesome;
+  float: left;
+  margin-right: 3px;
+}
+
+.command-name-toMatchImageSnapshot .command-method span:after {
+  content: "\f03e";  
+}
+
+.command-name-toMatchSnapshot .command-method span:after {
+  content: "\f0f6";
+}
+
+/* Log - Snapshot State */
 a[href^="#cypress-plugin-snapshot-"] {
-  background: #08c18d;
-  border-radius: 2px;
-  color: white;
   display: inline-block;
-  font-size: 11px;
-  height: 14px;
-  line-height: 16px;
   margin-top: 1px;
-  padding: 0 3px;
-  text-transform: uppercase;
-}
-
-.command-state-failed a[href^="#cypress-plugin-snapshot-"] {
-  background: #fad7db;
-  border: 1px solid currentColor;
-  color: #e94f5f;
-}
-
-a[href^="#cypress-plugin-snapshot-"]:active,
-a[href^="#cypress-plugin-snapshot-"]:hover,
-a[href^="#cypress-plugin-snapshot-"]:focus {
   color: white;
-  text-decoration: none;
-  background: #08c18d;
-}
-
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:active,
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:hover,
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:focus {
-  background-color: #e94f5f;
-  border-color: #e94f5f;
-}
-
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:hover {
-  color: #fad7db;
-}
-
-a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "√ ";
+  margin-left: 2px;
   font-weight: bold;
 }
 
-.command-state-failed a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "<> ";
+.command-state-passed a[href^="#cypress-plugin-snapshot-"] {
+  background-color: #08c18d;
 }
 
-.snapshot-diff {
+.command-state-passed a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "√ PASSED";
+}
+
+.command-state-failed a[href^="#cypress-plugin-snapshot-"] {
+  background-color: #e94f5f;
+}
+
+.command-state-failed a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "<> COMPARE SNAPSHOTS";
+}
+
+.command-state-new a[href^="#cypress-plugin-snapshot-"] {
+  background-color: #3366ff;
+}
+
+.command-state-new a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "√ NEW";
+}
+
+.command-state-new a[href^="#cypress-plugin-snapshot-"],
+a[href^="#cypress-plugin-snapshot-"].updated {
+  background-color: #8000ff;
+}
+
+.command-state-new a[href^="#cypress-plugin-snapshot-"]:before,
+a[href^="#cypress-plugin-snapshot-"].updated:before {
+  content: "√ UPDATED";
+}
+
+/* Modal */
+.d2h-wrapper {
   background: white;
-  width: 75vw;
-  height: 50vh;
-  overflow-y: scroll;
+  min-width: 40vw;
+  max-height: 99vh;
+  max-width: 99vw;
+  overflow-y: auto;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -93,104 +110,172 @@ a[href^="#cypress-plugin-snapshot-"]:before {
   box-shadow: 0 1px 3px #ccc;
 }
 
-.snapshot-diff--image {
-  width: 90vw;
-  height: 90vh;
+.d2h-file-wrapper {
+  border: none;
+  margin-bottom: 0;
 }
 
-.snapshot-diff .d2h-wrapper {
-  margin: 1em;
+/* Header */
+.d2h-file-name-wrapper {
+  height: 100%;
+  white-space: nowrap;
 }
 
-.snapshot-diff header {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 3em;
-  box-sizing: border-box;
-  background: #f8f8f8;
-  display: block;
-  padding: .75em 1em;
-  border-bottom: 1px solid #ccc;
+.btn-group {
+  display: inline-block;
 }
 
-.snapshot-diff-content {
-  overflow-y: scroll;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  margin-top: 3em;
+.btn-group > * {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+  background-color: white;
 }
 
-.snapshot-diff header button {
+.btn-group > button:first-child:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-group-right {
+  margin-left:auto;
+}
+
+.btn-group-right > * {
+  margin-left: 0.5em;
+}
+
+.d2h-file-name-wrapper button, .d2h-file-name-wrapper select {
   border: 0;
-  background: transparent;
-  font-size: .75em;
+  font-size: 12px;
   padding: 6px;
   border-radius: 2px;
   cursor: pointer;
+  top: 0.75em;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+  outline: none;
 }
 
-.snapshot-diff header button.snapshot-btn-approve {
-  background: #08c18d;
+.d2h-file-name-wrapper button:hover {
+  transform: scale(1.07);
+  -webkit-transform: scale(1.07);
+}
+
+.d2h-file-name-wrapper .snapshot-btn-approve {
+  background-color: #08c18d;
   color: white;
   font-weight: bold;
 }
 
-.snapshot-diff header button.snapshot-btn-close {
-  float: right;
+
+/* Tags */
+.d2h-tag {
+  font-size: 13px;
+  margin-left: 0.75em;
 }
 
+.d2h-tag:before {
+  padding: 0 2px;
+}
+
+.state-passed .d2h-tag:before {
+  border: #08c18d 1px solid;
+  color: #08c18d;
+  content: 'PASSED';
+}
+
+.state-updated .d2h-tag:before {
+  border: #8000ff 1px solid;
+  color: #8000ff;
+  content: 'UPDATED';
+}
+
+.state-failed .d2h-tag:before {
+  border: #e94f5f 1px solid;
+  color: #e94f5f;
+  content: 'FAILED';
+}
+
+.state-new .d2h-tag:before {
+  border: #3366ff 1px solid;
+  color: #3366ff;
+  content: 'NEW';
+}
+
+
+/* Content */
+.d2h-file-diff {
+  position: relative;
+  overflow-x: auto;
+}
+
+.d2h-file-side-diff {
+  overflow-x: auto;
+  margin-bottom: -3px;
+}
+
+/* Content - Text (Overrides default diff2Html to display diff w/o changes) */
+.state-passed .d2h-diff-tbody tr:nth-child(1),
+.state-updated .d2h-diff-tbody tr:nth-child(1) {
+  display: none;
+}
+
+.state-passed .d2h-ins,
+.state-updated .d2h-ins {
+  background-color: transparent;
+  border-color: #d5e4f2;
+}
+
+
+/* Content - Image */
 .snapshot-image {
   display: inline-block;
   width: 50%;
-}
-
-.snapshot-image--single {
-  width: 100%;
-}
-
-.snapshot-image--single .snapshot-image__image {
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-}
-
-.snapshot-image__wrapper {
-  width: 100%;
-  height: 0;
-  overflow: hidden;
-  position: relative;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-}
-
-.snapshot-image__image {
-  position: absolute;
-  top: 0;
-  height: auto;
-  width: 100%;
-}
-
-.snapshot-image--diff {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transition: all ease-in-out 100ms;
-}
-.snapshot-image--diff:active,
-.snapshot-image--diff:hover {
-  opacity: 1;
+  border: solid #eeeeee;
+  box-sizing: border-box;
+  border-width: 0 0.5px 0 0.5px;
 }
 
 .snapshot-image__title {
   color: #555;
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
-  margin-bottom: .75em;
+  margin-bottom: .25em;
   text-align: center;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.snapshot-image img {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  max-height: calc(100vh - 65px);
+  max-width: 100%;
+}
+
+/* Content - Image - Single */
+.snapshot-image--single {
+  width: 100%;
+}
+
+.snapshot-image--single h2 {
+  display: none;
+}
+
+/* Content - Image - Diff */
+.snapshot-image--diff {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: all ease-in-out 100ms;
+  height: 100%;
+}
+
+.snapshot-image--diff h2 {
+  visibility: hidden;
+}
+
+.snapshot-image--diff:active,
+.snapshot-image--diff:hover {
+  opacity: 1;
 }

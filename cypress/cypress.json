@@ -6,7 +6,6 @@
   ],
   "env": {
     "cypress-plugin-snapshots": {
-      "serverPort": 2222,
       "diffLines": 4,
       "excludeFields": ["ignore"]
     }

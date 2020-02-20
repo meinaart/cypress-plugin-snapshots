@@ -19,6 +19,7 @@ async function matchImageSnapshot(data = {}) {
     subject,
     testFile,
   } = data;
+
   if (!image) {
     throw new Error(`'image' not defined`);
   } else if (!image.devicePixelRatio) {
@@ -41,7 +42,8 @@ async function matchImageSnapshot(data = {}) {
 
   const expected = getImageObject(snapshotFile);
   const exists = expected !== false;
-  const autoPassed = (config.autopassNewSnapshots && expected === false);
+  const autoPassed = (config.autopassNewSnapshots && expected === false) 
+    || options.failOnSnapshotDiff === false;
   const actual = exists || resized ? getImageObject(image.path, true) : image;
   const passed = expected && compareImages(expected, actual, diffFilename, options);
 

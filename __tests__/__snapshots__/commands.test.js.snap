@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`commands custom config 1`] = `
+Object {
+  "autoCleanUp": true,
+  "autopassNewSnapshots": true,
+  "backgroundBlend": "difference",
+  "diffFormat": "side-by-side",
+  "diffLines": 3,
+  "excludeFields": Array [
+    "exclude",
+  ],
+  "formatJson": true,
+  "ignoreExtraArrayItems": false,
+  "ignoreExtraFields": false,
+  "imageConfig": Object {
+    "createDiffImage": false,
+    "failOnSnapshotDiff": true,
+    "resizeDevicePixelRatio": true,
+    "threshold": 0.1,
+    "thresholdType": "percent",
+  },
+  "normalizeJson": true,
+  "prettier": true,
+  "prettierConfig": Object {
+    "html": Object {
+      "endOfLine": "lf",
+      "parser": "html",
+      "tabWidth": 2,
+    },
+  },
+  "screenshotConfig": Object {
+    "blackout": Array [
+      "blackout",
+      ".snapshot-diff",
+    ],
+    "log": false,
+  },
+  "updateSnapshots": false,
+}
+`;
+
+exports[`commands empty config 1`] = `
+Object {
+  "autoCleanUp": false,
+  "autopassNewSnapshots": true,
+  "backgroundBlend": "difference",
+  "diffFormat": "side-by-side",
+  "diffLines": 3,
+  "excludeFields": Array [],
+  "formatJson": true,
+  "ignoreExtraArrayItems": false,
+  "ignoreExtraFields": false,
+  "imageConfig": Object {
+    "createDiffImage": true,
+    "failOnSnapshotDiff": true,
+    "resizeDevicePixelRatio": true,
+    "threshold": 0.1,
+    "thresholdType": "percent",
+  },
+  "normalizeJson": true,
+  "prettier": true,
+  "prettierConfig": Object {
+    "html": Object {
+      "endOfLine": "lf",
+      "parser": "html",
+      "tabWidth": 2,
+    },
+  },
+  "screenshotConfig": Object {
+    "blackout": Array [
+      ".snapshot-diff",
+    ],
+    "log": false,
+  },
+  "updateSnapshots": false,
+}
+`;

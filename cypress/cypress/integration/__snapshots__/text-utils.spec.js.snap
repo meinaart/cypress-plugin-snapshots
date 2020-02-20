@@ -1,0 +1,183 @@
+exports[`text - utils > normalizeObject > true #0`] =
+{
+  "array": [
+    "string",
+    5,
+    true,
+    null,
+    {
+      "a": 1,
+      "b": 2
+    },
+    null
+  ],
+  "false": false,
+  "nested": {
+    "array": [
+      2,
+      "string",
+      true,
+      null,
+      null,
+      {
+        "a": 1,
+        "b": 2
+      }
+    ],
+    "number": 1,
+    "true": true
+  },
+  "null": null,
+  "string": "string"
+};
+
+exports[`text - utils > normalizeObject > false #0`] =
+{
+  "false": false,
+  "string": "string",
+  "null": null,
+  "array": [
+    "string",
+    5,
+    true,
+    null,
+    {
+      "b": 2,
+      "a": 1
+    },
+    null
+  ],
+  "nested": {
+    "array": [
+      2,
+      "string",
+      true,
+      null,
+      null,
+      {
+        "b": 2,
+        "a": 1
+      }
+    ],
+    "true": true,
+    "number": 1
+  }
+};
+
+exports[`text - utils > removeExcludedFields > removeExcludedFields #0`] =
+{
+  "a": 1,
+  "b": 3,
+  "c": {
+    "a": 5
+  },
+  "d": [
+    1,
+    {}
+  ]
+};
+
+exports[`text - utils > keepKeysFromExpected > ignoreExtraFields: true, ignoreExtraArrayItems: false #0`] =
+{
+  "array": [
+    "string",
+    5,
+    true,
+    null,
+    {
+      "a": 1,
+      "b": 2
+    },
+    null
+  ],
+  "date": "2019-02-11T05:00:00.000Z",
+  "false": false,
+  "nested": {
+    "array": [
+      2,
+      "string",
+      true,
+      null,
+      null,
+      "2019-02-11T05:00:00.000Z",
+      {
+        "a": 1,
+        "b": 2
+      }
+    ],
+    "number": 1,
+    "true": true
+  },
+  "null": null,
+  "string": "string"
+};
+
+exports[`text - utils > keepKeysFromExpected > ignoreExtraFields: false, ignoreExtraArrayItems: true #0`] =
+{
+  "array": [
+    "string",
+    5,
+    true,
+    null,
+    {
+      "a": 1,
+      "b": 2
+    },
+    null
+  ],
+  "date": "2019-02-11T05:00:00.000Z",
+  "false": false,
+  "nested": {
+    "array": [
+      2,
+      "string",
+      true,
+      null,
+      null,
+      "2019-02-11T05:00:00.000Z",
+      {
+        "a": 1,
+        "b": 2
+      }
+    ],
+    "number": 1,
+    "true": true
+  },
+  "null": null,
+  "string": "string"
+};
+
+exports[`text - utils > keepKeysFromExpected > ignoreExtraFields: true, ignoreExtraArrayItems: true #0`] =
+{
+  "array": [
+    "string",
+    5,
+    true,
+    null,
+    {
+      "a": 1,
+      "b": 2
+    },
+    null
+  ],
+  "date": "2019-02-11T05:00:00.000Z",
+  "false": false,
+  "nested": {
+    "array": [
+      2,
+      "string",
+      true,
+      null,
+      null,
+      "2019-02-11T05:00:00.000Z",
+      {
+        "a": 1,
+        "b": 2
+      }
+    ],
+    "number": 1,
+    "true": true
+  },
+  "null": null,
+  "string": "string"
+};
