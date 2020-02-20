@@ -20,11 +20,14 @@ function initPlugin(on, globalConfig = {
   globalConfig.env[CONFIG_KEY] = JSON.stringify(config);
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
+    const args = Array.isArray(launchOptions) ? launchOptions : launchOptions.args;
+
     if (browser.name === 'chrome') {
-      launchOptions.args.push('--font-render-hinting=medium');
-      launchOptions.args.push('--enable-font-antialiasing');
-      launchOptions.args.push('--disable-gpu');
+      args.push('--font-render-hinting=medium');
+      args.push('--enable-font-antialiasing');
+      args.push('--disable-gpu');
     }
+
     return launchOptions;
   });
 
