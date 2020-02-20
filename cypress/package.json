@@ -1,6 +1,6 @@
 {
   "name": "cypress-plugin-snapshots-test",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Example setup for cypress-plugin-snapshots",
   "scripts": {
     "ci:test": "start-server-and-test start http://localhost:8080 test",
@@ -13,7 +13,7 @@
   "author": "Meinaart van Straalen",
   "license": "MIT",
   "dependencies": {
-    "cypress": "^3.4.1",
+    "cypress": "^4.0.0",
     "cypress-plugin-snapshots": "file:../",
     "express": "^4.16.4",
     "start-server-and-test": "^1.7.9"
