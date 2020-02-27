@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-- "node"
-- "lts/*"
+- node
+- lts/*
 cache:
   directories:
   - "~/.npm"
   - "~/.cache"
   override:
-    - npm ci
-    - npm run cy:verify
+  - npm ci
+  - npm run cy:verify
 notifications:
   email: false
 addons:
@@ -22,14 +22,15 @@ install:
 script:
 - npm run lint &
 - npm run ci:test
-# after all tests finish running we need
-# to kill all background jobs
 - kill $(jobs -p) || true
 deploy:
   provider: npm
   email: npm@kayenta.nl
   api_key:
-    secure: xcmDAXXR8rOF9y0ibrE4duJsKoc0ic0qbRMt8cLS2cWTFOp9i2S2jo9cNKzRAON6Qkj4u0YUQBhP7ichdKb3uxK3E8WXUYQ7/MT65cHMCs/vKJR4f1AQ+XzeWCvGO/DrAvMPYaPy5rRUjuhwS0RdrbbkRbnX3lJ8sGb5LaN28Fiw6xODAqYQH/BdACgOXrgpXmtYU/rEFSSNXiz3crlHcyJDUcf3oBTY+adfWfvJiB3iOXLrMb0Sm00Jh2SPp62VGanPEXtPW61D9S+pkXWpZ7MODDBn59H7h5+5JPO19LSwe7AleQEyTx9K+Xwyp9UQzyg/YvWGClGoAvS8b+ZMCRgvcZYOmK58179LyLX0Dvg24SjWuvbM42uW/2PuHP5ASh+P0Pb9MH5I9sRn+XWfkz9gmRCJ/yxi97pljO1G2KcHd1qOXl6oHO5mU7FvRXDjeQh1Tz5vjvcvVCkAH8NULmbS1WiXgSV8z9EVUwuYx96tQJtR3PNKqSb5yPz4f82NBbfiFLnMCzwNEOY/gieqvs/WfxHVSbzpJMINRbcgqIj4p+pAtOWLzRqEvLk+xzmtnsC6OWD+QXEpJgRuFTlGSEB3P9Kp+z2YeMvlrr9U75jbSkVJs8TGRpNryYRsC6KZXTAP3YKdORvPgoKnpHKStDuHmRFhMILP8pxQSWHLlEc=
+    secure: "XHMARhLe1/5+DG3dsYK7meyCes0JFYf/odvU7kRcSS5tGM9jmexh66OMEQ+CRRfeaXVQ6goRsW996TtbiDEePsbyIcM81sPnT+tP0fCHiGP9j/ei1QVm9TwbCaTrbK2nI2Na86TTgVJK2CzkK03XepzpJn0C8v/zgjO5pGc75CAqSIptgYcN/NQfdHR3xnRS8/p85d96osWEmesMMLE2/mh99N1kA6hplIiNX2yoGsMw1f0HQVLJGuI8N8bjbzQYd1I2dokHoigkyhd85+ttP1IH8iDWHFPeuGGKRnrW04Lw9bvw5tz7Js0iMBAKp/zqej8G8lLIsvECly4UAUAHMJjy0RhWU4CCbmw7cyiRYpB7eNenLrgifBz0HHDAEohY0O01vaMrUvhaBG9fnJX3DzkKxzF5StJCQKplgs8DMUnuHFdsF7d9rMzXBKV48P2ZyBgK3vQzzu3ivWyhULWNAJWbejDCnzooiK/dn/M4g3PaeKMn9Nat4M1/EIZWQ/ZNCRByZnyUPnsjPgVDoMzp2pq4XJZX8O4w9PwroRuWTMUz6GOJ+bqjm43KeoYNwAnzBzcKskBIheBk0lpu/tc4MqnNNLsrQEowTcTh2JrrzyEW2YGUJfyKWz37lZ/S1H6LNQqgv6OTms+eciK3ho0dnJ1a+QXGolfoK4ARJ9u6JY0="
   on:
     tags: true
     repo: meinaart/cypress-plugin-snapshots
+env:
+  global:
+    secure: ISsJaKl3LQD5piT0AmQev/V1e08UUqhwafCLBKEDT160DH9GmN2GdCY1pvxIOoGyMXt5h+9wMab/Qg4ebfGOvTcN3adzac2qX40LnMrpFFRX8Yh5B/ZclzpBe2upvzaZC0ocqH/M70szsvEjfiLxSVkO+qeAhLBkfh/vLFtVi6LQCLu47EU/yHRXp4gD5Aygj8yGhYl9wnk2ltv39DTaWgFZI2qSRRW3wecKJuP+hYec8Mw8SEEY7UsVLJF8vNZzlFKy5WsEEDdD+Iakkf/O2p2AAKaQtlkmgAjGBNRfk8A8B8PcVtllfrsaKQL43wNWaXF33ESjrRBMOd6Gk3AQtg6jTQ14aibmBOlmNgFXWy28rHwLzIN+3VPGge1ePXQlLV6Y0eLWbPSMdOyoI33iVoF9zqtt4wm8dZgxw3R9yq4SECV5I7UwWOUyDOXqJs7nYgBeUSg95/V6BBLpdV5fmhZ5cDbwpE49o/M/BFUHZ4uDxJXFyrFqHTNViuASBxbaf2pq4AHKHIbqU5l+8URPmOz+yKzwbHcOLgV6BV/rTOw1LgCPDS1xbF0PCQerSisEuPuMvfXUdb1psNNQPuohmVIEBVPCC1SGzbDvif2TYZFy5///XJ1t8iKZR7cbRcdm0RInWdrvm35XvxpPYx79u0uuTPxnYJbLLl9b5jEU6+8=
