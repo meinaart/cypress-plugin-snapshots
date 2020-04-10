@@ -49,6 +49,7 @@ const DEFAULT_CONFIG = Object.freeze({
   updateSnapshots: false,
   backgroundBlend: 'difference',
   name: '',
+  failIgnore: false,
 });
 
 const CONFIG_KEY = 'cypress-plugin-snapshots';
@@ -64,6 +65,10 @@ function initConfig(initialConfig) {
 
 function getConfig() {
   return config;
+}
+
+function isFailIgnore(suppliedConfig) {
+  return DEFAULT_CONFIG.failIgnore || suppliedConfig;
 }
 
 function getImageConfig(options = {}) {
@@ -135,4 +140,5 @@ module.exports = {
   getServerUrl,
   initConfig,
   shouldNormalize,
+  isFailIgnore,
 };
