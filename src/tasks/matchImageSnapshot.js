@@ -1,5 +1,4 @@
-import { isFailIgnore } from '../config';
-
+const { isFailIgnore } = require('../config');
 const { merge, cloneDeep } = require('lodash');
 const rimraf = require('rimraf').sync;
 const path = require('path');
