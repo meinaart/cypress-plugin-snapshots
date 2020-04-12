@@ -1,8 +1,7 @@
-const { isFailIgnore } = require('../config');
 const { merge, cloneDeep } = require('lodash');
 const rimraf = require('rimraf').sync;
 const path = require('path');
-const { getConfig } = require('../config');
+const { getConfig, isFailIgnore } = require('../config');
 const getSnapshotFilename = require('../utils/image/getSnapshotFilename');
 const getImageData = require('../utils/image/getImageData');
 const saveImageSnapshot = require('../save/saveImageSnapshot');
