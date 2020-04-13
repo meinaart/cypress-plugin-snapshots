@@ -21,6 +21,7 @@ const DEFAULT_IMAGE_CONFIG = Object.freeze({
   resizeDevicePixelRatio: true,
   threshold: 0.1,
   thresholdType: 'percent', // can be 'percent' or 'pixel'
+  failIgnore: false,
 });
 
 const DEFAULT_CONFIG = Object.freeze({
@@ -49,7 +50,6 @@ const DEFAULT_CONFIG = Object.freeze({
   updateSnapshots: false,
   backgroundBlend: 'difference',
   name: '',
-  failIgnore: false,
 });
 
 const CONFIG_KEY = 'cypress-plugin-snapshots';
