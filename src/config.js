@@ -10,6 +10,7 @@ const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
   blackout: [],
   capture: 'fullPage',
   clip: null,
+  padding: null,
   disableTimersAndAnimations: true,
   log: false,
   scale: false,
