@@ -36,11 +36,5 @@ describe('utils/command', () => {
       const getConfig = require('../../../src/utils/commands/getConfig');
       expect(getConfig()).toMatchObject(CONFIG);
     });
-
-    it('without config - error should be thrown', () => {
-      global.Cypress.env = () => undefined;
-      const getConfig = require('../../../src/utils/commands/getConfig');
-      expect(() => { getConfig(); }).toThrow();
-    });
-  });
+ });
 });

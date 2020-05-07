@@ -18,9 +18,10 @@ function fixConfig() {
 
 function getConfig() {
   fixConfig();
-  const config = Cypress.env(CONFIG_KEY);
+  let config = Cypress.env(CONFIG_KEY);
   if (!config) {
-    throw new Error('Config cannot be found.');
+    config = {};
+    Cypress.env(CONFIG_KEY, config);
   }
 
   return config;

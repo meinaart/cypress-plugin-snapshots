@@ -40,6 +40,7 @@ describe('config', () => {
       },
       disableTimersAndAnimations: true,
       log: true,
+      padding: null,
       scale: false,
       timeout: 30000,
     });
