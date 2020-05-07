@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
-### [1.4.0](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.2.9...v1.3.0) - 2020-02-20
+### [1.4.0](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.3.0...v1.4.0) - 2020-05-07
 - Tested plugin with Cypress 4.5.0 and upgraded dependencies
 - Add padding support to screenshots (#110) (thanks @cwmrowe)
 - Remove need for config being present in `cypress.json` (fixes #112)
