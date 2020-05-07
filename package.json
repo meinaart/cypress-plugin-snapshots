@@ -44,7 +44,7 @@
     "diff2html": "^2.7.0",
     "fs-extra": "^7.0.1",
     "image-size": "^0.7.2",
-    "jimp": "^0.6.0",
+    "jimp": "^0.10.3",
     "js-base64": "^2.5.1",
     "lodash": "^4.17.13",
     "pixelmatch": "^4.0.2",
@@ -58,7 +58,7 @@
     "unidiff": "1.0.2"
   },
   "peerDependencies": {
-    "cypress": "^4.0.0"
+    "cypress": "^4.5.0"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
