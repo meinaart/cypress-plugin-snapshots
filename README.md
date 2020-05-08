@@ -155,7 +155,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "serverHost": "localhost",       // Hostname for "update snapshot server"
     "serverPort": 2121,              // Port number for  "update snapshot server"
     "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
-    "backgroundBlend": "difference"  // background-blend-mode for diff image, useful to switch to "overlay" 
+    "backgroundBlend": "difference"  // background-blend-mode for diff image, useful to switch to "overlay"
   }
 }
 ```
@@ -180,5 +180,5 @@ This plugin is released under the MIT license.
 
 [npm-icon]: https://nodei.co/npm/cypress-plugin-snapshots.svg?downloads=true
 [npm-url]: https://npmjs.org/package/cypress-plugin-snapshots
-[ci-image]: https://github.com/meinaart/cypress-plugin-snapshots/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-image]: https://github.com/meinaart/cypress-plugin-snapshots/workflows/test/badge.svg?branch=master
 [ci-url]: https://github.com/meinaart/cypress-plugin-snapshots/actions

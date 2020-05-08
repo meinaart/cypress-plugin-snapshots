@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: test
 
 on: [push]
 
@@ -31,15 +31,16 @@ jobs:
         restore-keys: |
           ${{ runner.OS }}-node-
           ${{ runner.OS }}-
-    - name: Cache Cypress
-      uses: actions/cache@v1
+    - name: npm install, build, and test
+      run: |
+        npm ci
+        npm --prefix cypress ci
+        npm run lint &
+        npm run ci:test
+        kill $(jobs -p) || true
+    - name: Archive Cypress snapshots
+      uses: actions/upload-artifact@v1
+      if: failure()
       with:
-        path: ~/.cache
-        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}-cypress
-        restore-keys: |
-          ${{ runner.OS }}-node-
-          ${{ runner.OS }}-
-    - run: npm ci
-    - run: npm --prefix cypress ci
-    - run: npm run lint
-    - run: npm run ci:test
+        name: cypress-snapshots
+        path: cypress/cypress/integration/__*snapshots__/*
