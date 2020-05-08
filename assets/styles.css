@@ -65,6 +65,14 @@ a[href^="#cypress-plugin-snapshot-"]:focus {
   border-color: #e94f5f;
 }
 
+.command-state-pending a[href^="#cypress-plugin-snapshot-"],
+.command-state-pending a[href^="#cypress-plugin-snapshot-"]:active,
+.command-state-pending a[href^="#cypress-plugin-snapshot-"]:hover,
+.command-state-pending a[href^="#cypress-plugin-snapshot-"]:focus {
+  background-color: #428BCA;
+  border-color: #428BCA;
+}
+
 .command-state-failed a[href^="#cypress-plugin-snapshot-"]:hover {
   color: #fad7db;
 }
@@ -72,6 +80,10 @@ a[href^="#cypress-plugin-snapshot-"]:focus {
 a[href^="#cypress-plugin-snapshot-"]:before {
   content: "√ ";
   font-weight: bold;
+}
+
+.command-state-pending a[href^="#cypress-plugin-snapshot-"]:before {
+  content: "!! ";
 }
 
 .command-state-failed a[href^="#cypress-plugin-snapshot-"]:before {

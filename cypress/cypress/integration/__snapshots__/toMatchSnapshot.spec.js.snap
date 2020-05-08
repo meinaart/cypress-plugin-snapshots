@@ -25,16 +25,19 @@ exports[`toMatchSnapshot > toMatchSnapshot - html #0`] = `
     pellentesque. Maecenas eu magna dapibus, tristique est nec, ornare libero.
     Sed consectetur consequat nisi.
   </p>
-  <h2>Curabitur finibus quam</h2>
-  <p>
-    Curabitur finibus quam quam, in viverra nulla dapibus sed. Praesent cursus
-    nec erat ut tempor. Donec pharetra rutrum aliquam. Mauris eget gravida quam.
-    Aenean sodales eros a <a href="#">felis lobortis</a> faucibus. Donec sed
-    luctus purus. Nullam nisi ipsum, scelerisque at felis eu, aliquam
-    condimentum ex. Quisque nec orci at justo faucibus maximus. Suspendisse
-    lobortis id mauris in pellentesque. Praesent et dolor ultricies, vestibulum
-    ipsum vel, auctor lacus. Nullam nec dui id arcu consectetur aliquam.
-  </p>
+  <div data-test="test2">
+    <h2>Curabitur finibus quam</h2>
+    <p>
+      Curabitur finibus quam quam, in viverra nulla dapibus sed. Praesent cursus
+      nec erat ut tempor. Donec pharetra rutrum aliquam. Mauris eget gravida
+      quam. Aenean sodales eros a <a href="#">felis lobortis</a> faucibus. Donec
+      sed luctus purus. Nullam nisi ipsum, scelerisque at felis eu, aliquam
+      condimentum ex. Quisque nec orci at justo faucibus maximus. Suspendisse
+      lobortis id mauris in pellentesque. Praesent et dolor ultricies,
+      vestibulum ipsum vel, auctor lacus. Nullam nec dui id arcu consectetur
+      aliquam.
+    </p>
+  </div>
 </div>
 `;
 

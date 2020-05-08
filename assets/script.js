@@ -13,7 +13,7 @@ function closeSnapshotModal() {
 
   // Bug: `cy.readFile` only works first time, as a fix I wrap it in a cached `Cypress.Promise`.
   // @TODO: file a bug report about this.
-  function readFile(fullPath, encoding = 'base64', options = { log: false }) {
+  function readFile(fullPath, encoding = 'base64', options = { log: false, timeout: 2000 }) {
     if (!Cypress.__readFileCache__) Cypress.__readFileCache__ = {};
     if (!Cypress.__readFileCache__[encoding]) {
       Cypress.__readFileCache__[encoding] = {};
@@ -21,8 +21,9 @@ function closeSnapshotModal() {
 
     const cache = Cypress.__readFileCache__[encoding];
     if (!cache[fullPath]) {
-      cache[fullPath] = new Cypress.Promise((resolve) => {
-        cy.readFile(fullPath, encoding, options).then(resolve);
+      cache[fullPath] = cy.readFile(fullPath, encoding, options).then(result => {
+        cache[fullPath] = Cypress.Promise.resolve(result);
+        return result;
       });
     }
 
@@ -74,7 +75,7 @@ function closeSnapshotModal() {
 
   function formatImageResult(data) {
     const title = data.snapshotTitle;
-    if (data.passed) {
+    if (data.passed || data.updated) {
       return getImageDataUri(data.expected.path)
         .then((dataUri) =>
           formatPreview(title, wrapImage('single', title, dataUri))
@@ -125,9 +126,10 @@ function closeSnapshotModal() {
     e.preventDefault();
 
     const data = JSON.parse(Base64.decode(e.currentTarget.getAttribute('href').replace('#cypress-plugin-snapshot-', '')));
+    console.log('data:', data);
     if (data) {
       formatResult(data).then((diffHtml) => {
-        const updateButton = window.saveSnapshot && !data.passed ?
+        const updateButton = window.saveSnapshot && !data.passed && !data.updated ?
           '<button class="snapshot-btn-approve"><i class="fa fa-check"></i> Update snapshot</button>' :
           '';
 
