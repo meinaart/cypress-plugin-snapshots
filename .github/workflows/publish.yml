@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-16.04
     # Cypress Docker image with Chrome v78
     # and Firefox v70 pre-installed
@@ -26,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
-      - name: npm install, build, and test
+      - name: npm test
         run: |
           npm ci
           npm --prefix cypress ci
@@ -41,7 +41,7 @@ jobs:
           path: cypress/cypress/integration/__*snapshots__/*
 
   publish-npm:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
