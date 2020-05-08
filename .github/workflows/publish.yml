@@ -4,44 +4,30 @@
 name: publish
 
 on:
-  release:
-    types: [created]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  test:
-    runs-on: ubuntu-16.04
-    # Cypress Docker image with Chrome v78
-    # and Firefox v70 pre-installed
-    container: cypress/browsers:node12.13.0-chrome78-ff70
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          node-version: 12
-      - name: Cache Node.js modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
-      - name: npm test
-        run: |
-          npm ci
-          npm --prefix cypress ci
-          npm run lint &
-          npm run ci:test
-          kill $(jobs -p) || true
-      - name: Archive Cypress snapshots
-        uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-snapshots
-          path: cypress/cypress/integration/__*snapshots__/*
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
 
   publish-npm:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +40,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
