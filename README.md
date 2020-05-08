@@ -180,5 +180,5 @@ This plugin is released under the MIT license.
 
 [npm-icon]: https://nodei.co/npm/cypress-plugin-snapshots.svg?downloads=true
 [npm-url]: https://npmjs.org/package/cypress-plugin-snapshots
-[ci-image]: https://travis-ci.org/meinaart/cypress-plugin-snapshots.svg?branch=master
-[ci-url]: https://travis-ci.org/meinaart/cypress-plugin-snapshots
+[ci-image]: https://github.com/meinaart/cypress-plugin-snapshots/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-url]: https://github.com/meinaart/cypress-plugin-snapshots/actions
