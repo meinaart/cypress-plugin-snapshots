@@ -45,7 +45,7 @@
     "fs-extra": "^7.0.1",
     "image-size": "^0.7.2",
     "jimp": "^0.10.3",
-    "js-base64": "^2.5.1",
+    "js-base64": "2.5.*",
     "lodash": "^4.17.13",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
