@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+### [1.4.4](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.4.0...v1.4.4) - 2020-08-11
+- fixup screenshotConfig (thanks @shirotech)
+- don't start server when it is disabled (#128) (thanks @shirotech)
+- Clarify format and image options (#116) (thanks @noah-potter)
+- fixup js-base64 proper (#134) (thanks @shirotech)
+- Bump lodash from 4.17.15 to 4.17.19
+
 ### [1.4.0](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.3.0...v1.4.0) - 2020-05-07
 - Tested plugin with Cypress 4.5.0 and upgraded dependencies
 - Add padding support to screenshots (#110) (thanks @cwmrowe)
