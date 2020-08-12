@@ -1,4 +1,4 @@
-/* globals Cypress, before, after, cy */
+/* globals Cypress */
 /* eslint-env browser */
 function getTest() {
   return Cypress.mocha.getRunner().test;
@@ -12,6 +12,7 @@ function getTestForTask(test) {
     id: test.id,
     title: test.title,
     parent: test.parent && test.parent.title ? getTestForTask(test.parent) : null,
+    currentRetry: test.currentRetry && test.currentRetry()
   };
 }
 
