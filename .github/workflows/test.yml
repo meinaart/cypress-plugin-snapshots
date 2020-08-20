@@ -29,7 +29,7 @@ jobs:
         run: |
           npm ci
           npm --prefix cypress ci
-          [[ ${{ matrix.cypress-version }} == 'current' ]] || yarn add -D cypress@${{ matrix.cypress-version }}
+          bash -c "[[ ${{ matrix.cypress-version }} == 'current' ]] || npm install --no-save cypress@${{ matrix.cypress-version }}""
           npm run lint &
           npm run ci:test
           kill $(jobs -p) || true
