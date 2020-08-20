@@ -4,7 +4,13 @@ const {
   failBeforeRetry,
   verifySnapshotsExclude,
   verifySnapshots,
-} = require('../../support/testUtils');
+} = require('../support/testUtils');
+
+if (+Cypress.version.slice(0, 1) < 5) {
+  describe = function() {
+    it('nothing to test, Cypress version < 5.0.0');
+  };
+}
 
 describe('cypress retries', { retries: 2 }, () => {
   describe('textSnapshot', () => {
