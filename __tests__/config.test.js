@@ -1,4 +1,4 @@
-const { getImageConfig, getScreenshotConfig } = require('../src/config');
+const { getImageConfig, getScreenshotConfig, createToken } = require('../src/config');
 
 describe('config', () => {
   it('getImageConfig', () => {
@@ -44,5 +44,9 @@ describe('config', () => {
       scale: false,
       timeout: 30000,
     });
+  });
+
+  it('createToken', () => {
+    expect(createToken()).toEqual(expect.stringMatching(/[a-z0-9]{128}/));
   });
 });
