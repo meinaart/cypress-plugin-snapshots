@@ -1,9 +1,9 @@
-const crypto = require('crypto');
+const randtoken = require('rand-token');
 const { merge, cloneDeep, clone } = require('lodash');
 const { TYPE_JSON } = require('./dataTypes');
 
 function createToken() {
-  return crypto.randomBytes(64).toString('hex');
+  return randtoken.generate(128);
 }
 
 const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({

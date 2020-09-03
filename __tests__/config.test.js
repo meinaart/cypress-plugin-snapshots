@@ -47,6 +47,6 @@ describe('config', () => {
   });
 
   it('createToken', () => {
-    expect(createToken()).toEqual(expect.stringMatching(/[a-z0-9]{128}/));
+    expect(createToken()).toEqual(expect.stringMatching(/[A-Za-z0-9]{128}/));
   });
 });
