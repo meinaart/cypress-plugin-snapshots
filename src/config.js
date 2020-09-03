@@ -127,6 +127,7 @@ module.exports = {
   CONFIG_KEY,
   DEFAULT_IMAGE_CONFIG,
   DEFAULT_SCREENSHOT_CONFIG,
+  createToken,
   getConfig,
   getImageConfig,
   getPrettierConfig,
