@@ -21,7 +21,8 @@ declare namespace Cypress {
       createDiffImage: boolean,
       threshold: number,
       thresholdType: "percent" | "pixels",
-      name: string
+      name: string,
+      separator: string
     }> & Partial<ScreenshotDefaultsOptions>): Chainable<null>;
   }
 }
