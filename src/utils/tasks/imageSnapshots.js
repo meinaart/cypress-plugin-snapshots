@@ -90,6 +90,7 @@ function compareImageSizes(expected, actual) {
 }
 
 function compareImages(expected, actual, diffFilename, config) {
+  const { imageConfig, pixelMatchConfig } = config;
   let passed = false;
   rimraf(diffFilename);
 
@@ -104,15 +105,10 @@ function compareImages(expected, actual, diffFilename, config) {
       makeImagesEqualSize(expected, actual);
     }
 
-    const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
-    const pixelmatchConfig = {
-      threshold: 0.01,
-    };
-
     const imageWidth = actual.image.width;
     const imageHeight = actual.image.height;
 
-    const diffImage = config.createDiffImage ? new PNG({
+    const diffImage = imageConfig.createDiffImage ? new PNG({
       height: imageHeight,
       width: imageWidth,
     }) : null;
@@ -124,7 +120,7 @@ function compareImages(expected, actual, diffFilename, config) {
       diffImage ? diffImage.data : null,
       imageWidth,
       imageHeight,
-      pixelmatchConfig
+      pixelMatchConfig
     );
 
     if (imageConfig.thresholdType === 'pixel') {

@@ -15,10 +15,7 @@
           cy.get('[data-test=test]').toMatchImageSnapshot({
             threshold: 0.1,
             clip: {
-              x: 0,
-              y: 0,
-              width: 100,
-              height: 100
+              x: 0, y: 0, width: 100, height: 100
             },
           });
         });
@@ -52,8 +49,7 @@
         });
     });
 
-
-    it.only('toMatchImageSnapshot - multiple in one test', () => {
+    it('toMatchImageSnapshot - multiple in one test', () => {
       cy.visit('/static/stub.html')
         .then(() => {
           cy.get('[data-test=test]').toMatchImageSnapshot({

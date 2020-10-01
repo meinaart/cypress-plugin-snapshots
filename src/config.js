@@ -24,6 +24,10 @@ const DEFAULT_IMAGE_CONFIG = Object.freeze({
   thresholdType: 'percent', // can be 'percent' or 'pixel'
 });
 
+const DEFAULT_PIXEL_MATCH_CONFIG = Object.freeze({
+  threshold: 0.01,
+})
+
 const DEFAULT_CONFIG = Object.freeze({
   autoCleanUp: false,
   autopassNewSnapshots: true,
@@ -33,6 +37,7 @@ const DEFAULT_CONFIG = Object.freeze({
   ignoreExtraArrayItems: false,
   ignoreExtraFields: false,
   imageConfig: clone(DEFAULT_IMAGE_CONFIG),
+  pixelMatchConfig: clone(DEFAULT_PIXEL_MATCH_CONFIG),
   normalizeJson: true,
   prettier: true,
   prettierConfig: {
@@ -69,10 +74,10 @@ function getConfig() {
 
 function getImageConfig(options = {}) {
   return Object.keys(DEFAULT_IMAGE_CONFIG)
-    .filter((key) => options.imageConfig && options.imageConfig[key] !== undefined)
+    .filter((key) => options && options[key] !== undefined)
     .reduce(
       (imageConfig, key) => {
-        imageConfig[key] = options.imageConfig[key];
+        imageConfig[key] = options[key];
         return imageConfig;
       },
       merge({}, DEFAULT_IMAGE_CONFIG, getConfig().imageConfig)
@@ -82,10 +87,10 @@ function getImageConfig(options = {}) {
 
 function getScreenshotConfig(options = {}) {
   const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
-    .filter((key) => options.screenshotConfig && options.screenshotConfig[key] !== undefined)
+    .filter((key) => options && options[key] !== undefined)
     .reduce(
       (currentConfig, key) => {
-        currentConfig[key] = options.screenshotConfig[key];
+        currentConfig[key] = options[key];
         return currentConfig;
       },
       merge({}, DEFAULT_SCREENSHOT_CONFIG, getConfig().screenshotConfig)

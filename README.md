@@ -74,13 +74,12 @@ it('toMatchImageSnapshot - whole page', () => {
 You can pass the following options to `toMatchImageSnapshot` to override default behavior.
 ```javascript
 {
-  "imageConfig": {
-    "createDiffImage": true,                // Should a "diff image" be created, can be disabled for performance
-    "threshold": 0.01,                      // Amount in pixels or percentage before snapshot image is invalid
-    "thresholdType": "percent",             // Can be either "pixel" or "percent"
-  },
+  "createDiffImage": true,                // Should a "diff image" be created, can be disabled for performance
+  "threshold": 0.01,                      // Amount in pixels or percentage before snapshot image is invalid
+  "thresholdType": "percent",             // Can be either "pixel" or "percent"
   "name": "custom image name",            // Naming resulting image file with a custom name rather than concatenating test titles
   "separator": "custom image separator",  // Naming resulting image file with a custom separator rather than using the default ` #`
+  "pixelMatch": {}                        // See https://github.com/mapbox/pixelmatch#api
 }
 ```
 
@@ -152,6 +151,9 @@ Add the configuration below to your `cypress.json` file to make changes to the d
       "log": false,
       "scale": false,
       "timeout": 30000
+    },
+    "pixelMatchConfig": {            // See https://github.com/mapbox/pixelmatch#api
+      "threshold": 0.01,
     },
     "serverEnabled": true,           // Enable "update snapshot" server and button in diff modal
     "serverHost": "localhost",       // Hostname for "update snapshot server"

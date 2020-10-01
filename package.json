@@ -61,6 +61,7 @@
     "cypress": "^4.5.0"
   },
   "devDependencies": {
+    "@types/pixelmatch": "^5.2.2",
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.0.0",
