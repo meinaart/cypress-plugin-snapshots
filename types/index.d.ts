@@ -1,5 +1,7 @@
-    
-// -- Example Usage: 
+/// <reference types="Cypress" />
+/// <reference types="pixelmatch" />
+
+// -- Example Usage:
 // -- cypress/tsconfig.json
 // {
 //   "compilerOptions": {
@@ -8,6 +10,7 @@
 // }
 
 declare namespace Cypress {
+  type PixelmatchOptions = import('pixelmatch').PixelmatchOptions;
   interface Chainable<Subject = any> {
     toMatchSnapshot(options?: Partial<{
       ignoreExtralFields: boolean,
@@ -21,7 +24,8 @@ declare namespace Cypress {
       createDiffImage: boolean,
       threshold: number,
       thresholdType: "percent" | "pixels",
-      name: string
+      name: string,
+      pixelMatch: PixelmatchOptions;
     }> & Partial<ScreenshotDefaultsOptions>): Chainable<null>;
   }
 }

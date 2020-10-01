@@ -3,11 +3,8 @@ const { getImageConfig, getScreenshotConfig } = require('../src/config');
 describe('config', () => {
   it('getImageConfig', () => {
     const config = {
-      imageConfig: {
-        threshold: 0.5,
-        bar: 'should be ignored',
-      },
-      foo: 'should be ignored',
+      threshold: 0.5,
+      bar: 'should be ignored',
     };
 
     expect(getImageConfig(config)).toEqual({

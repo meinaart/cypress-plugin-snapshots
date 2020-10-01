@@ -1,7 +1,5 @@
-const { merge, cloneDeep } = require('lodash');
 const rimraf = require('rimraf').sync;
 const path = require('path');
-const { getConfig } = require('../config');
 const getSnapshotFilename = require('../utils/image/getSnapshotFilename');
 const getImageData = require('../utils/image/getImageData');
 const saveImageSnapshot = require('../save/saveImageSnapshot');
@@ -24,12 +22,12 @@ async function matchImageSnapshot(data = {}) {
   } else if (!image.devicePixelRatio) {
     throw new Error(`'image.devicePixelRatio' not defined`);
   }
+  const { imageConfig } = options;
 
   const actualFilename = getSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_ACTUAL);
   const diffFilename = getSnapshotFilename(testFile, snapshotTitle, IMAGE_TYPE_DIFF);
-  const config = merge({}, cloneDeep(getConfig()), options);
   const snapshotFile = getSnapshotFilename(testFile, snapshotTitle);
-  const resized = options && options.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
+  const resized = imageConfig.resizeDevicePixelRatio && image.devicePixelRatio !== 1;
   if (resized) {
     await resizeImage(image.path, actualFilename, image.devicePixelRatio);
   }
@@ -41,7 +39,7 @@ async function matchImageSnapshot(data = {}) {
 
   const expected = getImageObject(snapshotFile);
   const exists = expected !== false;
-  const autoPassed = (config.autopassNewSnapshots && expected === false);
+  const autoPassed = (options.autopassNewSnapshots && expected === false);
   const actual = exists || resized ? getImageObject(image.path, true) : image;
   const passed = expected && compareImages(expected, actual, diffFilename, options);
 
@@ -49,7 +47,7 @@ async function matchImageSnapshot(data = {}) {
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if ((options.updateSnapshots && !passed) || expected === false) {
     saveImageSnapshot({ testFile, snapshotTitle, actual });
     updated = true;
   }
@@ -58,7 +56,7 @@ async function matchImageSnapshot(data = {}) {
     rimraf(actual.path);
   }
 
-  const diff = passed || autoPassed || !options.createDiffImage ?
+  const diff = passed || autoPassed || !imageConfig.createDiffImage ?
     undefined : createDiffObject(diffFilename);
 
   const result = {
