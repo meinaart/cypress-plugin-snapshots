@@ -49,16 +49,6 @@
         });
     });
 
-    it('toMatchImageSnapshot - snapshot from headed mode', () => {
-      cy.visit('/static/stub.html')
-        .then(() => {
-          cy.get('[data-test=test]').toMatchImageSnapshot({
-            threshold: 0.1
-          });
-        });
-    });
-
-
     it('toMatchImageSnapshot - multiple in one test', () => {
       cy.visit('/static/stub.html')
         .then(() => {
