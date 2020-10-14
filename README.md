@@ -90,7 +90,9 @@ For example:
 ```javascript
 cy.get('.element')
   .toMatchImageSnapshot({
-    clip: { x: 0, y: 0, width: 100, height: 100 },
+    screenshotConfig: {
+      clip: { x: 0, y: 0, width: 100, height: 100 }
+    }
   });
 ```
 
