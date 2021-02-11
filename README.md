@@ -84,13 +84,15 @@ You can pass the following options to `toMatchImageSnapshot` to override default
 }
 ```
 
-You can also use any option from the `cypress.screenshot` [arguments list](https://docs.cypress.io/api/commands/screenshot.html#Arguments).
+You can also use any option from the `cypress.screenshot` [arguments list](https://docs.cypress.io/api/commands/screenshot.html#Arguments) using the `screenshotConfig` property.
 
 For example:
 ```javascript
 cy.get('.element')
   .toMatchImageSnapshot({
-    clip: { x: 0, y: 0, width: 100, height: 100 },
+    screenshotConfig: {
+      clip: { x: 0, y: 0, width: 100, height: 100 },
+    },
   });
 ```
 
