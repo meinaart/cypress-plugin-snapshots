@@ -21,10 +21,10 @@ function closeSnapshotModal() {
 
     const cache = Cypress.__readFileCache__[encoding];
     if (!cache[fullPath]) {
-      cache[fullPath] = cy.readFile(fullPath, encoding, options).then(result => {
+      cache[fullPath] = Cypress.Promise.resolve(cy.readFile(fullPath, encoding, options).then(result => {
         cache[fullPath] = Cypress.Promise.resolve(result);
         return result;
-      });
+      }));
     }
 
     return cache[fullPath];

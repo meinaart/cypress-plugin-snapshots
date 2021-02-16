@@ -18,10 +18,15 @@ declare namespace Cypress {
     }>): Chainable<null>;
 
     toMatchImageSnapshot(options?: Partial<{
-      createDiffImage: boolean,
-      threshold: number,
-      thresholdType: "percent" | "pixels",
-      name: string
-    }> & Partial<ScreenshotDefaultsOptions>): Chainable<null>;
+      imageConfig: Partial<{
+        createDiffImage: boolean,
+        threshold: number,
+        thresholdType: "percent" | "pixels",
+        resizeDevicePixelRatio: boolean
+      }>,
+      screenshotConfig: Partial<ScreenshotDefaultsOptions>,
+      name: string,
+      separator: string
+    }>): Chainable<null>;
   }
 }
