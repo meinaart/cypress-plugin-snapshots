@@ -158,6 +158,8 @@ Add the configuration below to your `cypress.json` file to make changes to the d
     "serverPort": 2121,              // Port number for  "update snapshot server"
     "updateSnapshots": false,        // Automatically update snapshots, useful if you have lots of changes
     "backgroundBlend": "difference"  // background-blend-mode for diff image, useful to switch to "overlay"
+    "retryCount": 0                  // Amount of retries if snapshot comparison fails
+    "retryDelay": 200                // Delay time between snapshot retries
   }
 }
 ```
