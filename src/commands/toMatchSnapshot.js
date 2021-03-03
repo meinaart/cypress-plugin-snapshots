@@ -23,7 +23,7 @@ function toMatchSnapshot(subject, options, isRetry = false) {
               ...options,
               retryCount: options.retryCount - 1,
             };
-            toMatchSnapshot(subject, newOptions, true);
+            return toMatchSnapshot(subject, newOptions, true);
           });
         }
         return logMessage(result);

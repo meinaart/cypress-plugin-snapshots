@@ -58,7 +58,7 @@ async function toMatchImageSnapshot(subject, commandOptions, isRetry = false) {
               ...commandOptions,
               retryCount: commandOptions.retryCount - 1,
             };
-            toMatchImageSnapshot(subject, newCommandOptions, true);
+            return toMatchImageSnapshot(subject, newCommandOptions, true);
           });
         }
         return logMessage(result);
