@@ -26,14 +26,15 @@ async function getTaskData({
     options,
     customName,
     customSeparator,
-    subject: testSubject
+    subject: testSubject,
+    isRetry,
   } = {}) {
   const subjectIsImage = isImage(commandName);
   const test = getTestForTask();
   const testTitle = getTestTitle(test);
   const spec = await getSpec();
   const testFile = spec.absolute;
-  const snapshotTitle = getSnapshotTitle(test, customName, customSeparator, subjectIsImage);
+  const snapshotTitle = getSnapshotTitle(test, customName, customSeparator, subjectIsImage, isRetry);
   const subject = subjectIsImage ? testSubject : getSubject(testSubject);
   const dataType = getDataType({commandName, subject: testSubject});
 
