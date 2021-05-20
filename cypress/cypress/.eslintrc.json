@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "spaced-comment": "off",
+    "func-names": "off"
+  }
+}

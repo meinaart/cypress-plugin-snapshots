@@ -1,0 +1,39 @@
+exports[`cypress retries > textSnapshot > fails after snapshot #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > fails before snapshot #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > fails between snapshots #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > fails between snapshots #1`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > retries after snapshot #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > retries before snapshot #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > retries between snapshots #0`] =
+{
+  "foo": true
+};
+
+exports[`cypress retries > textSnapshot > retries between snapshots #1`] =
+{
+  "foo": true
+};
