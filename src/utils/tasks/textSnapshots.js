@@ -63,8 +63,6 @@ function getSnapshot(filename, snapshotTitle, dataType = TYPE_JSON) {
     if (snapshots[snapshotTitle]) {
       return subjectToSnapshot(snapshots[snapshotTitle], dataType);
     }
-  } else {
-    fs.writeFileSync(filename, '{}');
   }
 
   return false;
