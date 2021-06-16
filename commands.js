@@ -9,6 +9,7 @@ const commands = require('./src/commands/index');
 const cleanUpSnapshots = require('./src/utils/commands/cleanupSnapshots');
 const getConfig = require('./src/utils/commands/getConfig');
 const { NO_LOG } = require('./src/constants');
+const { resetSnapshotCounts } = require('./src/utils/snapshotTitles');
 
 function addCommand(commandName, method) {
   Cypress.Commands.add(commandName, {
@@ -51,6 +52,7 @@ function initCommands() {
   Cypress.on('window:before:unload', () => {
     closeSnapshotModal()
     clearFileCache()
+    resetSnapshotCounts()
   });
 
   // Clean up unused snapshots

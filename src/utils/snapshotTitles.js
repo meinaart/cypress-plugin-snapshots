@@ -1,10 +1,10 @@
 const getTestTitle = require('./getTestTitle');
 
-const SNAPSHOTS_TEXT = {}
-const SNAPSHOTS_IMAGE = {};
+let SNAPSHOTS_TEXT = {}
+let SNAPSHOTS_IMAGE = {};
 
-const SNAPSHOT_TITLES_TEXT = [];
-const SNAPSHOT_TITLES_IMAGE = [];
+let SNAPSHOT_TITLES_TEXT = [];
+let SNAPSHOT_TITLES_IMAGE = [];
 
 function snapshotTitleIsUsed(snapshotTitle, isImage = false) {
   return (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).indexOf(snapshotTitle) !== -1;
@@ -26,7 +26,15 @@ function getSnapshotTitle(test, customName, customSeparator, isImage = false) {
   return snapshotTitle;
 }
 
+function resetSnapshotCounts() {
+  SNAPSHOTS_TEXT = {};
+  SNAPSHOTS_IMAGE = {};
+  SNAPSHOT_TITLES_TEXT = [];
+  SNAPSHOT_TITLES_IMAGE = [];
+}
+
 module.exports = {
   getSnapshotTitle,
-  snapshotTitleIsUsed
+  snapshotTitleIsUsed,
+  resetSnapshotCounts
 }
