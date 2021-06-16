@@ -49,7 +49,7 @@ async function matchImageSnapshot(data = {}) {
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if ((config.updateSnapshots && !passed) || autoPassed) {
     saveImageSnapshot({ testFile, snapshotTitle, actual });
     updated = true;
   }
