@@ -48,11 +48,15 @@ function initCommands() {
     Cypress.__readFileCache__ = {};
   }
 
+  // Reset snapshot counters before each test run to account for retries
+  Cypress.on('test:before:run', () => {
+    resetSnapshotCounts();
+  });
+
   // Close snapshot modal and reset image files cache before all test restart
   Cypress.on('window:before:unload', () => {
     closeSnapshotModal()
     clearFileCache()
-    resetSnapshotCounts()
   });
 
   // Clean up unused snapshots

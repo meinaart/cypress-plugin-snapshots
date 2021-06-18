@@ -3,8 +3,8 @@ const getTestTitle = require('./getTestTitle');
 let SNAPSHOTS_TEXT = {}
 let SNAPSHOTS_IMAGE = {};
 
-let SNAPSHOT_TITLES_TEXT = [];
-let SNAPSHOT_TITLES_IMAGE = [];
+const SNAPSHOT_TITLES_TEXT = [];
+const SNAPSHOT_TITLES_IMAGE = [];
 
 function snapshotTitleIsUsed(snapshotTitle, isImage = false) {
   return (isImage ? SNAPSHOT_TITLES_IMAGE : SNAPSHOT_TITLES_TEXT).indexOf(snapshotTitle) !== -1;
@@ -27,10 +27,9 @@ function getSnapshotTitle(test, customName, customSeparator, isImage = false) {
 }
 
 function resetSnapshotCounts() {
+  // Only reset counters. Assume that the titles used will be consistent and fine with dupes.
   SNAPSHOTS_TEXT = {};
   SNAPSHOTS_IMAGE = {};
-  SNAPSHOT_TITLES_TEXT = [];
-  SNAPSHOT_TITLES_IMAGE = [];
 }
 
 module.exports = {
