@@ -81,7 +81,7 @@ function getImageConfig(options = {}) {
 
 
 function getScreenshotConfig(options = {}) {
-  const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
+  const screenshotConfig = [...Object.keys(DEFAULT_SCREENSHOT_CONFIG), 'onAfterScreenshot', 'onBeforeScreenshot']
     .filter((key) => options.screenshotConfig && options.screenshotConfig[key] !== undefined)
     .reduce(
       (currentConfig, key) => {
