@@ -59,7 +59,7 @@
     "unidiff": "1.0.2"
   },
   "peerDependencies": {
-    "cypress": "^4.5.0"
+    "cypress": ">=4.5.0"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
