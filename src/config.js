@@ -1,9 +1,9 @@
-const crypto = require('crypto');
+const randtoken = require('rand-token');
 const { merge, cloneDeep, clone } = require('lodash');
 const { TYPE_JSON } = require('./dataTypes');
 
 function createToken() {
-  return crypto.randomBytes(64).toString('hex');
+  return randtoken.generate(128);
 }
 
 const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
@@ -82,11 +82,11 @@ function getImageConfig(options = {}) {
 
 function getScreenshotConfig(options = {}) {
   const screenshotConfig = Object.keys(DEFAULT_SCREENSHOT_CONFIG)
-    .filter((key) => options && options[key] !== undefined)
+    .filter((key) => options.screenshotConfig && options.screenshotConfig[key] !== undefined)
     .reduce(
-      (imageConfig, key) => {
-        imageConfig[key] = options[key];
-        return imageConfig;
+      (currentConfig, key) => {
+        currentConfig[key] = options.screenshotConfig[key];
+        return currentConfig;
       },
       merge({}, DEFAULT_SCREENSHOT_CONFIG, getConfig().screenshotConfig)
     );
@@ -127,6 +127,7 @@ module.exports = {
   CONFIG_KEY,
   DEFAULT_IMAGE_CONFIG,
   DEFAULT_SCREENSHOT_CONFIG,
+  createToken,
   getConfig,
   getImageConfig,
   getPrettierConfig,

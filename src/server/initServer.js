@@ -26,7 +26,9 @@ function initServer(config) {
     }
   });
 
-  server.listen(config.serverPort, config.serverHost);
+  if (config.serverEnabled) {
+    server.listen(config.serverPort, config.serverHost);
+  }
 }
 
 module.exports = initServer;
