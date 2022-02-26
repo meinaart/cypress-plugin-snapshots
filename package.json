@@ -1,11 +1,11 @@
 {
-  "name": "cypress-plugin-snapshots",
-  "version": "1.4.4",
+  "name": "@kiru42/cypress-plugin-visual-tests",
+  "version": "0.0.1",
   "description": "Cypress snapshot functionality for data",
-  "homepage": "https://github.com/meinaart/cypress-plugin-snapshots",
+  "homepage": "https://github.com/kiru42/cypress-plugin-snapshots",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meinaart/cypress-plugin-snapshots.git"
+    "url": "https://github.com/kiru42/cypress-plugin-snapshots.git"
   },
   "types": "types/index.d.ts",
   "files": [
@@ -21,14 +21,14 @@
     "node": ">=8.2.1"
   },
   "bugs": {
-    "url": "https://github.com/meinaart/cypress-plugin-snapshots/issues"
+    "url": "https://github.com/kiru42/cypress-plugin-snapshots/issues"
   },
   "keywords": [
     "cypress",
     "cypress-io",
     "cypress-plugin"
   ],
-  "author": "Meinaart van Straalen",
+  "author": "Kiruban PREMKUMAR",
   "license": "MIT",
   "scripts": {
     "ci:test": "jest & npm --prefix cypress run ci:test",

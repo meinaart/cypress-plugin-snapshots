@@ -1,20 +1,23 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: test
+name: CI tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-16.04
-    # Cypress Docker image with Chrome v78
-    # and Firefox v70 pre-installed
-    container: cypress/browsers:node12.13.0-chrome78-ff70
+  ci-test:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [14.x, 15.x, 15.x, 17.x]
 
     steps:
     - uses: actions/checkout@v2

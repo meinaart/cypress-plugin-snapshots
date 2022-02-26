@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help improve this plugin
 title: "(bug) "
 labels: bug
-assignees: meinaart
+assignees: kiru42
 
 ---
 
