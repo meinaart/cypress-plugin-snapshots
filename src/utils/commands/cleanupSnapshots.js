@@ -16,7 +16,7 @@ function cleanUpSnapshots() {
 
   getSpec().then((spec) => {
     const filename = getTextSnapshotFilename(spec.relative);
-    cy.readFile(filename, NO_LOG).then((content) => {
+    Cypress.backend('read:file', filename).then((content) => {
       if (content) {
         const snapshot = JSON.parse(content);
         const keys = Object.keys(snapshot);
@@ -28,9 +28,8 @@ function cleanUpSnapshots() {
             return result;
           }, {});
 
-        cy.writeFile(filename,
-          formatNormalizedJson(cleanSnapshot),
-          NO_LOG);
+        Cypress.backend('write:file', filename,
+          formatNormalizedJson(cleanSnapshot));
       }
     });
   });
