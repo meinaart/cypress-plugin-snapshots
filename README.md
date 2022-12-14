@@ -132,6 +132,7 @@ Add the configuration below to your `cypress.json` file to make changes to the d
   "cypress-plugin-snapshots": {
     "autoCleanUp": false,            // Automatically remove snapshots that are not used by test
     "autopassNewSnapshots": true,    // Automatically save & pass new/non-existing snapshots
+    "autofailNewSnapshots": false,   // Automatically fail if no existing snapshot found (useful for production builds to prevent tests of passing just because they're missing snapshots)  
     "diffLines": 3,                  // How many lines to include in the diff modal
     "excludeFields": [],             // Array of fieldnames that should be excluded from snapshot
     "ignoreExtraArrayItems": false,  // Ignore if there are extra array items in result

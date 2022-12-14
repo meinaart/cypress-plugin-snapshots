@@ -1,6 +1,6 @@
 {
   "name": "@mosofsky/cypress-plugin-snapshots",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Cypress snapshot functionality for data",
   "homepage": "https://github.com/meinaart/cypress-plugin-snapshots",
   "repository": {

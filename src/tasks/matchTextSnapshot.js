@@ -32,13 +32,14 @@ function matchTextSnapshot({
 
   const exists = expected !== false;
 
+  const autoFail = (config.autofailNewSnapshots && exists === false);
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const passed = (expected && formatDiff(expected) === formatDiff(actual));
   const diff = createDiff(expected, actual, snapshotTitle);
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if (autoFail ? false : (config.updateSnapshots && !passed) || expected === false) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }
@@ -54,7 +55,7 @@ function matchTextSnapshot({
     diff,
     exists,
     expected,
-    passed: passed || autoPassed,
+    passed: autoFail ? false : (passed || autoPassed),
     snapshotFile,
     snapshotTitle,
     subject,
