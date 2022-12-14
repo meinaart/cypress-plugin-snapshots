@@ -27,6 +27,7 @@ const DEFAULT_IMAGE_CONFIG = Object.freeze({
 const DEFAULT_CONFIG = Object.freeze({
   autoCleanUp: false,
   autopassNewSnapshots: true,
+  autofailNewSnapshots: false,
   diffLines: 3,
   excludeFields: [],
   formatJson: true,
