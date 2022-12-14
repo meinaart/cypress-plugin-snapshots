@@ -78,7 +78,7 @@ a[href^="#cypress-plugin-snapshot-"]:focus {
 }
 
 a[href^="#cypress-plugin-snapshot-"]:before {
-  content: "√ ";
+  content: "√√ ";
   font-weight: bold;
 }
 

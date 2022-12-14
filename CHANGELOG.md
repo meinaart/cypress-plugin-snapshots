@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Releases
+
+### [1.4.4](https://github.com/mosofsky/cypress-plugin-snapshots/compare/v1.4.0...v1.4.5) - 2022-12-24
+- doubled √ to √√
+
 ### [1.4.4](https://github.com/meinaart/cypress-plugin-snapshots/compare/v1.4.0...v1.4.4) - 2020-08-11
 - fixup screenshotConfig (thanks @shirotech)
 - don't start server when it is disabled (#128) (thanks @shirotech)
