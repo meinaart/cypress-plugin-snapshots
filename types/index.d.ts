@@ -20,6 +20,7 @@ declare namespace Cypress {
     toMatchImageSnapshot(options?: Partial<{
       imageConfig: Partial<{
         createDiffImage: boolean,
+        pixelmatchThreshold: number,
         threshold: number,
         thresholdType: "percent" | "pixels",
         resizeDevicePixelRatio: boolean

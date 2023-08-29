@@ -106,7 +106,7 @@ function compareImages(expected, actual, diffFilename, config) {
 
     const imageConfig = merge({}, DEFAULT_IMAGE_CONFIG, config);
     const pixelmatchConfig = {
-      threshold: 0.01,
+      threshold: imageConfig.pixelmatchThreshold,
     };
 
     const imageWidth = actual.image.width;
