@@ -15,7 +15,7 @@
   "dependencies": {
     "cypress": "^4.5.0",
     "cypress-plugin-snapshots": "file:../",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "start-server-and-test": "^1.7.9"
   }
 }
