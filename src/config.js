@@ -20,6 +20,7 @@ const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
 const DEFAULT_IMAGE_CONFIG = Object.freeze({
   createDiffImage: true,
   resizeDevicePixelRatio: true,
+  pixelmatchThreshold: 0.01,
   threshold: 0.1,
   thresholdType: 'percent', // can be 'percent' or 'pixel'
 });
