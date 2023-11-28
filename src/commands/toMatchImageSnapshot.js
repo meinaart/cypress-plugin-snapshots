@@ -19,7 +19,7 @@ function afterScreenshot(taskData) {
   };
 }
 
-async function toMatchImageSnapshot(subject, commandOptions) {
+async function toMatchImageSnapshot(subject, commandOptions, isRetry = false) {
   const options = getImageConfig(commandOptions);
   const customName = getCustomName(commandOptions);
   const customSeparator = getCustomSeparator(commandOptions);
@@ -30,6 +30,7 @@ async function toMatchImageSnapshot(subject, commandOptions) {
     customName,
     customSeparator,
     subject,
+    isRetry,
   });
 
   const screenShotConfig = getScreenshotConfig(commandOptions);
@@ -50,7 +51,18 @@ async function toMatchImageSnapshot(subject, commandOptions) {
         MATCH_IMAGE,
         taskData,
         NO_LOG
-      ).then(logMessage)
+      ).then((result) => {
+        if (!result.passed && commandOptions.retryCount > 0) {
+          return cy.wait(commandOptions.retryDelay).then(() => {
+            const newCommandOptions = {
+              ...commandOptions,
+              retryCount: commandOptions.retryCount - 1,
+            };
+            return toMatchImageSnapshot(subject, newCommandOptions, true);
+          });
+        }
+        return logMessage(result);
+      })
     );
 }
 
