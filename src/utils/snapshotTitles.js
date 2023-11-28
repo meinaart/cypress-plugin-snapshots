@@ -26,7 +26,13 @@ function getSnapshotTitle(test, customName, customSeparator, isImage = false) {
   return snapshotTitle;
 }
 
+function resetSnapshotIndex() {
+  Object.keys(SNAPSHOTS_TEXT).forEach(key => delete SNAPSHOTS_TEXT[key]);
+  Object.keys(SNAPSHOTS_IMAGE).forEach(key => delete SNAPSHOTS_IMAGE[key]);
+}
+
 module.exports = {
   getSnapshotTitle,
-  snapshotTitleIsUsed
+  snapshotTitleIsUsed,
+  resetSnapshotIndex
 }
