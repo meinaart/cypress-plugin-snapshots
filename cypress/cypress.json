@@ -13,5 +13,6 @@
   },
   "video": false,
   "viewportWidth": 660,
-  "viewportHeight": 1000
+  "viewportHeight": 1000,
+  "retries": 1
 }

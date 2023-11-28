@@ -53,7 +53,7 @@
     });
 
 
-    it.only('toMatchImageSnapshot - multiple in one test', () => {
+    it('toMatchImageSnapshot - multiple in one test', () => {
       cy.visit('/static/stub.html')
         .then(() => {
           cy.get('[data-test=test]').toMatchImageSnapshot({
