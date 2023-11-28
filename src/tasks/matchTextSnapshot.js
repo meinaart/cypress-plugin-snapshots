@@ -38,7 +38,7 @@ function matchTextSnapshot({
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if ((config.updateSnapshots && !passed) || autoPassed) {
     updateSnapshot(snapshotFile, snapshotTitle, actual, dataType);
     updated = true;
   }

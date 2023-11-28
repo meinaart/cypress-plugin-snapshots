@@ -9,6 +9,7 @@ const commands = require('./src/commands/index');
 const cleanUpSnapshots = require('./src/utils/commands/cleanupSnapshots');
 const getConfig = require('./src/utils/commands/getConfig');
 const { NO_LOG } = require('./src/constants');
+const { resetSnapshotCounts } = require('./src/utils/snapshotTitles');
 
 function addCommand(commandName, method) {
   Cypress.Commands.add(commandName, {
@@ -46,6 +47,11 @@ function initCommands() {
   function clearFileCache() {
     Cypress.__readFileCache__ = {};
   }
+
+  // Reset snapshot counters before each test run to account for retries
+  Cypress.on('test:before:run', () => {
+    resetSnapshotCounts();
+  });
 
   // Close snapshot modal and reset image files cache before all test restart
   Cypress.on('window:before:unload', () => {
