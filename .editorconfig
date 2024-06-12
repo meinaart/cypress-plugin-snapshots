@@ -14,9 +14,20 @@ trim_trailing_whitespace = true
 max_line_length = 0
 trim_trailing_whitespace = false
 
+[*.py]
+indent_size = 4
+
+[*.rs]
+indent_size = 4
+max_line_length = 80
+
+[*.xml]
+trim_trailing_whitespace = false
+
 [COMMIT_EDITMSG]
 max_line_length = 0
 
 [Makefile]
 indent_size = 8
 indent_style = tab
+max_line_length = 80

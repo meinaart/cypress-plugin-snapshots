@@ -271,6 +271,97 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@biomejs/biome@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/biome@npm:1.8.1"
+  dependencies:
+    "@biomejs/cli-darwin-arm64": "npm:1.8.1"
+    "@biomejs/cli-darwin-x64": "npm:1.8.1"
+    "@biomejs/cli-linux-arm64": "npm:1.8.1"
+    "@biomejs/cli-linux-arm64-musl": "npm:1.8.1"
+    "@biomejs/cli-linux-x64": "npm:1.8.1"
+    "@biomejs/cli-linux-x64-musl": "npm:1.8.1"
+    "@biomejs/cli-win32-arm64": "npm:1.8.1"
+    "@biomejs/cli-win32-x64": "npm:1.8.1"
+  dependenciesMeta:
+    "@biomejs/cli-darwin-arm64":
+      optional: true
+    "@biomejs/cli-darwin-x64":
+      optional: true
+    "@biomejs/cli-linux-arm64":
+      optional: true
+    "@biomejs/cli-linux-arm64-musl":
+      optional: true
+    "@biomejs/cli-linux-x64":
+      optional: true
+    "@biomejs/cli-linux-x64-musl":
+      optional: true
+    "@biomejs/cli-win32-arm64":
+      optional: true
+    "@biomejs/cli-win32-x64":
+      optional: true
+  bin:
+    biome: bin/biome
+  checksum: 10c0/17990974c5a4f56104bc59e45d1aebc50ffa146c0d9f3da99f5c54770188939608d08f1edb70b69ea7715c4d9da6d10d4b2b1ed7cd9b54ec58fcd89cda2a1d38
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-darwin-arm64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-darwin-arm64@npm:1.8.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-darwin-x64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-darwin-x64@npm:1.8.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-arm64-musl@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.8.1"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-arm64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-linux-arm64@npm:1.8.1"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-x64-musl@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-linux-x64-musl@npm:1.8.1"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-linux-x64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-linux-x64@npm:1.8.1"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-win32-arm64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-win32-arm64@npm:1.8.1"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-win32-x64@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@biomejs/cli-win32-x64@npm:1.8.1"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@cnakazawa/watch@npm:^1.0.3":
   version: 1.0.4
   resolution: "@cnakazawa/watch@npm:1.0.4"
@@ -294,6 +385,15 @@ __metadata:
     wrap-ansi: "npm:^8.1.0"
     wrap-ansi-cjs: "npm:wrap-ansi@^7.0.0"
   checksum: 10c0/b1bf42535d49f11dc137f18d5e4e63a28c5569de438a221c369483731e9dac9fb797af554e8bf02b6192d1e5eba6e6402cf93900c3d0ac86391d00d04876789e
+  languageName: node
+  linkType: hard
+
+"@ivangabriele/biome-config@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@ivangabriele/biome-config@npm:1.0.2"
+  peerDependencies:
+    "@biomejs/biome": ^1
+  checksum: 10c0/1180dd95b56d4d6901a068e3d4e28f118a8f54bc110514d5896a66d662257e9ccfb16a241e3a95e91b77521c00993aa9f745595613d450fc4ec6e6f4f6b39134
   languageName: node
   linkType: hard
 
@@ -2135,6 +2235,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cypress-plugin-snapshots@workspace:."
   dependencies:
+    "@biomejs/biome": "npm:1.8.1"
+    "@ivangabriele/biome-config": "npm:1.0.2"
     diff2html: "npm:2.7.0"
     eslint: "npm:5.14.1"
     eslint-config-airbnb-base: "npm:13.1.0"

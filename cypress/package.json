@@ -1,25 +1,25 @@
 {
-  "name": "cypress-plugin-snapshots-test",
-  "description": "Example setup for cypress-plugin-snapshots",
-  "version": "1.1.0",
-  "license": "MIT",
-  "engine": {
-    "node": ">=16",
-    "npm": ">=8"
-  },
-  "scripts": {
-    "ci:test": "start-server-and-test start http://localhost:8080 test",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run --browser chrome",
-    "cy:verify": "cypress verify",
-    "start": "node ./test-server/index.js",
-    "test": "cypress run --browser chrome"
-  },
-  "dependencies": {
-    "cypress": "^10.0.0",
-    "cypress-plugin-snapshots": "file:../",
-    "express": "4.18.1",
-    "start-server-and-test": "1.14.0"
-  },
-  "author": "Meinaart van Straalen"
+	"name": "cypress-plugin-snapshots-test",
+	"description": "Example setup for cypress-plugin-snapshots",
+	"version": "1.1.0",
+	"license": "MIT",
+	"engine": {
+		"node": ">=16",
+		"npm": ">=8"
+	},
+	"scripts": {
+		"ci:test": "start-server-and-test start http://localhost:8080 test",
+		"cy:open": "cypress open",
+		"cy:run": "cypress run --browser chrome",
+		"cy:verify": "cypress verify",
+		"start": "node ./test-server/index.js",
+		"test": "cypress run --browser chrome"
+	},
+	"dependencies": {
+		"cypress": "^10.0.0",
+		"cypress-plugin-snapshots": "file:../",
+		"express": "4.18.1",
+		"start-server-and-test": "1.14.0"
+	},
+	"author": "Meinaart van Straalen"
 }

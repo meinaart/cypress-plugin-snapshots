@@ -1,0 +1,21 @@
+name: Check
+
+on: push
+
+jobs:
+  lint:
+    name: Lint
+    if: ${{ !startsWith(github.ref, 'refs/heads/ci-release-v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version: 20
+      - name: Install
+        run: yarn --immutable
+      - name: Lint
+        run: yarn test:lint

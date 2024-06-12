@@ -8,20 +8,20 @@
  * @returns {Object}
  */
 function applyReplace(expected, replace) {
-  if (typeof expected !== 'object' || !replace) {
-    return expected;
-  }
+	if (typeof expected !== "object" || !replace) {
+		return expected
+	}
 
-  if (typeof replace === 'object') {
-    const jsonString = Object.keys(replace)
-      .reduce((result, key) => result.replace(
-        new RegExp(`\\$\\{${key}\\}`, 'g'),
-        replace[key]
-      ), JSON.stringify(expected));
-    return JSON.parse(jsonString);
-  }
+	if (typeof replace === "object") {
+		const jsonString = Object.keys(replace).reduce(
+			(result, key) =>
+				result.replace(new RegExp(`\\$\\{${key}\\}`, "g"), replace[key]),
+			JSON.stringify(expected),
+		)
+		return JSON.parse(jsonString)
+	}
 
-  return expected;
+	return expected
 }
 
-module.exports = applyReplace;
+module.exports = applyReplace

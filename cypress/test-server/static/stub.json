@@ -1,13 +1,13 @@
 {
-  "string": "string\\d",
-  "number": 1234,
-  "ignore": "this field should be ignored",
-  "object": {
-    "foo": "bar",
-    "ignore": "this field should be ignored",
-    "nestedObject": {
-      "bar": "foo",
-      "ignore": "this field should be ignored"
-    }
-  }
+	"string": "string\\d",
+	"number": 1234,
+	"ignore": "this field should be ignored",
+	"object": {
+		"foo": "bar",
+		"ignore": "this field should be ignored",
+		"nestedObject": {
+			"bar": "foo",
+			"ignore": "this field should be ignored"
+		}
+	}
 }
