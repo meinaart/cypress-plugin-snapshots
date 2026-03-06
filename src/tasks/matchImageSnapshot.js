@@ -41,6 +41,7 @@ async function matchImageSnapshot(data = {}) {
 
   const expected = getImageObject(snapshotFile);
   const exists = expected !== false;
+  const autoFail = (config.autofailNewSnapshots && exists === false);
   const autoPassed = (config.autopassNewSnapshots && expected === false);
   const actual = exists || resized ? getImageObject(image.path, true) : image;
   const passed = expected && compareImages(expected, actual, diffFilename, options);
@@ -49,7 +50,7 @@ async function matchImageSnapshot(data = {}) {
 
   let updated = false;
 
-  if ((config.updateSnapshots && !passed) || expected === false) {
+  if (autoFail ? false : (config.updateSnapshots && !passed) || expected === false) {
     saveImageSnapshot({ testFile, snapshotTitle, actual });
     updated = true;
   }
@@ -68,7 +69,7 @@ async function matchImageSnapshot(data = {}) {
     diff,
     exists,
     expected: getImageData(expected),
-    passed: passed || autoPassed,
+    passed: autoFail ? false : (passed || autoPassed),
     snapshotFile: path.relative(process.cwd(), snapshotFile),
     snapshotTitle,
     subject,

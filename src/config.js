@@ -1,9 +1,9 @@
-const randtoken = require('rand-token');
+
 const { merge, cloneDeep, clone } = require('lodash');
 const { TYPE_JSON } = require('./dataTypes');
 
 function createToken() {
-  return randtoken.generate(128);
+  if (typeof window !== "undefined" && window.crypto) { var arr = new Uint8Array(64); window.crypto.getRandomValues(arr); return Array.from(arr, function(b) { return b.toString(16).padStart(2, "0"); }).join(""); } return require("crypto").randomBytes(64).toString("hex");
 }
 
 const DEFAULT_SCREENSHOT_CONFIG = Object.freeze({
@@ -27,6 +27,7 @@ const DEFAULT_IMAGE_CONFIG = Object.freeze({
 const DEFAULT_CONFIG = Object.freeze({
   autoCleanUp: false,
   autopassNewSnapshots: true,
+  autofailNewSnapshots: false,
   diffLines: 3,
   excludeFields: [],
   formatJson: true,
