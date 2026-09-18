@@ -33,6 +33,18 @@ describe('data test', () => {
         cy.get('div').toMatchSnapshot();
       });
   });
+
+  it('toMatchSnapshot - object of type any using cy.wrap()', () => {
+    const actualString = "this is an exmample of string data you want to match to a snapshot";
+    cy.wrap(actualString).toMatchSnapshot();
+
+    const actualObject = { name: 'Jane Lane' };
+    cy.wrap(actualObject).toMatchSnapshot();
+  });
+
+  it('toMatchSnapshot - readFile', () => {
+    cy.readFile('menu.json').toMatchSnapshot();
+  });
 });
 ```
 
